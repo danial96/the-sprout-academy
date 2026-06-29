@@ -83,7 +83,7 @@ Route::middleware('auth')->group(function () {
 // Enrollment forms can be submitted without login. Authentication is optional.
 Route::controller(EnrollmentController::class)->prefix('enrollment')->name('enrollment.')->group(function () {
     Route::get('/{location}', 'showLocationEnrollmentForm')->name('start'); // Initial email form
-    Route::post('/{location}', 'startEnrollment')->name('start'); // Submit email (POST to same URL)
+    Route::post('/{location}', 'startEnrollment')->name('start.post'); // Submit email (POST to same URL)
     Route::get('/{location}/form', 'showEnrollmentForm')->name('form'); // Step 1 enrollment form
     Route::post('/{location}/step1', 'saveStep1')->name('saveStep1');
     Route::get('/{location}/step2', 'showStep2')->name('step2');
