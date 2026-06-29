@@ -41,7 +41,7 @@
         }
 
         .email-header {
-            background: linear-gradient(143deg, #6daa44 20%, #ed9b04 100%);
+            background: linear-gradient(to right, #6DAA44, #007B9A);
             padding: 30px 20px;
             text-align: center;
         }
@@ -178,7 +178,7 @@
     <div class="email-wrapper">
         <!-- Header with Logo -->
         <div class="email-header">
-            <img src="{{ $message->embed(public_path('frontend/assets/home_page_images/email-logo-white.png')) }}" alt="The Sprout Academy" class="email-logo">
+            <img src="{{ $message->embed(public_path('frontend/assets/home_page_images/white-logo.png')) }}" alt="The Sprout Academy" class="email-logo">
         </div>
 
         <!-- Body -->
