@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 use App\Mail\FormSubmissionMail;
 use App\Helpers\FormEmailHelper;
+use App\Helpers\BrevoMailer;
 
 class FrontendController extends Controller
 {
@@ -320,12 +321,11 @@ class FrontendController extends Controller
                 'Message' => $request->message,
             ]);
 
-            Mail::to(FormEmailHelper::getFormEmail('contact'))->send(
-                new FormSubmissionMail(
-                    'enroll_contact_message',
-                    'Enroll Page — Contact Message',
-                    $formData
-                )
+            BrevoMailer::sendFormSubmission(
+                FormEmailHelper::getFormEmail('contact'),
+                'enroll_contact_message',
+                'Enroll Page — Contact Message',
+                $formData
             );
         } catch (\Exception $e) {
             Log::error('Enroll contact message failed: ' . $e->getMessage(), [
@@ -418,12 +418,11 @@ class FrontendController extends Controller
                         'reason' => $request->reason,
                     ]);
 
-                    Mail::to(FormEmailHelper::getAdminEmail())->send(
-                        new FormSubmissionMail(
-                            'child_absent_form',
-                            'Child Absent Form Submitted',
-                            $formData
-                        )
+                    BrevoMailer::sendFormSubmission(
+                        FormEmailHelper::getAdminEmail(),
+                        'child_absent_form',
+                        'Child Absent Form Submitted',
+                        $formData
                     );
                 } catch (\Exception $e) {
                     Log::error('Failed to send child absent form email: ' . $e->getMessage());

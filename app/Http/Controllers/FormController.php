@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\FormSubmissionMail;
 use App\Helpers\FormEmailHelper;
+use App\Helpers\BrevoMailer;
 use Carbon\Carbon;
 
 class FormController extends Controller
@@ -103,12 +104,11 @@ class FormController extends Controller
                         // 'director_signature' => $request->director_signature, // TEMPORARILY REMOVED
                     ]);
 
-                    Mail::to(FormEmailHelper::getAdminEmail())->send(
-                        new FormSubmissionMail(
-                            'time_off_request',
-                            'Time Off Request Submitted',
-                            $formData
-                        )
+                    BrevoMailer::sendFormSubmission(
+                        FormEmailHelper::getAdminEmail(),
+                        'time_off_request',
+                        'Time Off Request Submitted',
+                        $formData
                     );
                 } catch (\Exception $e) {
                     Log::error('Failed to send time off request email: ' . $e->getMessage());
@@ -259,12 +259,11 @@ class FormController extends Controller
                         'attach_file' => $filePath ? 'File attached' : null,
                     ]);
 
-                    Mail::to(FormEmailHelper::getAdminEmail())->send(
-                        new FormSubmissionMail(
-                            'maintenance_work_order',
-                            'Maintenance Work Order Submitted',
-                            $formData
-                        )
+                    BrevoMailer::sendFormSubmission(
+                        FormEmailHelper::getAdminEmail(),
+                        'maintenance_work_order',
+                        'Maintenance Work Order Submitted',
+                        $formData
                     );
                 } catch (\Exception $e) {
                     Log::error('Failed to send maintenance work order email: ' . $e->getMessage());
@@ -348,12 +347,11 @@ class FormController extends Controller
                         'description' => $request->description,
                     ]);
 
-                    Mail::to(FormEmailHelper::getAdminEmail())->send(
-                        new FormSubmissionMail(
-                            'suggestion',
-                            'New Suggestion Submitted',
-                            $formData
-                        )
+                    BrevoMailer::sendFormSubmission(
+                        FormEmailHelper::getAdminEmail(),
+                        'suggestion',
+                        'New Suggestion Submitted',
+                        $formData
                     );
                 } catch (\Exception $e) {
                     Log::error('Failed to send suggestion email: ' . $e->getMessage());
@@ -464,12 +462,11 @@ class FormController extends Controller
                         // 'supervisor_last_name' => $request->supervisor_last_name, // TEMPORARILY REMOVED
                     ]);
 
-                    Mail::to(FormEmailHelper::getAdminEmail())->send(
-                        new FormSubmissionMail(
-                            'time_clock_change_request',
-                            'Time Clock Change Request Submitted',
-                            $formData
-                        )
+                    BrevoMailer::sendFormSubmission(
+                        FormEmailHelper::getAdminEmail(),
+                        'time_clock_change_request',
+                        'Time Clock Change Request Submitted',
+                        $formData
                     );
                 } catch (\Exception $e) {
                     Log::error('Failed to send time clock change request email: ' . $e->getMessage());
@@ -564,12 +561,11 @@ class FormController extends Controller
                         'other' => $request->other,
                     ]);
 
-                    Mail::to(FormEmailHelper::getAdminEmail())->send(
-                        new FormSubmissionMail(
-                            'supply_order',
-                            'Supply Order Submitted',
-                            $formData
-                        )
+                    BrevoMailer::sendFormSubmission(
+                        FormEmailHelper::getAdminEmail(),
+                        'supply_order',
+                        'Supply Order Submitted',
+                        $formData
                     );
                 } catch (\Exception $e) {
                     Log::error('Failed to send supply order email: ' . $e->getMessage());
@@ -735,12 +731,11 @@ class FormController extends Controller
                         'other' => $request->other,
                     ]);
 
-                    Mail::to(FormEmailHelper::getAdminEmail())->send(
-                        new FormSubmissionMail(
-                            'snack_order',
-                            'Snack Order Submitted',
-                            $formData
-                        )
+                    BrevoMailer::sendFormSubmission(
+                        FormEmailHelper::getAdminEmail(),
+                        'snack_order',
+                        'Snack Order Submitted',
+                        $formData
                     );
                 } catch (\Exception $e) {
                     Log::error('Failed to send snack order email: ' . $e->getMessage());
@@ -890,12 +885,11 @@ class FormController extends Controller
                         'special_instructions' => $request->special_instructions,
                     ]);
 
-                    Mail::to(FormEmailHelper::getAdminEmail())->send(
-                        new FormSubmissionMail(
-                            'standard_t_shirt_order',
-                            'Standard T-Shirt Order Submitted',
-                            $formData
-                        )
+                    BrevoMailer::sendFormSubmission(
+                        FormEmailHelper::getAdminEmail(),
+                        'standard_t_shirt_order',
+                        'Standard T-Shirt Order Submitted',
+                        $formData
                     );
                 } catch (\Exception $e) {
                     Log::error('Failed to send standard t-shirt order email: ' . $e->getMessage());
@@ -985,12 +979,11 @@ class FormController extends Controller
                         'special_instructions' => $request->special_instructions,
                     ]);
 
-                    Mail::to(FormEmailHelper::getAdminEmail())->send(
-                        new FormSubmissionMail(
-                            'specialty_t_shirt_order',
-                            'Specialty T-Shirt Order Submitted',
-                            $formData
-                        )
+                    BrevoMailer::sendFormSubmission(
+                        FormEmailHelper::getAdminEmail(),
+                        'specialty_t_shirt_order',
+                        'Specialty T-Shirt Order Submitted',
+                        $formData
                     );
                 } catch (\Exception $e) {
                     Log::error('Failed to send specialty t-shirt order email: ' . $e->getMessage());
@@ -1062,12 +1055,11 @@ class FormController extends Controller
                     'email' => $request->email,
                 ]);
 
-                Mail::to(FormEmailHelper::getFormEmail('newsletter'))->send(
-                    new FormSubmissionMail(
-                        'newsletter_subscription',
-                        'New Newsletter Subscription',
-                        $formData
-                    )
+                BrevoMailer::sendFormSubmission(
+                    FormEmailHelper::getFormEmail('newsletter'),
+                    'newsletter_subscription',
+                    'New Newsletter Subscription',
+                    $formData
                 );
             } catch (\Exception $e) {
                 Log::error('Failed to send newsletter subscription email: ' . $e->getMessage());
@@ -1183,12 +1175,11 @@ class FormController extends Controller
                         'resume' => $resumePath ? 'Resume attached' : null,
                     ]);
 
-                    Mail::to(FormEmailHelper::getFormEmail('employment'))->send(
-                        new FormSubmissionMail(
-                            'employment_application',
-                            'Employment Application Submitted',
-                            $formData
-                        )
+                    BrevoMailer::sendFormSubmission(
+                        FormEmailHelper::getFormEmail('employment'),
+                        'employment_application',
+                        'Employment Application Submitted',
+                        $formData
                     );
                 } catch (\Exception $e) {
                     Log::error('Failed to send employment application email: ' . $e->getMessage());

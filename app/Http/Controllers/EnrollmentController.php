@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\FormSubmissionMail;
 use App\Helpers\FormEmailHelper;
+use App\Helpers\BrevoMailer;
 use Illuminate\Support\Str;
 
 class EnrollmentController extends Controller
@@ -853,12 +854,11 @@ class EnrollmentController extends Controller
                     return $value !== null && $value !== '';
                 });
 
-                Mail::to(FormEmailHelper::getEnrollmentEmail($location))->send(
-                    new FormSubmissionMail(
-                        'enrollment',
-                        'New Enrollment Form Submitted',
-                        $formData
-                    )
+                BrevoMailer::sendFormSubmission(
+                    FormEmailHelper::getEnrollmentEmail($location),
+                    'enrollment',
+                    'New Enrollment Form Submitted',
+                    $formData
                 );
             } catch (\Exception $e) {
                 Log::error('Failed to send enrollment email: ' . $e->getMessage());
