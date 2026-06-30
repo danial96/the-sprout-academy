@@ -21,6 +21,7 @@ Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->name('admin.'
     // Form Data Routes (Optimized - Single route for view and data)
     Route::controller(FormDataController::class)->prefix('forms')->name('forms.')->group(function () {
         Route::any('/maintenance-work-orders', 'maintenanceWorkOrders')->name('maintenance-work-orders');
+        Route::get('/maintenance-work-orders/{id}', 'maintenanceWorkOrderShow')->name('maintenance-work-orders.show');
         Route::any('/suggestions', 'suggestions')->name('suggestions');
         Route::any('/time-clock-change-requests', 'timeClockChangeRequests')->name('time-clock-change-requests');
         Route::any('/time-off-requests', 'timeOffRequests')->name('time-off-requests');

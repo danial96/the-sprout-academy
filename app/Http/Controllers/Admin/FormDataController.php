@@ -39,10 +39,20 @@ class FormDataController extends Controller
                 ->editColumn('created_at', function ($order) {
                     return $order->created_at->format('M d, Y h:i A');
                 })
+                ->addColumn('action', function ($order) {
+                    return '<a href="' . route('admin.forms.maintenance-work-orders.show', $order->id) . '" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i> View</a>';
+                })
+                ->rawColumns(['action'])
                 ->make(true);
         }
 
         return view('backend.pages.forms.maintenance-work-orders');
+    }
+
+    public function maintenanceWorkOrderShow($id)
+    {
+        $order = MaintenanceWorkOrder::findOrFail($id);
+        return view('backend.pages.forms.maintenance-work-order-show', compact('order'));
     }
 
     // Suggestions

@@ -27,6 +27,7 @@
                         <th>Completion Date</th>
                         <th>Area Repair</th>
                         <th>Created At</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -79,6 +80,12 @@
                     {
                         data: 'created_at',
                         name: 'created_at'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
                     }
                 ],
                 order: [
