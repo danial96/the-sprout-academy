@@ -156,7 +156,7 @@ class FormEmailHelper
      */
     public static function getAdminEmail(): string
     {
-        return config('mail.admin_email', env('ADMIN_EMAIL', config('mail.from.address')));
+        return 'info@the-sprout-academy.com';
     }
 
     /**
@@ -165,9 +165,9 @@ class FormEmailHelper
     public static function getFormEmail(string $formType): string
     {
         $map = [
-            'contact'      => env('MAIL_CONTACT'),
-            'newsletter'   => env('MAIL_NEWSLETTER'),
-            'employment'   => env('MAIL_EMPLOYMENT'),
+            'contact'    => 'info@the-sprout-academy.com',
+            'newsletter' => 'info@the-sprout-academy.com',
+            'employment' => 'info@the-sprout-academy.com',
         ];
 
         return $map[$formType] ?? self::getAdminEmail();
@@ -181,12 +181,12 @@ class FormEmailHelper
         $location = strtolower(str_replace(['_', ' '], '-', $location));
 
         $map = [
-            'seminole'      => env('MAIL_ENROLL_SEMINOLE'),
-            'st-petersburg' => env('MAIL_ENROLL_ST_PETERSBURG'),
-            'pinellas-park' => env('MAIL_ENROLL_PINELLAS_PARK'),
-            'montessori'    => env('MAIL_ENROLL_MONTESSORI'),
-            'largo'         => env('MAIL_ENROLL_LARGO'),
-            'clearwater'    => env('MAIL_ENROLL_CLEARWATER'),
+            'seminole'      => 'Alicia@the-sprout-academy.com',
+            'st-petersburg' => 'Crystal@the-sprout-academy.com',
+            'pinellas-park' => 'Yessica@the-sprout-academy.com',
+            'pinellas_park' => 'Yessica@the-sprout-academy.com',
+            'montessori'    => 'Cierra@the-sprout-academy.com',
+            'largo'         => 'Tessa@the-sprout-academy.com',
         ];
 
         return $map[$location] ?? self::getAdminEmail();
