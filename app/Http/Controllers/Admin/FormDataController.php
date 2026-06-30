@@ -158,6 +158,35 @@ class FormDataController extends Controller
                 'approved_at' => now(),
             ]);
 
+            if ($timeOffRequest->email) {
+                \Illuminate\Support\Facades\Mail::send([], [], function ($message) use ($timeOffRequest) {
+                    $message->to($timeOffRequest->email, $timeOffRequest->name)
+                        ->subject('Time Off Request Approved - The Sprout Academy')
+                        ->html('
+                            <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;">
+                                <div style="background:#2d6a4f;padding:20px;text-align:center;">
+                                    <h2 style="color:#fff;margin:0;">The Sprout Academy</h2>
+                                </div>
+                                <div style="padding:30px;background:#f9f9f9;">
+                                    <h3 style="color:#2d6a4f;">&#10003; Time Off Request Approved</h3>
+                                    <p>Dear <strong>' . htmlspecialchars($timeOffRequest->name) . '</strong>,</p>
+                                    <p>Your time off request has been <strong>approved</strong>.</p>
+                                    <table style="width:100%;border-collapse:collapse;margin:20px 0;">
+                                        <tr><td style="padding:8px;border:1px solid #ddd;background:#fff;"><strong>Location</strong></td><td style="padding:8px;border:1px solid #ddd;">' . htmlspecialchars($timeOffRequest->location) . '</td></tr>
+                                        <tr><td style="padding:8px;border:1px solid #ddd;background:#fff;"><strong>Start Date</strong></td><td style="padding:8px;border:1px solid #ddd;">' . ($timeOffRequest->start_date ? $timeOffRequest->start_date->format('M d, Y') : 'N/A') . '</td></tr>
+                                        <tr><td style="padding:8px;border:1px solid #ddd;background:#fff;"><strong>End Date</strong></td><td style="padding:8px;border:1px solid #ddd;">' . ($timeOffRequest->end_date ? $timeOffRequest->end_date->format('M d, Y') : 'N/A') . '</td></tr>
+                                        <tr><td style="padding:8px;border:1px solid #ddd;background:#fff;"><strong>Type</strong></td><td style="padding:8px;border:1px solid #ddd;">' . ucfirst($timeOffRequest->paid_or_unpaid ?? '') . '</td></tr>
+                                    </table>
+                                    <p>If you have any questions, please contact your director.</p>
+                                </div>
+                                <div style="padding:15px;text-align:center;background:#eee;font-size:12px;color:#666;">
+                                    The Sprout Academy &mdash; Childcare and Early Education
+                                </div>
+                            </div>
+                        ');
+                });
+            }
+
             return response()->json(['message' => 'Time off request approved successfully.']);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Error approving request: ' . $e->getMessage()], 500);
@@ -174,12 +203,43 @@ class FormDataController extends Controller
                 return response()->json(['message' => 'Request is not pending.'], 400);
             }
 
+            $rejectionReason = $request->input('rejection_reason');
+
             $timeOffRequest->update([
                 'status' => 'rejected',
                 'rejected_by' => Auth::id(),
                 'rejected_at' => now(),
-                'rejection_reason' => $request->input('rejection_reason'),
+                'rejection_reason' => $rejectionReason,
             ]);
+
+            if ($timeOffRequest->email) {
+                \Illuminate\Support\Facades\Mail::send([], [], function ($message) use ($timeOffRequest, $rejectionReason) {
+                    $message->to($timeOffRequest->email, $timeOffRequest->name)
+                        ->subject('Time Off Request Update - The Sprout Academy')
+                        ->html('
+                            <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;">
+                                <div style="background:#2d6a4f;padding:20px;text-align:center;">
+                                    <h2 style="color:#fff;margin:0;">The Sprout Academy</h2>
+                                </div>
+                                <div style="padding:30px;background:#f9f9f9;">
+                                    <h3 style="color:#c0392b;">Time Off Request Not Approved</h3>
+                                    <p>Dear <strong>' . htmlspecialchars($timeOffRequest->name) . '</strong>,</p>
+                                    <p>Unfortunately, your time off request has <strong>not been approved</strong>.</p>
+                                    <table style="width:100%;border-collapse:collapse;margin:20px 0;">
+                                        <tr><td style="padding:8px;border:1px solid #ddd;background:#fff;"><strong>Location</strong></td><td style="padding:8px;border:1px solid #ddd;">' . htmlspecialchars($timeOffRequest->location) . '</td></tr>
+                                        <tr><td style="padding:8px;border:1px solid #ddd;background:#fff;"><strong>Start Date</strong></td><td style="padding:8px;border:1px solid #ddd;">' . ($timeOffRequest->start_date ? $timeOffRequest->start_date->format('M d, Y') : 'N/A') . '</td></tr>
+                                        <tr><td style="padding:8px;border:1px solid #ddd;background:#fff;"><strong>End Date</strong></td><td style="padding:8px;border:1px solid #ddd;">' . ($timeOffRequest->end_date ? $timeOffRequest->end_date->format('M d, Y') : 'N/A') . '</td></tr>
+                                        ' . ($rejectionReason ? '<tr><td style="padding:8px;border:1px solid #ddd;background:#fff;"><strong>Reason</strong></td><td style="padding:8px;border:1px solid #ddd;">' . htmlspecialchars($rejectionReason) . '</td></tr>' : '') . '
+                                    </table>
+                                    <p>Please speak with your director if you have any questions.</p>
+                                </div>
+                                <div style="padding:15px;text-align:center;background:#eee;font-size:12px;color:#666;">
+                                    The Sprout Academy &mdash; Childcare and Early Education
+                                </div>
+                            </div>
+                        ');
+                });
+            }
 
             return response()->json(['message' => 'Time off request rejected successfully.']);
         } catch (\Exception $e) {
