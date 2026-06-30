@@ -52,7 +52,7 @@
             <div class="row">
                 <div class="col-md-3">
                     @if($primaryContact->profile_image)
-                        <img src="{{ \Illuminate\Support\Facades\Storage::url($primaryContact->profile_image) }}" 
+                        <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($primaryContact->profile_image) }}" 
                              alt="Profile" class="img-thumbnail" style="max-width: 150px;">
                     @else
                         <div class="bg-light p-5 text-center">No Image</div>
@@ -173,7 +173,7 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         @if($child->profile_image)
-                                            <img src="{{ \Illuminate\Support\Facades\Storage::url($child->profile_image) }}" 
+                                            <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($child->profile_image) }}" 
                                                  alt="Child" class="img-thumbnail" style="max-width: 100px;">
                                         @else
                                             <div class="bg-light p-3 text-center">No Image</div>
@@ -213,7 +213,7 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         @if($contact->profile_image)
-                                            <img src="{{ \Illuminate\Support\Facades\Storage::url($contact->profile_image) }}" 
+                                            <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($contact->profile_image) }}" 
                                                  alt="Contact" class="img-thumbnail" style="max-width: 100px;">
                                         @else
                                             <div class="bg-light p-3 text-center">No Image</div>
