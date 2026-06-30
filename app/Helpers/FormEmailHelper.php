@@ -165,9 +165,9 @@ class FormEmailHelper
     public static function getFormEmail(string $formType): string
     {
         $map = [
-            'contact'    => 'devdanial.khan@gmail.com',
-            'newsletter' => 'devdanial.khan@gmail.com',
-            'employment' => 'devdanial.khan@gmail.com',
+            'contact'    => 'info@the-sprout-academy.com',
+            'newsletter' => 'info@the-sprout-academy.com',
+            'employment' => 'info@the-sprout-academy.com',
         ];
 
         return $map[$formType] ?? self::getAdminEmail();
