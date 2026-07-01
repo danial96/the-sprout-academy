@@ -155,6 +155,31 @@
                     });
                 }
             });
+            // Delete button handler
+            $(document).on('click', '.delete-tor-btn', function() {
+                const id = $(this).data('id');
+                const btn = $(this);
+
+                if (confirm('Are you sure you want to delete this time off request?')) {
+                    btn.prop('disabled', true);
+
+                    $.ajax({
+                        url: '/admin/forms/time-off-requests/' + id,
+                        method: 'POST',
+                        data: { _method: 'DELETE' },
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function() {
+                            dataTable.ajax.reload();
+                        },
+                        error: function() {
+                            alert('Error deleting request.');
+                            btn.prop('disabled', false);
+                        }
+                    });
+                }
+            });
         });
     </script>
 @endpush

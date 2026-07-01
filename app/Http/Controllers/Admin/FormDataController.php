@@ -133,12 +133,9 @@ class FormDataController extends Controller
                 })
                 ->addColumn('action', function ($timeOffRequest) {
                     $html = '<div class="btn-group" role="group">';
-                    $html .= '<button type="button" class="btn btn-sm btn-success approve-btn" data-id="' . $timeOffRequest->id . '" title="Approve">
-                        <i class="fas fa-check"></i>
-                    </button>';
-                    $html .= '<button type="button" class="btn btn-sm btn-danger reject-btn" data-id="' . $timeOffRequest->id . '" title="Reject">
-                        <i class="fas fa-times"></i>
-                    </button>';
+                    $html .= '<button type="button" class="btn btn-sm btn-success approve-btn" data-id="' . $timeOffRequest->id . '" title="Approve"><i class="fas fa-check"></i></button>';
+                    $html .= '<button type="button" class="btn btn-sm btn-danger reject-btn" data-id="' . $timeOffRequest->id . '" title="Reject"><i class="fas fa-times"></i></button>';
+                    $html .= '<button type="button" class="btn btn-sm btn-secondary delete-tor-btn ms-1" data-id="' . $timeOffRequest->id . '" title="Delete"><i class="fas fa-trash"></i></button>';
                     $html .= '</div>';
                     return $html;
                 })
@@ -249,6 +246,12 @@ class FormDataController extends Controller
         } catch (\Exception $e) {
             return response()->json(['message' => 'Error rejecting request: ' . $e->getMessage()], 500);
         }
+    }
+
+    public function deleteTimeOffRequest($id)
+    {
+        TimeOffRequestForm::findOrFail($id)->delete();
+        return response()->json(['message' => 'Time off request deleted successfully.']);
     }
 
     // Standard T-Shirt Orders

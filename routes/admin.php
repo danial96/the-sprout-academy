@@ -28,6 +28,7 @@ Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->name('admin.'
         Route::any('/time-off-requests', 'timeOffRequests')->name('time-off-requests');
         Route::post('/time-off-requests/{id}/approve', 'approveTimeOffRequest')->name('time-off-requests.approve');
         Route::post('/time-off-requests/{id}/reject', 'rejectTimeOffRequest')->name('time-off-requests.reject');
+        Route::delete('/time-off-requests/{id}', 'deleteTimeOffRequest')->name('time-off-requests.delete');
         Route::any('/standard-t-shirt-orders', 'standardTShirtOrders')->name('standard-t-shirt-orders');
         Route::any('/specialty-t-shirt-orders', 'specialtyTShirtOrders')->name('specialty-t-shirt-orders');
         Route::any('/supply-orders', 'supplyOrders')->name('supply-orders');
