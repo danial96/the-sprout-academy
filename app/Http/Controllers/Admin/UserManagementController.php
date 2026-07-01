@@ -84,6 +84,22 @@ class UserManagementController extends Controller
             ->route('admin.users.index')
             ->with('status', "Password updated successfully for {$employee->email}");
     }
+
+    public function toggleRestrict($id)
+    {
+        $employee = User::where('role', 'employee')->findOrFail($id);
+        $employee->update(['is_restricted' => !$employee->is_restricted]);
+
+        $status = $employee->is_restricted ? 'restricted' : 'unrestricted';
+        return response()->json(['message' => "User {$status} successfully.", 'is_restricted' => $employee->is_restricted]);
+    }
+
+    public function destroy($id)
+    {
+        $employee = User::where('role', 'employee')->findOrFail($id);
+        $employee->delete();
+        return response()->json(['message' => 'User deleted successfully.']);
+    }
 }
 
 

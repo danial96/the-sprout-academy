@@ -26,9 +26,23 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
-        $request->session()->regenerate();
+        $user = Auth::user();
 
-        $user = $request->user();
+        if ($user && $user->is_restricted) {
+            Auth::guard('web')->logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            if ($request->expectsJson()) {
+                return response()->json(['message' => 'Your account has been restricted. Please contact your administrator.'], 403);
+            }
+
+            return back()->withErrors([
+                'email' => 'Your account has been restricted. Please contact your administrator.',
+            ])->onlyInput('email');
+        }
+
+        $request->session()->regenerate();
 
         if ($user && $user->role === 'employee') {
             if ($request->expectsJson()) {

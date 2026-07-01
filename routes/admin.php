@@ -44,6 +44,8 @@ Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->name('admin.'
         Route::post('/', 'store')->name('store');
         Route::get('/{id}/edit', 'edit')->name('edit');
         Route::put('/{id}', 'update')->name('update');
+        Route::patch('/{id}/toggle-restrict', 'toggleRestrict')->name('toggle-restrict');
+        Route::delete('/{id}', 'destroy')->name('destroy');
     });
 
     // Locations Management
