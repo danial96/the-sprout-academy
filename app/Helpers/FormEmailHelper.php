@@ -114,8 +114,8 @@ class FormEmailHelper
             return $value ? 'Yes' : 'No';
         }
 
-        // Handle dates
-        if (preg_match('/^\d{4}-\d{2}-\d{2}/', $value)) {
+        // Handle dates (YYYY-MM-DD or MM/DD/YYYY)
+        if (preg_match('/^\d{4}-\d{2}-\d{2}/', $value) || preg_match('/^\d{2}\/\d{2}\/\d{4}$/', $value)) {
             try {
                 $date = \Carbon\Carbon::parse($value);
                 return $date->format('M d, Y');
