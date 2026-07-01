@@ -133,16 +133,12 @@ class FormDataController extends Controller
                 })
                 ->addColumn('action', function ($timeOffRequest) {
                     $html = '<div class="btn-group" role="group">';
-                    if ($timeOffRequest->status === 'pending') {
-                        $html .= '<button type="button" class="btn btn-sm btn-success approve-btn" data-id="' . $timeOffRequest->id . '" title="Approve">
-                            <i class="fas fa-check"></i>
-                        </button>';
-                        $html .= '<button type="button" class="btn btn-sm btn-danger reject-btn" data-id="' . $timeOffRequest->id . '" title="Reject">
-                            <i class="fas fa-times"></i>
-                        </button>';
-                    } else {
-                        $html .= '<span class="text-muted">' . ucfirst($timeOffRequest->status) . '</span>';
-                    }
+                    $html .= '<button type="button" class="btn btn-sm btn-success approve-btn" data-id="' . $timeOffRequest->id . '" title="Approve">
+                        <i class="fas fa-check"></i>
+                    </button>';
+                    $html .= '<button type="button" class="btn btn-sm btn-danger reject-btn" data-id="' . $timeOffRequest->id . '" title="Reject">
+                        <i class="fas fa-times"></i>
+                    </button>';
                     $html .= '</div>';
                     return $html;
                 })
@@ -158,10 +154,6 @@ class FormDataController extends Controller
     {
         try {
             $timeOffRequest = TimeOffRequestForm::findOrFail($id);
-
-            if ($timeOffRequest->status !== 'pending') {
-                return response()->json(['message' => 'Request is not pending.'], 400);
-            }
 
             $timeOffRequest->update([
                 'status' => 'approved',
@@ -211,10 +203,6 @@ class FormDataController extends Controller
     {
         try {
             $timeOffRequest = TimeOffRequestForm::findOrFail($id);
-
-            if ($timeOffRequest->status !== 'pending') {
-                return response()->json(['message' => 'Request is not pending.'], 400);
-            }
 
             $rejectionReason = $request->input('rejection_reason');
 
