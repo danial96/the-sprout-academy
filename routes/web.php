@@ -8,6 +8,20 @@ use App\Http\Controllers\EnrollmentController;
 
 
 
+// TEMPORARY MIGRATION ROUTE - DELETE AFTER USE
+Route::get('/run-migration-xk92p', function () {
+    try {
+        \Illuminate\Support\Facades\Schema::table('users', function (\Illuminate\Database\Schema\Blueprint $table) {
+            if (!\Illuminate\Support\Facades\Schema::hasColumn('users', 'is_restricted')) {
+                $table->boolean('is_restricted')->default(false)->after('role');
+            }
+        });
+        return 'Migration done: is_restricted column added to users table.';
+    } catch (\Exception $e) {
+        return 'Error: ' . $e->getMessage();
+    }
+});
+
 Route::controller(FrontendController::class)->name('frontend.')->group(function () {
     Route::get('/', 'index')->name('home');
     Route::get('/virtual-tour', 'VirtualTour')->name('virtualTour');
