@@ -108,6 +108,13 @@ class LocationController extends Controller
             ->with('status', 'Location updated successfully.');
     }
 
+    public function toggleActive($id)
+    {
+        $location = Location::findOrFail($id);
+        $location->update(['is_active' => !$location->is_active]);
+        return response()->json(['is_active' => $location->is_active]);
+    }
+
     /**
      * Remove the specified resource from storage.
      */

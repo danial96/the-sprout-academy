@@ -52,19 +52,29 @@
                             <td>{{ $location->display_order }}</td>
                             <td>
                                 @if ($location->is_active)
-                                    <span class="badge bg-success">Active</span>
+                                    <span class="badge bg-success" id="status-{{ $location->id }}">Active</span>
                                 @else
-                                    <span class="badge bg-secondary">Inactive</span>
+                                    <span class="badge bg-danger" id="status-{{ $location->id }}">Restricted</span>
                                 @endif
                             </td>
-                            <td>
-                                <a href="{{ route('admin.locations.edit', $location->id) }}" class="btn btn-sm btn-primary" title="Edit">
+                            <td class="d-flex gap-1">
+                                <a href="{{ route('admin.locations.edit', $location->id) }}"
+                                   class="btn btn-sm btn-primary"
+                                   title="Edit"
+                                   data-bs-toggle="tooltip">
                                     <i class="fas fa-edit"></i>
                                 </a>
+                                <button onclick="toggleLocation({{ $location->id }}, this)"
+                                        class="btn btn-sm {{ $location->is_active ? 'btn-success' : 'btn-warning' }}"
+                                        title="{{ $location->is_active ? 'Restrict Location' : 'Restricted' }}"
+                                        data-bs-toggle="tooltip"
+                                        data-active="{{ $location->is_active ? '1' : '0' }}">
+                                    <i class="fas fa-ban"></i>
+                                </button>
                                 <form action="{{ route('admin.locations.destroy', $location->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this location?');">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger" title="Delete">
+                                    <button type="submit" class="btn btn-sm btn-danger" title="Delete" data-bs-toggle="tooltip">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>
@@ -80,4 +90,38 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+<script>
+    document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => {
+        new bootstrap.Tooltip(el, { trigger: 'hover' });
+    });
+
+    function toggleLocation(id, btn) {
+        const isActive = btn.dataset.active === '1';
+        const action = isActive ? 'restrict' : 'activate';
+        if (!confirm(`Are you sure you want to ${action} this location?`)) return;
+
+        fetch(`/admin/locations/${id}/toggle-active`, {
+            method: 'PATCH',
+            headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}', 'Accept': 'application/json' }
+        })
+        .then(r => r.json())
+        .then(data => {
+            const nowActive = data.is_active;
+            btn.dataset.active = nowActive ? '1' : '0';
+            btn.className = `btn btn-sm ${nowActive ? 'btn-success' : 'btn-warning'}`;
+
+            const tooltip = bootstrap.Tooltip.getInstance(btn);
+            if (tooltip) tooltip.dispose();
+            btn.setAttribute('title', nowActive ? 'Restrict Location' : 'Restricted');
+            new bootstrap.Tooltip(btn, { trigger: 'hover' });
+
+            const badge = document.getElementById(`status-${id}`);
+            badge.className = `badge ${nowActive ? 'bg-success' : 'bg-danger'}`;
+            badge.textContent = nowActive ? 'Active' : 'Restricted';
+        });
+    }
+</script>
+@endpush
 

@@ -50,4 +50,5 @@ Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->name('admin.'
 
     // Locations Management
     Route::resource('locations', LocationController::class);
+    Route::patch('locations/{id}/toggle-active', [LocationController::class, 'toggleActive'])->name('locations.toggle-active');
 });
