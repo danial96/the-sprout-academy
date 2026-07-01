@@ -118,7 +118,7 @@ class FormEmailHelper
         if (preg_match('/^\d{4}-\d{2}-\d{2}/', $value)) {
             try {
                 $date = \Carbon\Carbon::parse($value);
-                return $date->format('F j, Y');
+                return $date->format('M d, Y');
             } catch (\Exception $e) {
                 // Not a valid date, return as is
             }
