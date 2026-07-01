@@ -41,7 +41,7 @@
         }
 
         .email-header {
-            background: linear-gradient(to right, #6DAA44, #007B9A);
+            background-color: #007B9A;
             padding: 30px 20px;
             text-align: center;
         }
@@ -177,9 +177,11 @@
 <body>
     <div class="email-wrapper">
         <!-- Header with Logo -->
-        <div class="email-header">
-            <img src="cid:sprout-logo@the-sprout-academy.com" alt="The Sprout Academy" class="email-logo">
-        </div>
+        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+            <tr><td bgcolor="#007B9A" align="center" style="padding:30px 20px;">
+                <img src="cid:sprout-logo@the-sprout-academy.com" alt="The Sprout Academy" width="200" style="max-width:200px;height:auto;display:block;margin:0 auto;">
+            </td></tr>
+        </table>
 
         <!-- Body -->
         <div class="email-body">
@@ -215,16 +217,18 @@
         </div>
 
         <!-- Footer -->
-        <div class="email-footer">
-            <p><strong>The Sprout Academy</strong></p>
-            <p>Childcare and Early Education</p>
-            <p style="margin-top: 15px;">
-                <a href="{{ route('frontend.home') }}">Visit Our Website</a>
-            </p>
-            <p style="margin-top: 20px; font-size: 12px; color: #999999;">
-                This is an automated email. Please do not reply to this message.
-            </p>
-        </div>
+        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+            <tr><td bgcolor="#0a2239" align="center" style="padding:30px 20px;">
+                <p style="margin:5px 0;color:#fff;font-weight:bold;">The Sprout Academy</p>
+                <p style="margin:5px 0;color:#ccc;font-size:13px;">Childcare and Early Education</p>
+                <p style="margin:15px 0 5px 0;">
+                    <a href="{{ route('frontend.home') }}" style="color:#6daa44;text-decoration:none;">Visit Our Website</a>
+                </p>
+                <p style="margin:15px 0 5px 0;font-size:12px;color:#999999;">
+                    This is an automated email. Please do not reply to this message.
+                </p>
+            </td></tr>
+        </table>
     </div>
 </body>
 </html>

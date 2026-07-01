@@ -172,28 +172,31 @@ class FormDataController extends Controller
             if ($timeOffRequest->email) {
                 $logo = 'cid:sprout-logo@the-sprout-academy.com';
                 $html = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body style="margin:0;padding:0;background:#f5f5f5;font-family:Arial,sans-serif;">
-                <div style="max-width:600px;margin:0 auto;background:#ffffff;">
-                    <div style="background:linear-gradient(to right,#6DAA44,#007B9A);padding:30px 20px;text-align:center;">
-                        <img src="' . $logo . '" alt="The Sprout Academy" style="max-width:200px;height:auto;">
-                    </div>
-                    <div style="padding:40px 30px;">
+                <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f5f5f5;"><tr><td align="center">
+                <table width="600" cellpadding="0" cellspacing="0" border="0" style="background:#ffffff;">
+                    <tr><td bgcolor="#007B9A" align="center" style="padding:30px 20px;">
+                        <img src="' . $logo . '" alt="The Sprout Academy" width="200" style="max-width:200px;height:auto;display:block;margin:0 auto;">
+                    </td></tr>
+                    <tr><td style="padding:40px 30px;">
                         <h1 style="color:#0a2239;font-size:24px;margin:0 0 20px 0;">&#10003; Time Off Request Approved</h1>
                         <p style="color:#666;">Dear <strong>' . htmlspecialchars($timeOffRequest->name) . '</strong>,</p>
                         <p style="color:#666;">Your time off request has been <strong>approved</strong>.</p>
-                        <table style="width:100%;border-collapse:collapse;margin:20px 0;">
-                            <tr style="border-bottom:1px solid #e8e8e8;"><td style="padding:12px 15px;font-weight:600;color:#0a2239;font-size:13px;text-transform:uppercase;width:40%;">Location</td><td style="padding:12px 15px;color:#333;">' . htmlspecialchars($timeOffRequest->location) . '</td></tr>
-                            <tr style="border-bottom:1px solid #e8e8e8;"><td style="padding:12px 15px;font-weight:600;color:#0a2239;font-size:13px;text-transform:uppercase;">Start Date</td><td style="padding:12px 15px;color:#333;">' . ($timeOffRequest->start_date ? $timeOffRequest->start_date->format('M d, Y') : 'N/A') . '</td></tr>
-                            <tr style="border-bottom:1px solid #e8e8e8;"><td style="padding:12px 15px;font-weight:600;color:#0a2239;font-size:13px;text-transform:uppercase;">End Date</td><td style="padding:12px 15px;color:#333;">' . ($timeOffRequest->end_date ? $timeOffRequest->end_date->format('M d, Y') : 'N/A') . '</td></tr>
+                        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin:20px 0;">
+                            <tr><td style="padding:12px 15px;font-weight:600;color:#0a2239;font-size:13px;text-transform:uppercase;width:40%;border-bottom:1px solid #e8e8e8;">Location</td><td style="padding:12px 15px;color:#333;border-bottom:1px solid #e8e8e8;">' . htmlspecialchars($timeOffRequest->location) . '</td></tr>
+                            <tr><td style="padding:12px 15px;font-weight:600;color:#0a2239;font-size:13px;text-transform:uppercase;border-bottom:1px solid #e8e8e8;">Start Date</td><td style="padding:12px 15px;color:#333;border-bottom:1px solid #e8e8e8;">' . ($timeOffRequest->start_date ? $timeOffRequest->start_date->format('M d, Y') : 'N/A') . '</td></tr>
+                            <tr><td style="padding:12px 15px;font-weight:600;color:#0a2239;font-size:13px;text-transform:uppercase;border-bottom:1px solid #e8e8e8;">End Date</td><td style="padding:12px 15px;color:#333;border-bottom:1px solid #e8e8e8;">' . ($timeOffRequest->end_date ? $timeOffRequest->end_date->format('M d, Y') : 'N/A') . '</td></tr>
                             <tr><td style="padding:12px 15px;font-weight:600;color:#0a2239;font-size:13px;text-transform:uppercase;">Type</td><td style="padding:12px 15px;color:#333;">' . ucfirst($timeOffRequest->paid_or_unpaid ?? '') . '</td></tr>
                         </table>
                         <p style="color:#666;">If you have any questions, please contact your director.</p>
-                    </div>
-                    <div style="background:#0a2239;padding:25px 20px;text-align:center;">
+                    </td></tr>
+                    <tr><td bgcolor="#0a2239" align="center" style="padding:25px 20px;">
                         <p style="margin:5px 0;color:#fff;font-weight:bold;">The Sprout Academy</p>
                         <p style="margin:5px 0;color:#ccc;font-size:13px;">Childcare and Early Education</p>
                         <p style="margin:15px 0 5px 0;font-size:12px;color:#999;">This is an automated email. Please do not reply to this message.</p>
-                    </div>
-                </div></body></html>';
+                    </td></tr>
+                </table>
+                </td></tr></table>
+                </body></html>';
                 GraphMailer::send($timeOffRequest->email, 'Time Off Request Approved - The Sprout Academy', $html);
             }
 
@@ -226,28 +229,31 @@ class FormDataController extends Controller
                 $logo = 'cid:sprout-logo@the-sprout-academy.com';
                 $reasonRow = $rejectionReason ? '<tr><td style="padding:12px 15px;font-weight:600;color:#0a2239;font-size:13px;text-transform:uppercase;">Reason</td><td style="padding:12px 15px;color:#333;">' . htmlspecialchars($rejectionReason) . '</td></tr>' : '';
                 $html = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body style="margin:0;padding:0;background:#f5f5f5;font-family:Arial,sans-serif;">
-                <div style="max-width:600px;margin:0 auto;background:#ffffff;">
-                    <div style="background:linear-gradient(to right,#6DAA44,#007B9A);padding:30px 20px;text-align:center;">
-                        <img src="' . $logo . '" alt="The Sprout Academy" style="max-width:200px;height:auto;">
-                    </div>
-                    <div style="padding:40px 30px;">
+                <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f5f5f5;"><tr><td align="center">
+                <table width="600" cellpadding="0" cellspacing="0" border="0" style="background:#ffffff;">
+                    <tr><td bgcolor="#007B9A" align="center" style="padding:30px 20px;">
+                        <img src="' . $logo . '" alt="The Sprout Academy" width="200" style="max-width:200px;height:auto;display:block;margin:0 auto;">
+                    </td></tr>
+                    <tr><td style="padding:40px 30px;">
                         <h1 style="color:#0a2239;font-size:24px;margin:0 0 20px 0;">Time Off Request Not Approved</h1>
                         <p style="color:#666;">Dear <strong>' . htmlspecialchars($timeOffRequest->name) . '</strong>,</p>
                         <p style="color:#666;">Unfortunately, your time off request has <strong>not been approved</strong>.</p>
-                        <table style="width:100%;border-collapse:collapse;margin:20px 0;">
-                            <tr style="border-bottom:1px solid #e8e8e8;"><td style="padding:12px 15px;font-weight:600;color:#0a2239;font-size:13px;text-transform:uppercase;width:40%;">Location</td><td style="padding:12px 15px;color:#333;">' . htmlspecialchars($timeOffRequest->location) . '</td></tr>
-                            <tr style="border-bottom:1px solid #e8e8e8;"><td style="padding:12px 15px;font-weight:600;color:#0a2239;font-size:13px;text-transform:uppercase;">Start Date</td><td style="padding:12px 15px;color:#333;">' . ($timeOffRequest->start_date ? $timeOffRequest->start_date->format('M d, Y') : 'N/A') . '</td></tr>
-                            <tr style="border-bottom:1px solid #e8e8e8;"><td style="padding:12px 15px;font-weight:600;color:#0a2239;font-size:13px;text-transform:uppercase;">End Date</td><td style="padding:12px 15px;color:#333;">' . ($timeOffRequest->end_date ? $timeOffRequest->end_date->format('M d, Y') : 'N/A') . '</td></tr>
+                        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin:20px 0;">
+                            <tr><td style="padding:12px 15px;font-weight:600;color:#0a2239;font-size:13px;text-transform:uppercase;width:40%;border-bottom:1px solid #e8e8e8;">Location</td><td style="padding:12px 15px;color:#333;border-bottom:1px solid #e8e8e8;">' . htmlspecialchars($timeOffRequest->location) . '</td></tr>
+                            <tr><td style="padding:12px 15px;font-weight:600;color:#0a2239;font-size:13px;text-transform:uppercase;border-bottom:1px solid #e8e8e8;">Start Date</td><td style="padding:12px 15px;color:#333;border-bottom:1px solid #e8e8e8;">' . ($timeOffRequest->start_date ? $timeOffRequest->start_date->format('M d, Y') : 'N/A') . '</td></tr>
+                            <tr><td style="padding:12px 15px;font-weight:600;color:#0a2239;font-size:13px;text-transform:uppercase;border-bottom:1px solid #e8e8e8;">End Date</td><td style="padding:12px 15px;color:#333;border-bottom:1px solid #e8e8e8;">' . ($timeOffRequest->end_date ? $timeOffRequest->end_date->format('M d, Y') : 'N/A') . '</td></tr>
                             ' . $reasonRow . '
                         </table>
                         <p style="color:#666;">Please speak with your director if you have any questions.</p>
-                    </div>
-                    <div style="background:#0a2239;padding:25px 20px;text-align:center;">
+                    </td></tr>
+                    <tr><td bgcolor="#0a2239" align="center" style="padding:25px 20px;">
                         <p style="margin:5px 0;color:#fff;font-weight:bold;">The Sprout Academy</p>
                         <p style="margin:5px 0;color:#ccc;font-size:13px;">Childcare and Early Education</p>
                         <p style="margin:15px 0 5px 0;font-size:12px;color:#999;">This is an automated email. Please do not reply to this message.</p>
-                    </div>
-                </div></body></html>';
+                    </td></tr>
+                </table>
+                </td></tr></table>
+                </body></html>';
                 GraphMailer::send($timeOffRequest->email, 'Time Off Request Update - The Sprout Academy', $html);
             }
 
