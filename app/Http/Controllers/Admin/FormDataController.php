@@ -305,6 +305,32 @@ class FormDataController extends Controller
         return response()->json(['message' => 'Deleted successfully.']);
     }
 
+    public function exportNewsletterSubscriptions()
+    {
+        $subscriptions = NewsletterSubscription::orderBy('created_at', 'desc')->get();
+
+        $headers = [
+            'Content-Type'        => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="newsletter-subscriptions-' . now()->format('Y-m-d') . '.csv"',
+        ];
+
+        $callback = function () use ($subscriptions) {
+            $handle = fopen('php://output', 'w');
+            fputcsv($handle, ['ID', 'Name', 'Email', 'Subscribed At']);
+            foreach ($subscriptions as $sub) {
+                fputcsv($handle, [
+                    $sub->id,
+                    $sub->name ?? '',
+                    $sub->email,
+                    $sub->created_at->format('M d, Y h:i A'),
+                ]);
+            }
+            fclose($handle);
+        };
+
+        return response()->stream($callback, 200, $headers);
+    }
+
     public function deleteNewsletterSubscription($id)
     {
         NewsletterSubscription::findOrFail($id)->delete();

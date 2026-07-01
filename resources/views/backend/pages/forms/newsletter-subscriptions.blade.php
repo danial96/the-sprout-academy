@@ -10,9 +10,11 @@
     </ol>
 
     <div class="card mb-4">
-        <div class="card-header">
-            <i class="fas fa-envelope me-1"></i>
-            Newsletter Subscriptions
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <div><i class="fas fa-envelope me-1"></i> Newsletter Subscriptions</div>
+            <a href="{{ route('admin.forms.newsletter-subscriptions.export') }}" class="btn btn-sm btn-success">
+                <i class="fas fa-file-csv me-1"></i> Export CSV
+            </a>
         </div>
         <div class="card-body">
             <table id="datatablesSimple" class="table table-bordered table-striped" style="width:100%">

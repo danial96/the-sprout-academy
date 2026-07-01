@@ -42,6 +42,7 @@ Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->name('admin.'
         Route::delete('/snack-orders/{id}', 'deleteSnackOrder')->name('snack-orders.delete');
         Route::any('/newsletter-subscriptions', 'newsletterSubscriptions')->name('newsletter-subscriptions');
         Route::delete('/newsletter-subscriptions/{id}', 'deleteNewsletterSubscription')->name('newsletter-subscriptions.delete');
+        Route::get('/newsletter-subscriptions/export', 'exportNewsletterSubscriptions')->name('newsletter-subscriptions.export');
         Route::any('/child-absent-forms', 'childAbsentForms')->name('child-absent-forms');
         Route::delete('/child-absent-forms/{id}', 'deleteChildAbsentForm')->name('child-absent-forms.delete');
         Route::any('/employment-applications', 'employmentApplications')->name('employment-applications');
