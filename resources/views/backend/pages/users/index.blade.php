@@ -60,11 +60,11 @@
                                     <i class="fas fa-key"></i>
                                 </a>
                                 <button onclick="toggleRestrict({{ $employee->id }}, this)"
-                                        class="btn btn-sm {{ $employee->is_restricted ? 'btn-success' : 'btn-warning' }}"
-                                        title="{{ $employee->is_restricted ? 'Unrestrict User' : 'Restrict Login' }}"
+                                        class="btn btn-sm {{ $employee->is_restricted ? 'btn-warning' : 'btn-success' }}"
+                                        title="{{ $employee->is_restricted ? 'Restricted' : 'Restrict Login' }}"
                                         data-bs-toggle="tooltip"
                                         data-restricted="{{ $employee->is_restricted ? '1' : '0' }}">
-                                    <i class="fas {{ $employee->is_restricted ? 'fa-lock-open' : 'fa-ban' }}"></i>
+                                    <i class="fas fa-ban"></i>
                                 </button>
                                 <button onclick="deleteUser({{ $employee->id }})"
                                         class="btn btn-sm btn-danger"
@@ -105,12 +105,11 @@
         .then(data => {
             const nowRestricted = data.is_restricted;
             btn.dataset.restricted = nowRestricted ? '1' : '0';
-            btn.className = `btn btn-sm ${nowRestricted ? 'btn-success' : 'btn-warning'}`;
-            btn.querySelector('i').className = `fas ${nowRestricted ? 'fa-lock-open' : 'fa-ban'}`;
+            btn.className = `btn btn-sm ${nowRestricted ? 'btn-warning' : 'btn-success'}`;
 
             const tooltip = bootstrap.Tooltip.getInstance(btn);
             if (tooltip) { tooltip.dispose(); }
-            btn.setAttribute('title', nowRestricted ? 'Unrestrict User' : 'Restrict Login');
+            btn.setAttribute('title', nowRestricted ? 'Restricted' : 'Restrict Login');
             new bootstrap.Tooltip(btn, { trigger: 'hover' });
 
             const row = document.getElementById(`user-row-${id}`);
