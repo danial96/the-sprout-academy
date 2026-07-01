@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\View;
 
 class GraphMailer
 {
+    const LOGO_CID = 'sprout-logo@the-sprout-academy.com';
+
     private static function getAccessToken(): ?string
     {
         $tenantId     = env('MSGRAPH_TENANT_ID');
@@ -32,6 +34,21 @@ class GraphMailer
         return $response->json('access_token');
     }
 
+    private static function logoAttachment(): array
+    {
+        $logoPath = public_path('frontend/assets/home_page_images/white-logo.png');
+        $b64      = base64_encode(file_get_contents($logoPath));
+
+        return [
+            '@odata.type'  => '#microsoft.graph.fileAttachment',
+            'name'         => 'logo.png',
+            'contentType'  => 'image/png',
+            'contentBytes' => $b64,
+            'contentId'    => self::LOGO_CID,
+            'isInline'     => true,
+        ];
+    }
+
     public static function send(string $toEmail, string $subject, string $htmlBody): bool
     {
         $token = self::getAccessToken();
@@ -52,6 +69,7 @@ class GraphMailer
                     'toRecipients' => [
                         ['emailAddress' => ['address' => $toEmail]],
                     ],
+                    'attachments' => [self::logoAttachment()],
                 ],
                 'saveToSentItems' => false,
             ]);
