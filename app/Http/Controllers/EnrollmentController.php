@@ -11,9 +11,8 @@ use App\Models\EnrollmentPhone;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\FormSubmissionMail;
 use App\Helpers\FormEmailHelper;
+use App\Helpers\GraphMailer;
 use Illuminate\Support\Str;
 
 class EnrollmentController extends Controller
@@ -853,7 +852,7 @@ class EnrollmentController extends Controller
                     return $value !== null && $value !== '';
                 });
 
-                Mail::to(FormEmailHelper::getEnrollmentEmail($location))->send(new FormSubmissionMail('enrollment', 'New Enrollment Form Submitted', $formData));
+                GraphMailer::sendFormSubmission(FormEmailHelper::getEnrollmentEmail($location), 'enrollment', 'New Enrollment Form Submitted', $formData);
             } catch (\Exception $e) {
                 Log::error('Failed to send enrollment email: ' . $e->getMessage());
             }
