@@ -23,6 +23,7 @@
                         <th>Subject</th>
                         <th>Description</th>
                         <th>Created At</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,7 +37,7 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-            $('#datatablesSimple').DataTable({
+            const dataTable = $('#datatablesSimple').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: "{{ route('admin.forms.suggestions') }}",
@@ -45,9 +46,24 @@
                     { data: 'full_name', name: 'full_name' },
                     { data: 'subject', name: 'subject' },
                     { data: 'description', name: 'description' },
-                    { data: 'created_at', name: 'created_at' }
+                    { data: 'created_at', name: 'created_at' },
+                    { data: 'action', name: 'action', orderable: false, searchable: false }
                 ],
                 order: [[0, 'desc']]
+            });
+
+            $(document).on('click', '.delete-btn', function() {
+                if (!confirm('Are you sure you want to delete this record?')) return;
+                const id = $(this).data('id');
+                const btn = $(this).prop('disabled', true);
+                $.ajax({
+                    url: '/admin/forms/suggestions/' + id,
+                    method: 'POST',
+                    data: { _method: 'DELETE' },
+                    headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                    success: function() { dataTable.ajax.reload(); },
+                    error: function() { alert('Error deleting record.'); btn.prop('disabled', false); }
+                });
             });
         });
     </script>

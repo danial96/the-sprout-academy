@@ -41,7 +41,8 @@ class FormDataController extends Controller
                     return $order->created_at->format('M d, Y h:i A');
                 })
                 ->addColumn('action', function ($order) {
-                    return '<a href="' . route('admin.forms.maintenance-work-orders.show', $order->id) . '" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i> View</a>';
+                    return '<a href="' . route('admin.forms.maintenance-work-orders.show', $order->id) . '" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i> View</a>
+                    <button class="btn btn-sm btn-danger delete-btn ms-1" data-id="' . $order->id . '" title="Delete"><i class="fas fa-trash"></i></button>';
                 })
                 ->rawColumns(['action'])
                 ->make(true);
@@ -69,6 +70,10 @@ class FormDataController extends Controller
                 ->editColumn('created_at', function ($suggestion) {
                     return $suggestion->created_at->format('M d, Y h:i A');
                 })
+                ->addColumn('action', function ($suggestion) {
+                    return '<button class="btn btn-sm btn-danger delete-btn" data-id="' . $suggestion->id . '" title="Delete"><i class="fas fa-trash"></i></button>';
+                })
+                ->rawColumns(['action'])
                 ->make(true);
         }
 
@@ -94,6 +99,10 @@ class FormDataController extends Controller
                 ->editColumn('created_at', function ($request) {
                     return $request->created_at->format('M d, Y h:i A');
                 })
+                ->addColumn('action', function ($req) {
+                    return '<button class="btn btn-sm btn-danger delete-btn" data-id="' . $req->id . '" title="Delete"><i class="fas fa-trash"></i></button>';
+                })
+                ->rawColumns(['action'])
                 ->make(true);
         }
 
@@ -251,7 +260,67 @@ class FormDataController extends Controller
     public function deleteTimeOffRequest($id)
     {
         TimeOffRequestForm::findOrFail($id)->delete();
-        return response()->json(['message' => 'Time off request deleted successfully.']);
+        return response()->json(['message' => 'Deleted successfully.']);
+    }
+
+    public function deleteMaintenanceWorkOrder($id)
+    {
+        MaintenanceWorkOrder::findOrFail($id)->delete();
+        return response()->json(['message' => 'Deleted successfully.']);
+    }
+
+    public function deleteSuggestion($id)
+    {
+        Suggestion::findOrFail($id)->delete();
+        return response()->json(['message' => 'Deleted successfully.']);
+    }
+
+    public function deleteTimeClockChangeRequest($id)
+    {
+        TimeClockChangeRequest::findOrFail($id)->delete();
+        return response()->json(['message' => 'Deleted successfully.']);
+    }
+
+    public function deleteStandardTShirtOrder($id)
+    {
+        StandardTShirtOrder::findOrFail($id)->delete();
+        return response()->json(['message' => 'Deleted successfully.']);
+    }
+
+    public function deleteSpecialtyTShirtOrder($id)
+    {
+        SpecialtyTShirtOrder::findOrFail($id)->delete();
+        return response()->json(['message' => 'Deleted successfully.']);
+    }
+
+    public function deleteSupplyOrder($id)
+    {
+        SupplyOrder::findOrFail($id)->delete();
+        return response()->json(['message' => 'Deleted successfully.']);
+    }
+
+    public function deleteSnackOrder($id)
+    {
+        SnackOrder::findOrFail($id)->delete();
+        return response()->json(['message' => 'Deleted successfully.']);
+    }
+
+    public function deleteNewsletterSubscription($id)
+    {
+        NewsletterSubscription::findOrFail($id)->delete();
+        return response()->json(['message' => 'Deleted successfully.']);
+    }
+
+    public function deleteChildAbsentForm($id)
+    {
+        ChildAbsentForm::findOrFail($id)->delete();
+        return response()->json(['message' => 'Deleted successfully.']);
+    }
+
+    public function deleteEmploymentApplication($id)
+    {
+        EmploymentApplication::findOrFail($id)->delete();
+        return response()->json(['message' => 'Deleted successfully.']);
     }
 
     // Standard T-Shirt Orders
@@ -276,6 +345,10 @@ class FormDataController extends Controller
                 ->editColumn('created_at', function ($order) {
                     return $order->created_at->format('M d, Y h:i A');
                 })
+                ->addColumn('action', function ($order) {
+                    return '<button class="btn btn-sm btn-danger delete-btn" data-id="' . $order->id . '" title="Delete"><i class="fas fa-trash"></i></button>';
+                })
+                ->rawColumns(['action'])
                 ->make(true);
         }
 
@@ -304,6 +377,10 @@ class FormDataController extends Controller
                 ->editColumn('created_at', function ($order) {
                     return $order->created_at->format('M d, Y h:i A');
                 })
+                ->addColumn('action', function ($order) {
+                    return '<button class="btn btn-sm btn-danger delete-btn" data-id="' . $order->id . '" title="Delete"><i class="fas fa-trash"></i></button>';
+                })
+                ->rawColumns(['action'])
                 ->make(true);
         }
 
@@ -338,6 +415,10 @@ class FormDataController extends Controller
                 ->editColumn('created_at', function ($order) {
                     return $order->created_at->format('M d, Y h:i A');
                 })
+                ->addColumn('action', function ($order) {
+                    return '<button class="btn btn-sm btn-danger delete-btn" data-id="' . $order->id . '" title="Delete"><i class="fas fa-trash"></i></button>';
+                })
+                ->rawColumns(['action'])
                 ->make(true);
         }
 
@@ -372,6 +453,10 @@ class FormDataController extends Controller
                 ->editColumn('created_at', function ($order) {
                     return $order->created_at->format('M d, Y h:i A');
                 })
+                ->addColumn('action', function ($order) {
+                    return '<button class="btn btn-sm btn-danger delete-btn" data-id="' . $order->id . '" title="Delete"><i class="fas fa-trash"></i></button>';
+                })
+                ->rawColumns(['action'])
                 ->make(true);
         }
 
@@ -391,6 +476,10 @@ class FormDataController extends Controller
                 ->editColumn('created_at', function ($subscription) {
                     return $subscription->created_at->format('M d, Y h:i A');
                 })
+                ->addColumn('action', function ($subscription) {
+                    return '<button class="btn btn-sm btn-danger delete-btn" data-id="' . $subscription->id . '" title="Delete"><i class="fas fa-trash"></i></button>';
+                })
+                ->rawColumns(['action'])
                 ->make(true);
         }
 
@@ -422,6 +511,10 @@ class FormDataController extends Controller
                 ->editColumn('created_at', function ($form) {
                     return $form->created_at->format('M d, Y h:i A');
                 })
+                ->addColumn('action', function ($form) {
+                    return '<button class="btn btn-sm btn-danger delete-btn" data-id="' . $form->id . '" title="Delete"><i class="fas fa-trash"></i></button>';
+                })
+                ->rawColumns(['action'])
                 ->make(true);
         }
 
@@ -462,7 +555,10 @@ class FormDataController extends Controller
                 ->editColumn('created_at', function ($application) {
                     return $application->created_at->format('M d, Y h:i A');
                 })
-                ->rawColumns(['resume_link'])
+                ->addColumn('action', function ($application) {
+                    return '<button class="btn btn-sm btn-danger delete-btn" data-id="' . $application->id . '" title="Delete"><i class="fas fa-trash"></i></button>';
+                })
+                ->rawColumns(['resume_link', 'action'])
                 ->make(true);
         }
 

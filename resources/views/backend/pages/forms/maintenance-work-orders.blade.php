@@ -92,6 +92,20 @@
                     [0, 'desc']
                 ]
             });
+
+            $(document).on('click', '.delete-btn', function() {
+                if (!confirm('Are you sure you want to delete this record?')) return;
+                const id = $(this).data('id');
+                const btn = $(this).prop('disabled', true);
+                $.ajax({
+                    url: '/admin/forms/maintenance-work-orders/' + id,
+                    method: 'POST',
+                    data: { _method: 'DELETE' },
+                    headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                    success: function() { $('#datatablesSimple').DataTable().ajax.reload(); },
+                    error: function() { alert('Error deleting record.'); btn.prop('disabled', false); }
+                });
+            });
         });
     </script>
 @endpush
