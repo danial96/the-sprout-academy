@@ -185,7 +185,7 @@ class FormDataController extends Controller
                             <tr><td style="padding:12px 15px;font-weight:600;color:#0a2239;font-size:13px;text-transform:uppercase;width:40%;border-bottom:1px solid #e8e8e8;">Location</td><td style="padding:12px 15px;color:#333;border-bottom:1px solid #e8e8e8;">' . htmlspecialchars($timeOffRequest->location) . '</td></tr>
                             <tr><td style="padding:12px 15px;font-weight:600;color:#0a2239;font-size:13px;text-transform:uppercase;border-bottom:1px solid #e8e8e8;">Start Date</td><td style="padding:12px 15px;color:#333;border-bottom:1px solid #e8e8e8;">' . ($timeOffRequest->start_date ? $timeOffRequest->start_date->format('M d, Y') : 'N/A') . '</td></tr>
                             <tr><td style="padding:12px 15px;font-weight:600;color:#0a2239;font-size:13px;text-transform:uppercase;border-bottom:1px solid #e8e8e8;">End Date</td><td style="padding:12px 15px;color:#333;border-bottom:1px solid #e8e8e8;">' . ($timeOffRequest->end_date ? $timeOffRequest->end_date->format('M d, Y') : 'N/A') . '</td></tr>
-                            <tr><td style="padding:12px 15px;font-weight:600;color:#0a2239;font-size:13px;text-transform:uppercase;">Type</td><td style="padding:12px 15px;color:#333;">' . ucfirst($timeOffRequest->paid_or_unpaid ?? '') . '</td></tr>
+                            <tr><td style="padding:12px 15px;font-weight:600;color:#0a2239;font-size:13px;text-transform:uppercase;">Type</td><td style="padding:12px 15px;color:#333;">' . ucfirst($timeOffRequest->paid_unpaid ?? '') . '</td></tr>
                         </table>
                         <p style="color:#666;">If you have any questions, please contact your director.</p>
                     </td></tr>
