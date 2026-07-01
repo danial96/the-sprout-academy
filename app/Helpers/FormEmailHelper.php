@@ -181,12 +181,12 @@ class FormEmailHelper
         $location = strtolower(str_replace(['_', ' '], '-', $location));
 
         $map = [
-            'seminole'      => 'Alicia@the-sprout-academy.com',
-            'st-petersburg' => 'Crystal@the-sprout-academy.com',
-            'pinellas-park' => 'Yessica@the-sprout-academy.com',
-            'pinellas_park' => 'Yessica@the-sprout-academy.com',
-            'montessori'    => 'Cierra@the-sprout-academy.com',
-            'largo'         => 'Tessa@the-sprout-academy.com',
+            'seminole'      => 'alicia@the-sprout-academy.com',
+            'st-petersburg' => 'crystal@the-sprout-academy.com',
+            'pinellas-park' => 'yessica@the-sprout-academy.com',
+            'pinellas_park' => 'yessica@the-sprout-academy.com',
+            'montessori'    => 'cierra@the-sprout-academy.com',
+            'largo'         => 'tessa@the-sprout-academy.com',
         ];
 
         return $map[$location] ?? self::getAdminEmail();
