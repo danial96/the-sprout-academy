@@ -75,7 +75,10 @@ class AdminEnrollmentController extends Controller
                 ->addColumn('action', function ($enrollment) {
                     return '<a href="' . route('admin.enrollments.show', $enrollment->id) . '" class="btn btn-sm btn-primary">
                         <i class="fas fa-eye"></i> View Details
-                    </a>';
+                    </a>
+                    <button onclick="deleteEnrollment(' . $enrollment->id . ')" class="btn btn-sm btn-danger ms-1">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>';
                 })
                 ->rawColumns(['status', 'action'])
                 ->make(true);
@@ -100,6 +103,13 @@ class AdminEnrollmentController extends Controller
         ])->findOrFail($id);
 
         return view('backend.pages.enrollments.show', compact('enrollment'));
+    }
+
+    public function destroy($id)
+    {
+        $enrollment = Enrollment::findOrFail($id);
+        $enrollment->delete();
+        return response()->json(['message' => 'Enrollment deleted successfully.']);
     }
 }
 

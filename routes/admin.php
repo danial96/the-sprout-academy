@@ -16,6 +16,7 @@ Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->name('admin.'
         Route::any('/', 'index')->name('index');
         Route::get('/locations', 'getLocations')->name('locations');
         Route::get('/{id}', 'show')->name('show');
+        Route::delete('/{id}', 'destroy')->name('destroy');
     });
 
     // Form Data Routes (Optimized - Single route for view and data)

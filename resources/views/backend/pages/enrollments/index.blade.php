@@ -126,6 +126,21 @@
                 dataTable.ajax.reload();
             });
         });
+
+        function deleteEnrollment(id) {
+            if (!confirm('Are you sure you want to delete this enrollment? This cannot be undone.')) return;
+            $.ajax({
+                url: '/admin/enrollments/' + id,
+                method: 'POST',
+                data: { _method: 'DELETE', _token: '{{ csrf_token() }}' },
+                success: function() {
+                    $('#datatablesSimple').DataTable().ajax.reload();
+                },
+                error: function(xhr) {
+                    alert('Error deleting enrollment.');
+                }
+            });
+        }
     </script>
 @endpush
 
