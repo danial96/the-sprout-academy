@@ -1748,7 +1748,6 @@ body.page-meetTheTeam .founders-section .founders-icon {
 }
 
 .team-member-photo {
-    background-color: var(--color-seagreen);
     border-radius: 20px;
     overflow: hidden;
     display: flex;
