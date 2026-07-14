@@ -3,7 +3,18 @@
     "allow": [
       "mcp__Claude_in_Chrome__navigate",
       "mcp__Claude_in_Chrome__select_browser",
-      "mcp__Claude_in_Chrome__get_page_text"
+      "mcp__Claude_in_Chrome__get_page_text",
+      "Bash(composer --version)",
+      "Bash(php --version)",
+      "PowerShell(composer --version)",
+      "PowerShell(php --version)",
+      "Read(//c/xampp/php/**)",
+      "Read(//c/xampp/**)",
+      "Read(//c/ProgramData/**)",
+      "Read(//c/Users/Daniyal Khan/**)",
+      "Bash(/c/xampp/php/php.exe -v)",
+      "Bash(/c/xampp/php/php.exe /c/xampp/php/composer.phar --version)",
+      "Bash(/c/xampp/mysql/bin/mysql.exe -u root -e \"SHOW DATABASES;\")"
     ]
   }
 }

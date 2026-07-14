@@ -26,14 +26,14 @@
                             <i class="fas fa-map-marker-alt"></i>
                             <div class="vt-contact-details">
                                 <span class="vt-contact-label">LOCATION ADDRESS</span>
-                                <span class="vt-contact-value">5995 Park Blvd, Pinellas Park, FL 33781</span>
+                                <span class="vt-contact-value">6552 84th Ave. N., Pinellas Park, FL 33781</span>
                             </div>
                         </div>
                         <div class="vt-contact-item">
                             <i class="fas fa-phone-alt"></i>
                             <div class="vt-contact-details">
                                 <span class="vt-contact-label">PHONE</span>
-                                <span class="vt-contact-value">(727) 544-5437</span>
+                                <span class="vt-contact-value">727-545-9944</span>
                             </div>
                         </div>
                         <div class="vt-contact-item">
@@ -65,7 +65,7 @@
                     </div> -->
                 </div>
                 @include('frontend.components.google-map', [
-                    'address' => '5995 Park Blvd, Pinellas Park, FL 33781',
+                    'address' => '6552 84th Ave. N., Pinellas Park, FL 33781',
                 ])
             </div>
 

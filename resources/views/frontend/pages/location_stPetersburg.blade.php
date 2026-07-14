@@ -25,7 +25,7 @@
                             <i class="fas fa-map-marker-alt"></i>
                             <div class="vt-contact-details">
                                 <span class="vt-contact-label">LOCATION ADDRESS</span>
-                                <span class="vt-contact-value">1100 1st Ave N, St. Petersburg, FL 33701</span>
+                                <span class="vt-contact-value">5610 54th Ave N., St Petersburg, FL 33709</span>
                             </div>
                         </div>
                         <div class="vt-contact-item">
@@ -63,7 +63,7 @@
                         </div> -->
                 </div>
                 @include('frontend.components.google-map', [
-                    'address' => '1100 1st Ave N, St. Petersburg, FL 33701',
+                    'address' => '5610 54th Ave N., St Petersburg, FL 33709',
                 ])
             </div>
 

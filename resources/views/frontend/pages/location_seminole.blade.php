@@ -25,14 +25,14 @@
                             <i class="fas fa-map-marker-alt"></i>
                             <div class="vt-contact-details">
                                 <span class="vt-contact-label">LOCATION ADDRESS</span>
-                                <span class="vt-contact-value">7985 113th St N, Seminole, FL 33772</span>
+                                <span class="vt-contact-value">9259 Park Blvd, Seminole, FL 33777</span>
                             </div>
                         </div>
                         <div class="vt-contact-item">
                             <i class="fas fa-phone-alt"></i>
                             <div class="vt-contact-details">
                                 <span class="vt-contact-label">PHONE</span>
-                                <span class="vt-contact-value">(727) 953-5544</span>
+                                <span class="vt-contact-value">727-399-2483</span>
                             </div>
                         </div>
                         <div class="vt-contact-item">
@@ -64,7 +64,7 @@
                     </div> -->
                 </div>
                 @include('frontend.components.google-map', [
-                    'address' => '7985 113th St N, Seminole, FL 33772',
+                    'address' => '9259 Park Blvd, Seminole, FL 33777',
                 ])
             </div>
 

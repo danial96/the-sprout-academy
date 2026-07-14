@@ -19,7 +19,7 @@
             <!-- Montessori Location -->
             <div class="vt-location-block" id="montessori">
                 @include('frontend.components.google-map', [
-                    'address' => '2255 Countryside Blvd, Clearwater, FL 33763',
+                    'address' => '2095 Belleair Road, Clearwater, FL 33764',
                 ])
                 <div class="vt-location-info">
                     <h2 class="vt-location-title">MONTESSORI</h2>
@@ -28,14 +28,14 @@
                             <i class="fas fa-map-marker-alt"></i>
                             <div class="vt-contact-details">
                                 <span class="vt-contact-label">LOCATION ADDRESS</span>
-                                <span class="vt-contact-value">2255 Countryside Blvd, Clearwater, FL 33763</span>
+                                <span class="vt-contact-value">2095 Belleair Road, Clearwater, FL 33764</span>
                             </div>
                         </div>
                         <div class="vt-contact-item">
                             <i class="fas fa-phone-alt"></i>
                             <div class="vt-contact-details">
                                 <span class="vt-contact-label">PHONE</span>
-                                <span class="vt-contact-value">(727) 799-7687</span>
+                                <span class="vt-contact-value">727-535-8512</span>
                             </div>
                         </div>
                         <div class="vt-contact-item">

@@ -25,14 +25,14 @@
                             <i class="fas fa-map-marker-alt"></i>
                             <div class="vt-contact-details">
                                 <span class="vt-contact-label">LOCATION ADDRESS</span>
-                                <span class="vt-contact-value">1807 Clearwater Largo Rd, Largo, FL 33770</span>
+                                <span class="vt-contact-value">1807 S Highland Ave, Largo, FL 33756</span>
                             </div>
                         </div>
                         <div class="vt-contact-item">
                             <i class="fas fa-phone-alt"></i>
                             <div class="vt-contact-details">
                                 <span class="vt-contact-label">PHONE</span>
-                                <span class="vt-contact-value">(727) 588-5550</span>
+                                <span class="vt-contact-value">727-559-1777</span>
                             </div>
                         </div>
                         <div class="vt-contact-item">
@@ -63,7 +63,7 @@
                     </div> -->
                 </div>
                 @include('frontend.components.google-map', [
-                    'address' => '1807 Clearwater Largo Rd, Largo, FL 33770',
+                    'address' => '1807 S Highland Ave, Largo, FL 33756',
                 ])
             </div>
 
