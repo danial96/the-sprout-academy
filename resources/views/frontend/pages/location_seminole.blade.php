@@ -19,7 +19,7 @@
             <!-- Seminole Location -->
             <div class="vt-location-block" id="seminole">
                 <div class="vt-location-info">
-                    <h2 class="vt-location-title">The Sprout Academy Seminole</h2>
+                    <h2 class="vt-location-title">Seminole</h2>
                     <div class="vt-contact-list">
                         <div class="vt-contact-item">
                             <i class="fas fa-map-marker-alt"></i>
