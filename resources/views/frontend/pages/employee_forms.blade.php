@@ -56,15 +56,7 @@
                     <div class="employee-form-label">Snack Order Form</div>
                 </a>
 
-                {{-- Form Card 5: Suggestion Form --}}
-                <a href="{{ route('form.suggestion') }}" class="employee-form-card">
-                    <div class="employee-form-icon">
-                        <img src="{{ asset('frontend/assets/home_page_images/emp-frm-4.png') }}" alt="Suggestion Form">
-                    </div>
-                    <div class="employee-form-label">Suggestion Form</div>
-                </a>
-
-                {{-- Form Card 6: Time Clock Change Request --}}
+{{-- Form Card 6: Time Clock Change Request --}}
                 <a href="{{ route('form.timeClockChangeRequest') }}" class="employee-form-card">
                     <div class="employee-form-icon">
                         <img src="{{ asset('frontend/assets/home_page_images/emp-frm-3.png') }}"
