@@ -219,12 +219,16 @@
                         alt="Happy child at learning table" loading="lazy">
                 </div>
                 <div class="marquee-slide">
-                    <img src="{{ asset('frontend/assets/home_page_images/vdo-img1.png') }}"
-                        alt="Child building with colorful blocks" loading="lazy">
+                    <img src="{{ asset('frontend/assets/home_page_images/vdo-img10.png') }}"
+                        alt="Children exploring together" loading="lazy">
                 </div>
                 <div class="marquee-slide">
-                    <img src="{{ asset('frontend/assets/home_page_images/vdo-img2.png') }}" alt="Happy child learning"
-                        loading="lazy">
+                    <img src="{{ asset('frontend/assets/home_page_images/vdo-img11.png') }}"
+                        alt="Children wearing sprout academy shirts" loading="lazy">
+                </div>
+                <div class="marquee-slide">
+                    <img src="{{ asset('frontend/assets/home_page_images/vdo-img12.png') }}"
+                        alt="Children enjoying a snack outside" loading="lazy">
                 </div>
                 <div class="marquee-slide">
                     <img src="{{ asset('frontend/assets/home_page_images/vdo-img1.png') }}" alt="Child in classroom"
@@ -233,6 +237,18 @@
                 <div class="marquee-slide">
                     <img src="{{ asset('frontend/assets/home_page_images/vdo-img2.png') }}" alt="Happy child at table"
                         loading="lazy">
+                </div>
+                <div class="marquee-slide">
+                    <img src="{{ asset('frontend/assets/home_page_images/vdo-img10.png') }}"
+                        alt="Children exploring together" loading="lazy">
+                </div>
+                <div class="marquee-slide">
+                    <img src="{{ asset('frontend/assets/home_page_images/vdo-img11.png') }}"
+                        alt="Children wearing sprout academy shirts" loading="lazy">
+                </div>
+                <div class="marquee-slide">
+                    <img src="{{ asset('frontend/assets/home_page_images/vdo-img12.png') }}"
+                        alt="Children enjoying a snack outside" loading="lazy">
                 </div>
             </div>
         </div>
