@@ -24,12 +24,6 @@
                 '"Under the guidance of owners Justin and Rachel, Sprout Academy delivers an exceptional learning experience for young children."',
             'author' => 'Jason .J',
         ],
-        [
-            'headline' => 'I DRIVE A HALF HOUR OUT OF MY WAY',
-            'text' =>
-                '"The Sprout Academy is the best. My son still talks about his time there. He just graduated Kindergarten but he will never forget his time at Sprout!"',
-            'author' => 'THERESA C',
-        ],
     ];
 @endphp
 
