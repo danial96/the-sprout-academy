@@ -134,7 +134,7 @@
                             </div>
                         </div>
                         <div class="team-member-photo">
-                            <img src="{{ asset('frontend/assets/home_page_images/team2.png') }}" alt="Debbie Snyder">
+                            <img src="{{ asset('frontend/assets/home_page_images/Debbie-Director.png') }}" alt="Debbie Snyder">
                         </div>
                     </div>
                 </div>

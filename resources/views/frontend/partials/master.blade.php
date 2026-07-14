@@ -9,6 +9,9 @@
 
     <title>@yield('title', 'The Sprout Academy') - The Sprout Academy</title>
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('frontend/assets/home_page_images/fav-icon.png') }}">
+
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
