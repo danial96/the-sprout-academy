@@ -1753,6 +1753,7 @@ body.page-meetTheTeam .founders-section .founders-icon {
     display: flex;
     align-items: center;
     justify-content: center;
+    max-height: 350px;
 }
 
 .team-member-photo img {
