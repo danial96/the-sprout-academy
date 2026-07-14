@@ -49,7 +49,7 @@ class GraphMailer
         ];
     }
 
-    public static function send(string $toEmail, string $subject, string $htmlBody): bool
+    public static function send(string $toEmail, string $subject, string $htmlBody, array $ccEmails = []): bool
     {
         $token = self::getAccessToken();
         if (!$token) {
@@ -58,19 +58,28 @@ class GraphMailer
 
         $fromEmail = env('MSGRAPH_FROM_EMAIL', 'noreply@the-sprout-academy.com');
 
+        $message = [
+            'subject' => $subject,
+            'body'    => [
+                'contentType' => 'HTML',
+                'content'     => $htmlBody,
+            ],
+            'toRecipients' => [
+                ['emailAddress' => ['address' => $toEmail]],
+            ],
+            'attachments' => [self::logoAttachment()],
+        ];
+
+        if (!empty($ccEmails)) {
+            $message['ccRecipients'] = array_map(
+                fn($cc) => ['emailAddress' => ['address' => $cc]],
+                $ccEmails
+            );
+        }
+
         $response = Http::withToken($token)
             ->post("https://graph.microsoft.com/v1.0/users/{$fromEmail}/sendMail", [
-                'message' => [
-                    'subject' => $subject,
-                    'body'    => [
-                        'contentType' => 'HTML',
-                        'content'     => $htmlBody,
-                    ],
-                    'toRecipients' => [
-                        ['emailAddress' => ['address' => $toEmail]],
-                    ],
-                    'attachments' => [self::logoAttachment()],
-                ],
+                'message'         => $message,
                 'saveToSentItems' => false,
             ]);
 
@@ -89,7 +98,8 @@ class GraphMailer
         string $toEmail,
         string $formType,
         string $title,
-        array $formData
+        array $formData,
+        array $ccEmails = []
     ): bool {
         $submittedAt = now()->format('F j, Y \a\t g:i A');
 
@@ -100,6 +110,6 @@ class GraphMailer
             'submittedAt' => $submittedAt,
         ])->render();
 
-        return self::send($toEmail, $title . ' - The Sprout Academy', $html);
+        return self::send($toEmail, $title . ' - The Sprout Academy', $html, $ccEmails);
     }
 }

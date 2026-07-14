@@ -852,7 +852,7 @@ class EnrollmentController extends Controller
                     return $value !== null && $value !== '';
                 });
 
-                GraphMailer::sendFormSubmission(FormEmailHelper::getEnrollmentEmail($location), 'enrollment', 'New Enrollment Form Submitted', $formData);
+                GraphMailer::sendFormSubmission(FormEmailHelper::getEnrollmentEmail($location), 'enrollment', 'New Enrollment Form Submitted', $formData, ['info@the-sprout-academy.com']);
             } catch (\Exception $e) {
                 Log::error('Failed to send enrollment email: ' . $e->getMessage());
             }
