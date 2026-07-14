@@ -2857,11 +2857,22 @@ body.page-enrollment-thankYou footer#footer-copyright .footer-bottom
 
 @media (max-width: 576px) {
     .footer-content {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem 1rem;
     }
 
     .footer-col-brand {
-        grid-column: 1;
+        grid-column: 1 / -1;
+    }
+
+    .footer-col:last-child {
+        grid-column: 1 / -1;
+    }
+
+    .footer-locations-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.4rem 1rem;
     }
 }
 
