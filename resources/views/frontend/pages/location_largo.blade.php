@@ -46,7 +46,7 @@
                             <i class="fas fa-envelope"></i>
                             <div class="vt-contact-details">
                                 <span class="vt-contact-label">EMAIL</span>
-                                <span class="vt-contact-value">largo@sproutacademy.com</span>
+                                <span class="vt-contact-value">Tessa@the-sprout-academy.com</span>
                             </div>
                         </div>
                         <div class="vt-contact-item">
