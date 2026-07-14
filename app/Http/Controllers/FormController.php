@@ -300,15 +300,17 @@ class FormController extends Controller
         if ($request->isMethod('post')) {
             try {
                 // Validation rules
+                $isAnonymous = $request->boolean('anonymous');
+
                 $validator = Validator::make($request->all(), [
-                    'first_name' => 'required|string|max:255',
-                    'last_name' => 'required|string|max:255',
-                    'subject' => 'required|string|max:255',
+                    'first_name' => $isAnonymous ? 'nullable|string|max:255' : 'required|string|max:255',
+                    'last_name'  => $isAnonymous ? 'nullable|string|max:255' : 'required|string|max:255',
+                    'subject'    => 'required|string|max:255',
                     'description' => 'nullable|string|max:5000',
                 ], [
                     'first_name.required' => 'First name is required.',
-                    'last_name.required' => 'Last name is required.',
-                    'subject.required' => 'Subject is required.',
+                    'last_name.required'  => 'Last name is required.',
+                    'subject.required'    => 'Subject is required.',
                 ]);
 
                 // If validation fails, return back with errors
@@ -318,20 +320,23 @@ class FormController extends Controller
                         ->withInput();
                 }
 
+                $firstName = $isAnonymous ? 'Anonymous' : $request->first_name;
+                $lastName  = $isAnonymous ? '' : $request->last_name;
+
                 // Create suggestion
                 $suggestion = Suggestion::create([
-                    'first_name' => $request->first_name,
-                    'last_name' => $request->last_name,
-                    'subject' => $request->subject,
+                    'first_name' => $firstName,
+                    'last_name'  => $lastName,
+                    'subject'    => $request->subject,
                     'description' => $request->description,
                 ]);
 
                 // Send email notification
                 try {
                     $formData = FormEmailHelper::formatFormData([
-                        'first_name' => $request->first_name,
-                        'last_name' => $request->last_name,
-                        'subject' => $request->subject,
+                        'first_name' => $firstName,
+                        'last_name'  => $lastName,
+                        'subject'    => $request->subject,
                         'description' => $request->description,
                     ]);
 

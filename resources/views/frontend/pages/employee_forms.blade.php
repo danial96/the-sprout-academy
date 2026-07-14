@@ -23,12 +23,12 @@
             </div>
             @endauth
             <div class="employee-forms-grid">
-                {{-- Form Card 1: Time Of Request --}}
+                {{-- Form Card 1: Time Off Request --}}
                 <a href="{{ route('form.timeOffRequestForm') }}" class="employee-form-card">
                     <div class="employee-form-icon">
-                        <img src="{{ asset('frontend/assets/home_page_images/emp-frm-8.png') }}" alt="Time Of Request">
+                        <img src="{{ asset('frontend/assets/home_page_images/emp-frm-8.png') }}" alt="Time Off Request">
                     </div>
-                    <div class="employee-form-label">Time Of Request</div>
+                    <div class="employee-form-label">Time Off Request</div>
                 </a>
 
                 {{-- Form Card 2: Maintenance Work Order Form --}}
@@ -73,23 +73,6 @@
                     <div class="employee-form-label">Time Clock Change Request</div>
                 </a>
 
-                {{-- Form Card 7: Standard Sprout T-Shirt Order --}}
-                <a href="{{ route('form.standardTShirtOrder') }}" class="employee-form-card">
-                    <div class="employee-form-icon">
-                        <img src="{{ asset('frontend/assets/home_page_images/emp-frm-2.png') }}"
-                            alt="Standard Sprout T-Shirt Order">
-                    </div>
-                    <div class="employee-form-label">Standard Sprout T-Shirt Order</div>
-                </a>
-
-                {{-- Form Card 8: Specialty Sprout T-Shirt Order --}}
-                <a href="{{ route('form.specialtyTShirtOrder') }}" class="employee-form-card">
-                    <div class="employee-form-icon">
-                        <img src="{{ asset('frontend/assets/home_page_images/emp-frm-1.png') }}"
-                            alt="Specialty Sprout T-Shirt Order">
-                    </div>
-                    <div class="employee-form-label">Specialty Sprout T-Shirt Order</div>
-                </a>
             </div>
         </div>
     </section>

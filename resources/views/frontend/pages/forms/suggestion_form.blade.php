@@ -22,15 +22,23 @@
 
                             <div class="form-grid">
 
-                                {{-- First Name / Last Name --}}
-                                <div class="form-field">
-                                    <label for="firstName">First Name*</label>
-                                    <input type="text" id="firstName" name="first_name" class="form-input" required />
+                                {{-- Anonymous Checkbox --}}
+                                <div class="form-field form-field-full" style="margin-bottom: 0;">
+                                    <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-weight:600;">
+                                        <input type="checkbox" id="anonymousCheck" name="anonymous" value="1" style="width:18px; height:18px; cursor:pointer;">
+                                        Submit Anonymously
+                                    </label>
                                 </div>
 
-                                <div class="form-field">
-                                    <label for="lastName">Last Name*</label>
-                                    <input type="text" id="lastName" name="last_name" class="form-input" required />
+                                {{-- First Name / Last Name --}}
+                                <div class="form-field" id="firstNameField">
+                                    <label for="firstName">First Name</label>
+                                    <input type="text" id="firstName" name="first_name" class="form-input" />
+                                </div>
+
+                                <div class="form-field" id="lastNameField">
+                                    <label for="lastName">Last Name</label>
+                                    <input type="text" id="lastName" name="last_name" class="form-input" />
                                 </div>
 
                                 <div class="form-field form-field-full">
@@ -68,6 +76,19 @@
     @push('scripts')
         <script>
             document.addEventListener('DOMContentLoaded', function() {
+                // Anonymous checkbox toggle
+                const anonymousCheck = document.getElementById('anonymousCheck');
+                const firstNameField = document.getElementById('firstNameField');
+                const lastNameField = document.getElementById('lastNameField');
+
+                anonymousCheck.addEventListener('change', function() {
+                    const hidden = this.checked;
+                    firstNameField.style.display = hidden ? 'none' : '';
+                    lastNameField.style.display = hidden ? 'none' : '';
+                    document.getElementById('firstName').value = hidden ? '' : document.getElementById('firstName').value;
+                    document.getElementById('lastName').value = hidden ? '' : document.getElementById('lastName').value;
+                });
+
                 // Form submission with AJAX
                 const form = document.getElementById('suggestionForm');
                 const submitBtn = document.getElementById('submitBtn');
