@@ -24,7 +24,7 @@
                 @include('frontend.components.green-badge', ['text' => 'WE GUIDE'])
                 <h1 class="hero-title">CHILDREN IN THE <br> RIGHT DIRECTION</h1>
                 {{-- <a href="#tour" class="btn btn-secondary btn-lg">Schedule a Tour</a> --}}
-                <a href="{{ route('frontend.virtualTour') }}" class="btn btn-foundation btn-lg">Schedule a Tour</a>
+                <a href="{{ route('enroll') }}" class="btn btn-foundation btn-lg">Schedule a Tour</a>
             </div>
         </div>
     </section>
@@ -97,7 +97,7 @@
 
             <div class="steps-cta">
                 <p class="steps-cta-text">So, what are you waiting for?</p>
-                <a href="{{ route('frontend.virtualTour') }}" class="btn btn-tour-outline btn-lg">Schedule a Tour
+                <a href="{{ route('enroll') }}" class="btn btn-tour-outline btn-lg">Schedule a Tour
                     &raquo;</a>
             </div>
         </div>
@@ -186,7 +186,7 @@
                         'rotation' => 'left',
                     ])
                     <h3 class="why-choose-title">Keeping Your Child Safe is Our Top Priority</h3>
-                    <a href="{{ route('frontend.virtualTour') }}" class="btn btn-foundation btn-lg mt-3">Schedule a Tour
+                    <a href="{{ route('enroll') }}" class="btn btn-foundation btn-lg mt-3">Schedule a Tour
                         &raquo;</a>
                 </div>
                 <div class="col-lg-7">
@@ -364,7 +364,7 @@
                                 <h3 class="location-overlay-title">{{ strtoupper($location->name) }}</h3>
                                 <p class="location-overlay-address">{{ $location->address }}</p>
                                 <div class="location-overlay-buttons">
-                                    <a href="{{ route('frontend.virtualTour') }}" class="btn btn-secondary">Schedule a
+                                    <a href="{{ route('enroll') }}" class="btn btn-secondary">Schedule a
                                         Tour</a>
                                     <a href="{{ route('frontend.enroll') }}" class="btn btn-enroll-overlay">Enroll</a>
                                 </div>
