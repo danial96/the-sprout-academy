@@ -217,7 +217,7 @@
             {{-- Largo Director --}}
             <div class="director-card" id="largo">
                 <div class="director-info-card">
-                    <h3 class="director-name">Tessa</h3>
+                    <h3 class="director-name">Tessa Freeman-Myers</h3>
                     <p class="director-role">Largo Director</p>
 
                     <div class="director-details">
@@ -274,7 +274,7 @@
                 </div>
 
                 <div class="director-photo-card">
-                    <img src="{{ asset('frontend/assets/home_page_images/Largo-Director.png') }}" alt="Tessa">
+                    <img src="{{ asset('frontend/assets/home_page_images/Largo-Director.png') }}" alt="Tessa Freeman-Myers">
                 </div>
             </div>
 
