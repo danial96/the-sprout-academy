@@ -104,7 +104,7 @@
     <section class="team-members-section">
         <div class="container">
             <div class="team-members-grid">
-                {{-- Team Member Card - Alicia Sanders --}}
+                {{-- Team Member Card - Debbie Snyder --}}
                 <div class="team-member-card">
                     <div class="team-member-header">
                         <img src="{{ asset('frontend/assets/home_page_images/lock.png') }}" alt="Icon"
@@ -113,14 +113,14 @@
                     </div>
                     <div class="team-member-content">
                         <div class="team-member-info">
-                            <h4 class="team-member-name">Alicia Sanders</h4>
+                            <h4 class="team-member-name">Debbie Snyder</h4>
                             <div class="team-contact-item">
                                 <div class="contact-icon-wrapper">
                                     <i class="fas fa-solid fa-phone"></i>
                                 </div>
                                 <div class="contact-details">
                                     <span class="contact-label">PHONE:</span>
-                                    <span class="contact-value">727-657-2327</span>
+                                    <span class="contact-value">727-559-1777</span>
                                 </div>
                             </div>
                             <div class="team-contact-item">
@@ -129,12 +129,12 @@
                                 </div>
                                 <div class="contact-details">
                                     <span class="contact-label">EMAIL:</span>
-                                    <span class="contact-value">Alicia@the-sprout-academy.com</span>
+                                    <span class="contact-value">Debbie@the-sprout-academy.com</span>
                                 </div>
                             </div>
                         </div>
                         <div class="team-member-photo">
-                            <img src="{{ asset('frontend/assets/home_page_images/team2.png') }}" alt="Alicia Sanders">
+                            <img src="{{ asset('frontend/assets/home_page_images/team2.png') }}" alt="Debbie Snyder">
                         </div>
                     </div>
                 </div>
