@@ -257,7 +257,7 @@
                             </div>
                             <div class="detail-content">
                                 <span class="detail-label">EMAIL:</span>
-                                <span class="detail-value">Debbie@the-sprout-academy.com</span>
+                                <span class="detail-value">Tessa@the-sprout-academy.com</span>
                             </div>
                         </div>
 
