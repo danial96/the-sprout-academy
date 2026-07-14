@@ -8,6 +8,7 @@
         'excerpt' => "Anxiety in children isn't new, but the way it's showing up today feels different. More parents are noticing worry, overwhelm,",
         'comments' => 76,
         'views' => 145,
+        'url' => 'https://sproutvine.com/why-kids-feel-more-anxious-today-and-how-parents-can-help/',
     ];
     $sideArticles = $sideArticles ?? [
         [
@@ -16,6 +17,7 @@
             'title' => "DADS & SPORTS: MORE THAN GAMES, IT'S CONNECTION",
             'comments' => 76,
             'views' => 145,
+            'url' => 'https://sproutvine.com/dads-and-sports-more-than-games-its-connection/',
         ],
         [
             'image' => asset('frontend/assets/home_page_images/blog-img-4.png'),
@@ -23,6 +25,7 @@
             'title' => 'THE IMPORTANCE OF BEING FINANCIALLY READY FOR RETIREMENT',
             'comments' => 76,
             'views' => 145,
+            'url' => 'https://sproutvine.com/the-importance-of-being-financially-ready-for-retirement/',
         ],
         [
             'image' => asset('frontend/assets/home_page_images/blog-img-2.png'),
@@ -30,6 +33,7 @@
             'title' => 'MARRIAGE: BUILDING A PARTNERSHIP THAT LASTS THROUGH EVERY SEASON',
             'comments' => 76,
             'views' => 145,
+            'url' => 'https://sproutvine.com/marriage-building-a-partnership-that-lasts-through-every-season/',
         ],
     ];
 @endphp
@@ -67,7 +71,7 @@
             {{-- Featured Article (Left) — full image with dark gradient overlay --}}
             <article class="sproutvine-news-featured">
                 <a
-                    href="{{ $viewAllUrl }}"
+                    href="{{ $featured['url'] ?? $viewAllUrl }}"
                     target="_blank"
                     rel="noopener noreferrer"
                     class="sproutvine-news-featured-link"
@@ -113,7 +117,7 @@
                 @foreach ($sideArticles as $article)
                     <article class="sproutvine-news-side-card">
                         <a
-                            href="{{ $viewAllUrl }}"
+                            href="{{ $article['url'] ?? $viewAllUrl }}"
                             target="_blank"
                             rel="noopener noreferrer"
                             class="sproutvine-news-side-link"
