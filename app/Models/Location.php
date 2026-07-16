@@ -18,12 +18,16 @@ class Location extends Model
         'virtual_tour_image',
         'virtual_tour_label',
         'home_page_image',
+        'show_schedule_tour',
+        'show_enroll',
         'display_order',
         'is_active',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
+        'show_schedule_tour' => 'boolean',
+        'show_enroll' => 'boolean',
         'display_order' => 'integer',
     ];
 

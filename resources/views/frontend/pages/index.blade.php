@@ -337,7 +337,6 @@
 
                 @forelse ($locations as $index => $location)
                     @php
-                        // Static images map based on location slug
                         $locationImages = [
                             'seminole' => 'sch-img-1.png',
                             'st-petersburg' => 'sch-img-2.png',
@@ -346,10 +345,13 @@
                             'largo' => 'sch-img-5.png',
                         ];
                         $imageName = $locationImages[$location->slug] ?? 'sch-img-1.png';
+                        $cardImage = $location->home_page_image
+                            ? Storage::url($location->home_page_image)
+                            : asset('frontend/assets/home_page_images/' . $imageName);
                     @endphp
                     <div class="location-card">
                         <div class="location-image-wrapper">
-                            <img src="{{ asset('frontend/assets/home_page_images/' . $imageName) }}"
+                            <img src="{{ $cardImage }}"
                                 alt="The Sprout Academy {{ $location->name }} location exterior" class="location-image"
                                 loading="lazy">
                         </div>
@@ -364,9 +366,12 @@
                                 <h3 class="location-overlay-title">{{ strtoupper($location->name) }}</h3>
                                 <p class="location-overlay-address">{{ $location->address }}</p>
                                 <div class="location-overlay-buttons">
-                                    <a href="{{ route('frontend.enroll') }}" class="btn btn-secondary">Schedule a
-                                        Tour</a>
-                                    <a href="{{ route('frontend.enroll') }}" class="btn btn-enroll-overlay">Enroll</a>
+                                    @if ($location->show_schedule_tour ?? true)
+                                        <a href="{{ route('frontend.enroll') }}" class="btn btn-secondary">Schedule a Tour</a>
+                                    @endif
+                                    @if ($location->show_enroll ?? true)
+                                        <a href="{{ route('frontend.enroll') }}" class="btn btn-enroll-overlay">Enroll</a>
+                                    @endif
                                 </div>
                             </div>
                         </div>

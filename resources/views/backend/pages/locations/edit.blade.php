@@ -16,7 +16,7 @@
             Edit Location
         </div>
         <div class="card-body">
-            <form method="POST" action="{{ route('admin.locations.update', $location->id) }}">
+            <form method="POST" action="{{ route('admin.locations.update', $location->id) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
@@ -124,6 +124,58 @@
                             title="Google Maps Preview">
                         </iframe>
                     </div>
+                </div>
+
+                {{-- Home Page Image --}}
+                <div class="mb-4">
+                    <label class="form-label fw-semibold">Location Card Image</label>
+                    <div class="row align-items-center">
+                        <div class="col-md-4">
+                            @if ($location->home_page_image)
+                                <img src="{{ Storage::url($location->home_page_image) }}"
+                                    alt="Current location image" class="img-thumbnail mb-2" style="max-height:160px;">
+                                <div class="form-text">Current image</div>
+                            @else
+                                <div class="text-muted mb-2">
+                                    <i class="fas fa-image fa-3x"></i><br>
+                                    <small>No image uploaded yet</small>
+                                </div>
+                            @endif
+                        </div>
+                        <div class="col-md-8">
+                            <input type="file" id="home_page_image" name="home_page_image"
+                                class="form-control @error('home_page_image') is-invalid @enderror"
+                                accept="image/jpeg,image/png,image/jpg,image/gif,image/webp">
+                            @error('home_page_image')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                            <div class="form-text">Upload a new image to replace (JPG, PNG, GIF, WEBP — max 4MB)</div>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Button Visibility --}}
+                <div class="mb-4">
+                    <label class="form-label fw-semibold">Homepage Card Buttons</label>
+                    <div class="d-flex gap-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="show_schedule_tour"
+                                name="show_schedule_tour" value="1"
+                                {{ old('show_schedule_tour', $location->show_schedule_tour ?? true) ? 'checked' : '' }}>
+                            <label class="form-check-label" for="show_schedule_tour">
+                                Show "Schedule a Tour" button
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="show_enroll"
+                                name="show_enroll" value="1"
+                                {{ old('show_enroll', $location->show_enroll ?? true) ? 'checked' : '' }}>
+                            <label class="form-check-label" for="show_enroll">
+                                Show "Enroll" button
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-text">Control which buttons appear on the homepage location card</div>
                 </div>
 
                 <div class="mb-3">
