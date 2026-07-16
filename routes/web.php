@@ -9,6 +9,12 @@ use App\Http\Controllers\EmployeeRegisterController;
 
 
 
+// TEMPORARY - Clear SproutVine news cache
+Route::get('/clear-news-cache-k7m3x', function () {
+    \Illuminate\Support\Facades\Cache::forget('sproutvine_news');
+    return 'SproutVine news cache cleared. Refresh home page to see updated images.';
+});
+
 // TEMPORARY MIGRATION ROUTE - DELETE AFTER USE
 Route::get('/run-migration-xk92p', function () {
     try {

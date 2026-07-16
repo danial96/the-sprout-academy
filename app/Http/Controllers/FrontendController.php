@@ -38,7 +38,10 @@ class FrontendController extends Controller
                 }
 
                 return collect($response->json())->map(function ($post) {
-                    $image = $post['_embedded']['wp:featuredmedia'][0]['media_details']['sizes']['medium']['source_url']
+                    $sizes = $post['_embedded']['wp:featuredmedia'][0]['media_details']['sizes'] ?? [];
+                    $image = $sizes['large']['source_url']
+                        ?? $sizes['medium_large']['source_url']
+                        ?? $sizes['medium']['source_url']
                         ?? $post['_embedded']['wp:featuredmedia'][0]['source_url']
                         ?? null;
 
