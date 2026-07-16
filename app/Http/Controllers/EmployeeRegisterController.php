@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\EmployeeOtpMail;
+use App\Helpers\GraphMailer;
 use App\Models\OtpVerification;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\RateLimiter;
 
 class EmployeeRegisterController extends Controller
@@ -52,11 +51,12 @@ class EmployeeRegisterController extends Controller
             'used'       => false,
         ]);
 
-        try {
-            Mail::to($email)->send(new EmployeeOtpMail($otp));
-        } catch (\Exception $e) {
+        $html = view('emails.employee-otp', ['otp' => $otp])->render();
+        $sent = GraphMailer::send($email, 'Your Sprout Academy Verification Code', $html);
+
+        if (!$sent) {
             OtpVerification::where('email', $email)->delete();
-            return back()->withErrors(['email' => 'Failed to send verification email. Please try again later. Error: ' . $e->getMessage()])->withInput();
+            return back()->withErrors(['email' => 'Failed to send verification email. Please try again later.'])->withInput();
         }
 
         session(['signup_email' => $email]);
@@ -172,10 +172,11 @@ class EmployeeRegisterController extends Controller
             'used'       => false,
         ]);
 
-        try {
-            Mail::to($email)->send(new EmployeeOtpMail($otp));
-        } catch (\Exception $e) {
-            return back()->withErrors(['otp' => 'Failed to send email. Error: ' . $e->getMessage()]);
+        $html = view('emails.employee-otp', ['otp' => $otp])->render();
+        $sent = GraphMailer::send($email, 'Your Sprout Academy Verification Code', $html);
+
+        if (!$sent) {
+            return back()->withErrors(['otp' => 'Failed to send verification email. Please try again.']);
         }
 
         return back()->with('resent', 'A new verification code has been sent to your email.');
