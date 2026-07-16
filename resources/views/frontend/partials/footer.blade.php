@@ -78,7 +78,7 @@
             <div class="footer-col">
                 <h3 class="footer-title">Resources</h3>
                 <ul class="footer-links">
-                    <li><a href="{{ route('frontend.employeeForms') }}">Employee Portal</a></li>
+                    <li><a href="{{ route('frontend.employeeForms') }}">Employee Login</a></li>
                     <li><a href="{{ route('employee.signup') }}">Employee Sign Up</a></li>
                     <li><a href="{{ route('frontend.parentsForms') }}">Parent Forms</a></li>
                     <li><a href="{{ route('form.suggestion') }}">Suggestion Form</a></li>
