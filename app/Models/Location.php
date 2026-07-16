@@ -29,16 +29,6 @@ class Location extends Model
         'display_order' => 'integer',
     ];
 
-    public function getShowScheduleTourAttribute($value): bool
-    {
-        return $value === null ? true : (bool) $value;
-    }
-
-    public function getShowEnrollAttribute($value): bool
-    {
-        return $value === null ? true : (bool) $value;
-    }
-
     /**
      * Get active locations ordered by display order
      */

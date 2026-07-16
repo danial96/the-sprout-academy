@@ -106,7 +106,7 @@
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                     <div class="form-text">Address to be used for Google Maps embed</div>
-                    
+
                     {{-- Google Maps Preview --}}
                     <div class="mt-3" id="mapPreview" style="height: 300px; border: 1px solid #ddd; border-radius: 4px; overflow: hidden;">
                         @php
@@ -128,7 +128,7 @@
 
                 {{-- Home Page Image --}}
                 <div class="mb-4">
-                    <label class="form-label fw-semibold">Location Card Image</label>
+                    <label class="form-label"><strong>Location Card Image</strong></label>
                     <div class="row align-items-center">
                         <div class="col-md-4">
                             @if ($location->home_page_image)
@@ -149,27 +149,25 @@
                             @error('home_page_image')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
-                            <div class="form-text">Upload a new image to replace (JPG, PNG, GIF, WEBP — max 4MB)</div>
+                            <div class="form-text">Upload a new image (JPG, PNG, GIF, WEBP — max 4MB)</div>
                         </div>
                     </div>
                 </div>
 
                 {{-- Button Visibility --}}
                 <div class="mb-4">
-                    <label class="form-label fw-semibold">Homepage Card Buttons</label>
-                    <div class="d-flex gap-4">
+                    <label class="form-label"><strong>Homepage Card Buttons</strong></label>
+                    <div style="display:flex; gap:2rem;">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" id="show_schedule_tour"
-                                name="show_schedule_tour" value="1"
-                                {{ old('show_schedule_tour', $location->show_schedule_tour ?? true) ? 'checked' : '' }}>
+                                name="show_schedule_tour" value="1" checked>
                             <label class="form-check-label" for="show_schedule_tour">
                                 Show "Schedule a Tour" button
                             </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" id="show_enroll"
-                                name="show_enroll" value="1"
-                                {{ old('show_enroll', $location->show_enroll ?? true) ? 'checked' : '' }}>
+                                name="show_enroll" value="1" checked>
                             <label class="form-check-label" for="show_enroll">
                                 Show "Enroll" button
                             </label>
@@ -199,7 +197,7 @@
             function updateMapPreview() {
                 const addressInput = document.getElementById('google_maps_address');
                 const mapIframe = document.getElementById('mapIframe');
-                
+
                 if (addressInput && mapIframe) {
                     const address = encodeURIComponent(addressInput.value);
                     if (address) {
@@ -210,4 +208,3 @@
         </script>
     @endpush
 @endsection
-
