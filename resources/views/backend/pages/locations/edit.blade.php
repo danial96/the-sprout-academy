@@ -157,21 +157,12 @@
                 {{-- Button Visibility --}}
                 <div class="mb-4">
                     <label class="form-label"><strong>Homepage Card Buttons</strong></label>
-                    <div style="display:flex; gap:2rem;">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="show_schedule_tour"
-                                name="show_schedule_tour" value="1" checked>
-                            <label class="form-check-label" for="show_schedule_tour">
-                                Show "Schedule a Tour" button
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="show_enroll"
-                                name="show_enroll" value="1" checked>
-                            <label class="form-check-label" for="show_enroll">
-                                Show "Enroll" button
-                            </label>
-                        </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="show_enroll"
+                            name="show_enroll" value="1" checked>
+                        <label class="form-check-label" for="show_enroll">
+                            Show "Enroll" button
+                        </label>
                     </div>
                     <div class="form-text">Control which buttons appear on the homepage location card</div>
                 </div>
