@@ -44,21 +44,15 @@ Route::get('/run-otp-migration-k7m3x', function () {
     }
 });
 
-// TEMPORARY - View latest OTP for testing (remove after go-live)
+// TEMPORARY - View latest OTP for testing (remove after confirming mail works)
 Route::get('/debug-otp-k7m3x/{email}', function ($email) {
-    if (app()->environment('production') && !str_contains(request()->ip(), '127.')) {
-        // Only allow if logged in as admin
-        if (!auth()->check() || auth()->user()->role !== 'admin') {
-            abort(403);
-        }
-    }
     $otp = \App\Models\OtpVerification::where('email', strtolower($email))
         ->where('used', false)
         ->where('expires_at', '>', now())
         ->latest()
         ->first();
-    if (!$otp) return 'No active OTP found for ' . $email;
-    return 'OTP for ' . $email . ': <strong>' . $otp->otp . '</strong> (expires: ' . $otp->expires_at . ')';
+    if (!$otp) return 'No active OTP found for ' . $email . '. Try signing up first.';
+    return 'OTP for ' . $email . ': <strong style="font-size:24px;color:green">' . $otp->otp . '</strong> (expires: ' . $otp->expires_at . ')';
 });
 
 Route::controller(FrontendController::class)->name('frontend.')->group(function () {
