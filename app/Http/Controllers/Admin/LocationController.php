@@ -118,12 +118,8 @@ class LocationController extends Controller
         }
 
         $data['is_active'] = $request->has('is_active') ? true : false;
-
-        // show_schedule_tour / show_enroll saved only after migration runs
-        if (\Schema::hasColumn('locations', 'show_schedule_tour')) {
-            $data['show_schedule_tour'] = $request->has('show_schedule_tour') ? true : false;
-            $data['show_enroll'] = $request->has('show_enroll') ? true : false;
-        }
+        $data['show_schedule_tour'] = $request->has('show_schedule_tour') ? true : false;
+        $data['show_enroll'] = $request->has('show_enroll') ? true : false;
 
         $location->update($data);
 
