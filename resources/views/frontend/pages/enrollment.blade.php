@@ -25,10 +25,13 @@
                             'largo' => 'sch-img-5.png',
                         ];
                         $imageName = $locationImages[$location->slug] ?? 'sch-img-1.png';
+                        $cardImage = $location->home_page_image
+                            ? asset('uploads/locations/' . $location->home_page_image)
+                            : asset('frontend/assets/home_page_images/' . $imageName);
                     @endphp
                     <div class="location-card">
                         <div class="location-image-wrapper">
-                            <img src="{{ asset('frontend/assets/home_page_images/' . $imageName) }}"
+                            <img src="{{ $cardImage }}"
                                 alt="The Sprout Academy {{ $location->name }} location exterior" class="location-image"
                                 loading="lazy">
                         </div>
@@ -42,8 +45,15 @@
                             <div class="location-overlay-content">
                                 <h3 class="location-overlay-title">{{ strtoupper($location->name) }}</h3>
                                 <p class="location-overlay-address">{{ $location->address }}</p>
-                                <a href="{{ route('enrollment.start', ['location' => $location->slug, 'ref' => 'enroll']) }}"
-                                    class="btn btn-secondary">Enroll Your Child</a>
+                                <div class="location-overlay-buttons">
+                                    @if ($location->show_schedule_tour !== false)
+                                        <a href="{{ route('frontend.enroll') }}" class="btn btn-secondary">Schedule a Tour</a>
+                                    @endif
+                                    @if ($location->show_enroll !== false)
+                                        <a href="{{ route('enrollment.start', ['location' => $location->slug, 'ref' => 'enroll']) }}"
+                                            class="btn btn-enroll-overlay">Enroll</a>
+                                    @endif
+                                </div>
                             </div>
                         </div>
                     </div>
