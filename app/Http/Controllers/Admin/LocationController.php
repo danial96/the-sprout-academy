@@ -98,8 +98,6 @@ class LocationController extends Controller
             'google_maps_address' => ['required', 'string'],
             'home_page_image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:4096'],
             'is_active' => ['nullable', 'boolean'],
-            'show_schedule_tour' => ['nullable', 'boolean'],
-            'show_enroll' => ['nullable', 'boolean'],
         ]);
 
         if ($request->hasFile('home_page_image')) {
@@ -112,8 +110,12 @@ class LocationController extends Controller
         }
 
         $data['is_active'] = $request->has('is_active') ? true : false;
-        $data['show_schedule_tour'] = $request->has('show_schedule_tour') ? true : false;
-        $data['show_enroll'] = $request->has('show_enroll') ? true : false;
+
+        // show_schedule_tour / show_enroll saved only after migration runs
+        if (\Schema::hasColumn('locations', 'show_schedule_tour')) {
+            $data['show_schedule_tour'] = $request->has('show_schedule_tour') ? true : false;
+            $data['show_enroll'] = $request->has('show_enroll') ? true : false;
+        }
 
         $location->update($data);
 
