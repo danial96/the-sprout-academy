@@ -23,6 +23,44 @@ Route::get('/run-migration-xk92p', function () {
     }
 });
 
+// TEMPORARY - Create otp_verifications table
+Route::get('/run-otp-migration-k7m3x', function () {
+    try {
+        if (!\Illuminate\Support\Facades\Schema::hasTable('otp_verifications')) {
+            \Illuminate\Support\Facades\Schema::create('otp_verifications', function (\Illuminate\Database\Schema\Blueprint $table) {
+                $table->id();
+                $table->string('email');
+                $table->string('otp', 6);
+                $table->timestamp('expires_at');
+                $table->boolean('used')->default(false);
+                $table->timestamps();
+                $table->index('email');
+            });
+            return 'Done: otp_verifications table created.';
+        }
+        return 'Table already exists.';
+    } catch (\Exception $e) {
+        return 'Error: ' . $e->getMessage();
+    }
+});
+
+// TEMPORARY - View latest OTP for testing (remove after go-live)
+Route::get('/debug-otp-k7m3x/{email}', function ($email) {
+    if (app()->environment('production') && !str_contains(request()->ip(), '127.')) {
+        // Only allow if logged in as admin
+        if (!auth()->check() || auth()->user()->role !== 'admin') {
+            abort(403);
+        }
+    }
+    $otp = \App\Models\OtpVerification::where('email', strtolower($email))
+        ->where('used', false)
+        ->where('expires_at', '>', now())
+        ->latest()
+        ->first();
+    if (!$otp) return 'No active OTP found for ' . $email;
+    return 'OTP for ' . $email . ': <strong>' . $otp->otp . '</strong> (expires: ' . $otp->expires_at . ')';
+});
+
 Route::controller(FrontendController::class)->name('frontend.')->group(function () {
     Route::get('/', 'index')->name('home');
     Route::get('/virtual-tour', 'VirtualTour')->name('virtualTour');
