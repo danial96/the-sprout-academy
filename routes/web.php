@@ -5,6 +5,7 @@ use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\EmployeeRegisterController;
 
 
 
@@ -56,6 +57,17 @@ Route::controller(FrontendController::class)->name('frontend.')->group(function 
 // Employee Forms (Public - No Authentication Required)
 Route::get('/employee-forms', [FrontendController::class, 'EmployeeForms'])->name('frontend.employeeForms');
 Route::get('/employee-login', [FrontendController::class, 'EmployeeLoginForm'])->middleware('guest')->name('frontend.employeeLogin');
+
+// Employee Self-Registration (OTP flow)
+Route::middleware('guest')->group(function () {
+    Route::get('/employee-signup', [EmployeeRegisterController::class, 'showEmailForm'])->name('employee.signup');
+    Route::post('/employee-signup/send-otp', [EmployeeRegisterController::class, 'sendOtp'])->name('employee.signup.send-otp');
+    Route::get('/employee-signup/verify', [EmployeeRegisterController::class, 'showVerifyForm'])->name('employee.signup.verify');
+    Route::post('/employee-signup/verify', [EmployeeRegisterController::class, 'verifyOtp'])->name('employee.signup.verify');
+    Route::post('/employee-signup/resend', [EmployeeRegisterController::class, 'resendOtp'])->name('employee.signup.resend');
+    Route::get('/employee-signup/register', [EmployeeRegisterController::class, 'showRegisterForm'])->name('employee.signup.register');
+    Route::post('/employee-signup/register', [EmployeeRegisterController::class, 'register'])->name('employee.signup.register');
+});
 
 
 // Form Routes (Public - No Authentication Required)

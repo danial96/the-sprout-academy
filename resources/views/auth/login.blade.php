@@ -53,6 +53,11 @@
                 </form>
 
             </div>
+
+                <div style="text-align:center; margin-top:18px; font-size:14px; color:#666;">
+                    New employee? <a href="{{ route('employee.signup') }}" style="color:#007b9a; font-weight:600;">Create an Account</a>
+                </div>
+            </div>
         </div>
         </div>
 
