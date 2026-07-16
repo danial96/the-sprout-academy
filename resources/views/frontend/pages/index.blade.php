@@ -343,7 +343,7 @@
                         ];
                         $imageName = $locationImages[$location->slug] ?? 'sch-img-1.png';
                         $cardImage = $location->home_page_image
-                            ? asset('storage/' . $location->home_page_image)
+                            ? asset('uploads/locations/' . $location->home_page_image)
                             : asset('frontend/assets/home_page_images/' . $imageName);
                     @endphp
                     <div class="location-card">

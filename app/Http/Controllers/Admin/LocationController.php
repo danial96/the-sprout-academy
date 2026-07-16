@@ -102,11 +102,19 @@ class LocationController extends Controller
 
         if ($request->hasFile('home_page_image')) {
             if ($location->home_page_image) {
-                Storage::disk('public')->delete($location->home_page_image);
+                $oldPath = public_path('uploads/locations/' . $location->home_page_image);
+                if (file_exists($oldPath)) {
+                    unlink($oldPath);
+                }
             }
             $file = $request->file('home_page_image');
             $filename = Str::random(20) . '.' . $file->getClientOriginalExtension();
-            $data['home_page_image'] = $file->storeAs('locations/home-page', $filename, 'public');
+            $uploadDir = public_path('uploads/locations');
+            if (!file_exists($uploadDir)) {
+                mkdir($uploadDir, 0755, true);
+            }
+            $file->move($uploadDir, $filename);
+            $data['home_page_image'] = $filename;
         }
 
         $data['is_active'] = $request->has('is_active') ? true : false;

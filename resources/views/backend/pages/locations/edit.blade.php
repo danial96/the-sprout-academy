@@ -132,7 +132,7 @@
                     <div class="row align-items-center">
                         <div class="col-md-4">
                             @if ($location->home_page_image)
-                                <img src="{{ asset('storage/' . $location->home_page_image) }}"
+                                <img src="{{ asset('uploads/locations/' . $location->home_page_image) }}"
                                     alt="Current location image" class="img-thumbnail mb-2" style="max-height:160px;">
                                 <div class="form-text">Current image</div>
                             @else
