@@ -52,7 +52,12 @@ class EmployeeRegisterController extends Controller
             'used'       => false,
         ]);
 
-        Mail::to($email)->send(new EmployeeOtpMail($otp));
+        try {
+            Mail::to($email)->send(new EmployeeOtpMail($otp));
+        } catch (\Exception $e) {
+            OtpVerification::where('email', $email)->delete();
+            return back()->withErrors(['email' => 'Failed to send verification email. Please try again later. Error: ' . $e->getMessage()])->withInput();
+        }
 
         session(['signup_email' => $email]);
 
@@ -167,7 +172,11 @@ class EmployeeRegisterController extends Controller
             'used'       => false,
         ]);
 
-        Mail::to($email)->send(new EmployeeOtpMail($otp));
+        try {
+            Mail::to($email)->send(new EmployeeOtpMail($otp));
+        } catch (\Exception $e) {
+            return back()->withErrors(['otp' => 'Failed to send email. Error: ' . $e->getMessage()]);
+        }
 
         return back()->with('resent', 'A new verification code has been sent to your email.');
     }
