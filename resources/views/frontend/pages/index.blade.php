@@ -363,10 +363,10 @@
                                 <h3 class="location-overlay-title">{{ strtoupper($location->name) }}</h3>
                                 <p class="location-overlay-address">{{ $location->address }}</p>
                                 <div class="location-overlay-buttons">
-                                    @if ($location->show_schedule_tour !== false)
+                                    @if ($location->show_schedule_tour === null || $location->show_schedule_tour == 1)
                                         <a href="{{ route('frontend.enroll') }}" class="btn btn-secondary">Schedule a Tour</a>
                                     @endif
-                                    @if ($location->show_enroll !== false)
+                                    @if ($location->show_enroll === null || $location->show_enroll == 1)
                                         <a href="{{ route('frontend.enroll') }}" class="btn btn-enroll-overlay">Enroll</a>
                                     @endif
                                 </div>
