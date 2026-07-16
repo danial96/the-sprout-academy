@@ -6,6 +6,8 @@ use App\Models\Location;
 use Illuminate\Http\Request;
 use App\Models\ChildAbsent;
 use App\Models\ChildAbsentForm;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
@@ -16,8 +18,48 @@ class FrontendController extends Controller
 {
     public function index()
     {
-        $locations = Location::active()->get();
-        return view('frontend.pages.index', compact('locations'));
+        $locations  = Location::active()->get();
+        $sproutvineNews = $this->fetchSproutvineNews();
+        return view('frontend.pages.index', compact('locations', 'sproutvineNews'));
+    }
+
+    private function fetchSproutvineNews(): array
+    {
+        return Cache::remember('sproutvine_news', 3600, function () {
+            try {
+                $response = Http::timeout(5)->get('https://sproutvine.com/wp-json/wp/v2/posts', [
+                    'per_page' => 4,
+                    '_embed'   => true,
+                    'status'   => 'publish',
+                ]);
+
+                if (!$response->successful()) {
+                    return [];
+                }
+
+                return collect($response->json())->map(function ($post) {
+                    $image = $post['_embedded']['wp:featuredmedia'][0]['media_details']['sizes']['medium']['source_url']
+                        ?? $post['_embedded']['wp:featuredmedia'][0]['source_url']
+                        ?? null;
+
+                    $comments = $post['_embedded']['replies'][0] ?? [];
+
+                    return [
+                        'title'    => strtoupper(html_entity_decode(strip_tags($post['title']['rendered']), ENT_QUOTES)),
+                        'excerpt'  => html_entity_decode(strip_tags($post['excerpt']['rendered']), ENT_QUOTES),
+                        'image'    => $image,
+                        'date'     => \Carbon\Carbon::parse($post['date'])->format('F j, Y'),
+                        'url'      => $post['link'],
+                        'comments' => is_array($comments) ? count($comments) : 0,
+                        'views'    => 0,
+                    ];
+                })->values()->all();
+
+            } catch (\Exception $e) {
+                Log::warning('SproutVine API fetch failed: ' . $e->getMessage());
+                return [];
+            }
+        });
     }
 
     public function Parents()

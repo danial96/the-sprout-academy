@@ -380,7 +380,15 @@
     </section>
 
     <!-- Sproutvine NEWS Section (before footer) -->
-    @include('frontend.components.sproutvine-news')
+    @if (!empty($sproutvineNews))
+        @php
+            $featured     = $sproutvineNews[0];
+            $sideArticles = array_slice($sproutvineNews, 1, 3);
+        @endphp
+        @include('frontend.components.sproutvine-news', compact('featured', 'sideArticles'))
+    @else
+        @include('frontend.components.sproutvine-news')
+    @endif
 
 @endsection
 
