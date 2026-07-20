@@ -2474,7 +2474,7 @@ body.page-employeeLogin button#submitBtn {
 }
 
 .location-slide-name {
-    font-size: 26px;
+    font-size: 40px;
     font-weight: 900;
     color: #fff;
     letter-spacing: 1px;
@@ -2484,7 +2484,7 @@ body.page-employeeLogin button#submitBtn {
 
 .location-slide-address {
     color: #fff;
-    font-size: 14px;
+    font-size: 26px;
     display: flex;
     align-items: center;
     gap: 12px;
@@ -2513,7 +2513,7 @@ body.page-employeeLogin button#submitBtn {
     padding: 12px 28px;
     border-radius: 30px;
     font-weight: 700;
-    font-size: 14px;
+    font-size: 18px;
     white-space: nowrap;
     text-decoration: none;
     transition: background 0.2s;
