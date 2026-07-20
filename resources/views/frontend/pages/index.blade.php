@@ -412,11 +412,20 @@
         var current = 0;
         var dots    = document.querySelectorAll('.locations-slider-dots button');
 
+        var slideWidth = slides[0].offsetWidth;
+
         function goTo(n) {
             current = (n + total) % total;
-            track.style.transform = 'translateX(-' + (current * 100) + '%)';
+            slideWidth = slides[0].offsetWidth;
+            track.style.transform = 'translateX(-' + (current * slideWidth) + 'px)';
+            slides.forEach(function (s, i) { s.classList.toggle('active', i === current); });
             dots.forEach(function (d, i) { d.classList.toggle('active', i === current); });
         }
+
+        window.addEventListener('resize', function () { goTo(current); });
+
+        // Set first slide active
+        slides[0].classList.add('active');
 
         document.querySelector('.locations-slider-arrow.prev').addEventListener('click', function () { goTo(current - 1); });
         document.querySelector('.locations-slider-arrow.next').addEventListener('click', function () { goTo(current + 1); });

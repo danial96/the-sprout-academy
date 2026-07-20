@@ -2417,6 +2417,9 @@ body.page-employeeLogin button#submitBtn {
     position: relative;
     overflow: hidden;
     border-radius: 16px;
+    /* show ~80px of prev/next slides on each side */
+    margin: 0 -80px;
+    padding: 0 80px;
 }
 
 .locations-slider-track {
@@ -2426,8 +2429,15 @@ body.page-employeeLogin button#submitBtn {
 
 .location-slide {
     position: relative;
-    min-width: 100%;
+    min-width: calc(100% - 160px);
     flex-shrink: 0;
+    margin: 0 0;
+    transition: opacity 0.4s ease;
+    opacity: 0.45;
+}
+
+.location-slide.active {
+    opacity: 1;
 }
 
 .location-slide-img {
