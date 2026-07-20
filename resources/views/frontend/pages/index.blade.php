@@ -486,12 +486,12 @@
         });
 
         // Auto-play every 5 seconds
-        var timer = setInterval(function () { goTo(1); }, 5000);
+        var timer = setInterval(function () { goTo(1); }, 15000);
         var wrapper = document.querySelector('.locations-slider-wrapper');
         wrapper.addEventListener('mouseenter', function () { clearInterval(timer); });
         wrapper.addEventListener('mouseleave', function () {
             clearInterval(timer);
-            timer = setInterval(function () { goTo(1); }, 5000);
+            timer = setInterval(function () { goTo(1); }, 15000);
         });
 
         // Touch swipe

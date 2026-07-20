@@ -2484,12 +2484,12 @@ body.page-employeeLogin button#submitBtn {
 
 .location-slide-address {
     color: #fff;
-    font-size: 26px;
+    font-size: 18px;
     display: flex;
     align-items: center;
     gap: 12px;
     justify-self: center;
-    max-width: 260px;
+    max-width: 220px;
     line-height: 1.4;
 }
 
