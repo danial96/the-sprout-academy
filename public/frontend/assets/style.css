@@ -2434,18 +2434,18 @@ body.page-employeeLogin button#submitBtn {
 
 /* Each slide is narrower than the wrapper — the gap on each side = peek of adjacent slides */
 .location-slide {
-    flex: 0 0 calc(100% - 100px); /* 50px peek on each side */
+    flex: 0 0 calc(100% - 180px); /* 90px peek on each side */
     min-width: 0;
     flex-shrink: 0;
     padding: 0 10px;
     box-sizing: border-box;
     transition: opacity 0.5s ease;
-    opacity: 0.35;
+    opacity: 0.5;
 }
 
 .location-slide.active {
     opacity: 1;
-    padding: 0 30px;
+    padding: 0 90px;
 }
 
 .location-slide-inner {
