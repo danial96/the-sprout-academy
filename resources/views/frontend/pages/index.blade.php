@@ -329,42 +329,61 @@
                 <h2 id="locations-heading" class="section-title">SPOTS ARE LIMITED!</h2>
                 <p class="locations-subtitle">Schools fill up quickly. Enroll today!</p>
             </div>
-        </div>
 
-        <div class="locations-slider-wrapper">
-            <div class="locations-slider">
-                @forelse ($locations as $location)
-                    @php
-                        $locationImages = [
-                            'seminole'      => 'sch-img-1.png',
-                            'st-petersburg' => 'sch-img-2.png',
-                            'pinellas-park' => 'sch-img-3.png',
-                            'montessori'    => 'sch-img-4.png',
-                            'largo'         => 'sch-img-5.png',
-                        ];
-                        $imageName = $locationImages[$location->slug] ?? 'sch-img-1.png';
-                        $cardImage = $location->home_page_image
-                            ? asset('uploads/locations/' . $location->home_page_image)
-                            : asset('frontend/assets/home_page_images/' . $imageName);
-                    @endphp
-                    <div class="location-slide">
-                        <img src="{{ $cardImage }}"
-                            alt="The Sprout Academy {{ $location->name }}"
-                            class="location-slide-img" loading="lazy">
-                        <div class="location-slide-bar">
-                            <span class="location-slide-name">{{ strtoupper($location->name) }}</span>
-                            <span class="location-slide-address">
-                                <i class="fas fa-map-marker-alt"></i>
-                                {{ $location->address }}
-                            </span>
-                            @if ($location->show_enroll === null || $location->show_enroll == 1)
-                                <a href="{{ route('frontend.enroll') }}" class="btn location-slide-btn">Enroll Now &raquo;</a>
-                            @endif
-                        </div>
+            <div class="locations-slider-wrapper">
+                {{-- Prev Arrow --}}
+                <button class="locations-slider-arrow prev" aria-label="Previous location">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+
+                <div class="locations-slider-track-outer">
+                    <div class="locations-slider-track">
+                        @forelse ($locations as $location)
+                            @php
+                                $locationImages = [
+                                    'seminole'      => 'sch-img-1.png',
+                                    'st-petersburg' => 'sch-img-2.png',
+                                    'pinellas-park' => 'sch-img-3.png',
+                                    'montessori'    => 'sch-img-4.png',
+                                    'largo'         => 'sch-img-5.png',
+                                ];
+                                $imageName = $locationImages[$location->slug] ?? 'sch-img-1.png';
+                                $cardImage = $location->home_page_image
+                                    ? asset('uploads/locations/' . $location->home_page_image)
+                                    : asset('frontend/assets/home_page_images/' . $imageName);
+                            @endphp
+                            <div class="location-slide">
+                                <img src="{{ $cardImage }}"
+                                    alt="The Sprout Academy {{ $location->name }}"
+                                    class="location-slide-img" loading="lazy">
+                                <div class="location-slide-bar">
+                                    <span class="location-slide-name">{{ strtoupper($location->name) }}</span>
+                                    <span class="location-slide-address">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        {{ $location->address }}
+                                    </span>
+                                    @if ($location->show_enroll === null || $location->show_enroll == 1)
+                                        <a href="{{ route('frontend.enroll') }}" class="btn location-slide-btn">Enroll Now &raquo;</a>
+                                    @endif
+                                </div>
+                            </div>
+                        @empty
+                            <p class="text-center py-5">No locations available.</p>
+                        @endforelse
                     </div>
-                @empty
-                    <div class="text-center py-5"><p>No locations available.</p></div>
-                @endforelse
+                </div>
+
+                {{-- Next Arrow --}}
+                <button class="locations-slider-arrow next" aria-label="Next location">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+
+            {{-- Dots --}}
+            <div class="locations-slider-dots">
+                @foreach ($locations as $i => $location)
+                    <button class="{{ $i === 0 ? 'active' : '' }}" aria-label="Go to slide {{ $i + 1 }}"></button>
+                @endforeach
             </div>
         </div>
     </section>
@@ -385,51 +404,28 @@
 @push('scripts')
     <script>
     (function () {
-        var slider = document.querySelector('.locations-slider');
-        if (!slider) return;
-
-        var slides = slider.querySelectorAll('.location-slide');
+        var track  = document.querySelector('.locations-slider-track');
+        if (!track) return;
+        var slides = track.querySelectorAll('.location-slide');
         if (slides.length < 2) return;
 
+        var total   = slides.length;
         var current = 0;
-        var total = slides.length;
-
-        // Build arrows
-        var wrapper = slider.closest('.locations-slider-wrapper');
-        var prev = document.createElement('button');
-        prev.className = 'locations-slider-arrow prev';
-        prev.innerHTML = '<i class="fas fa-chevron-left"></i>';
-        var next = document.createElement('button');
-        next.className = 'locations-slider-arrow next';
-        next.innerHTML = '<i class="fas fa-chevron-right"></i>';
-        wrapper.appendChild(prev);
-        wrapper.appendChild(next);
-
-        // Build dots
-        var dotsWrap = document.createElement('div');
-        dotsWrap.className = 'locations-slider-dots';
-        var dots = [];
-        for (var i = 0; i < total; i++) {
-            var btn = document.createElement('button');
-            btn.setAttribute('aria-label', 'Go to slide ' + (i + 1));
-            dotsWrap.appendChild(btn);
-            dots.push(btn);
-        }
-        wrapper.after(dotsWrap);
+        var dots    = document.querySelectorAll('.locations-slider-dots button');
 
         function goTo(n) {
             current = (n + total) % total;
-            slider.scrollTo({ left: current * slider.offsetWidth, behavior: 'smooth' });
+            track.style.transform = 'translateX(-' + (current * 100) + '%)';
             dots.forEach(function (d, i) { d.classList.toggle('active', i === current); });
         }
 
-        dots[0].classList.add('active');
-        prev.addEventListener('click', function () { goTo(current - 1); });
-        next.addEventListener('click', function () { goTo(current + 1); });
+        document.querySelector('.locations-slider-arrow.prev').addEventListener('click', function () { goTo(current - 1); });
+        document.querySelector('.locations-slider-arrow.next').addEventListener('click', function () { goTo(current + 1); });
         dots.forEach(function (d, i) { d.addEventListener('click', function () { goTo(i); }); });
 
-        // Auto-play every 4s
+        // Auto-play
         var timer = setInterval(function () { goTo(current + 1); }, 4000);
+        var wrapper = document.querySelector('.locations-slider-wrapper');
         wrapper.addEventListener('mouseenter', function () { clearInterval(timer); });
         wrapper.addEventListener('mouseleave', function () {
             timer = setInterval(function () { goTo(current + 1); }, 4000);
@@ -437,14 +433,10 @@
 
         // Touch swipe
         var startX = 0;
-        slider.addEventListener('touchstart', function (e) { startX = e.touches[0].clientX; }, { passive: true });
-        slider.addEventListener('touchend', function (e) {
+        track.addEventListener('touchstart', function (e) { startX = e.touches[0].clientX; }, { passive: true });
+        track.addEventListener('touchend', function (e) {
             var diff = startX - e.changedTouches[0].clientX;
             if (Math.abs(diff) > 50) goTo(diff > 0 ? current + 1 : current - 1);
-        });
-
-        window.addEventListener('resize', function () {
-            slider.scrollTo({ left: current * slider.offsetWidth, behavior: 'auto' });
         });
     })();
     </script>
