@@ -2445,7 +2445,7 @@ body.page-employeeLogin button#submitBtn {
 
 .location-slide.active {
     opacity: 1;
-    padding: 0 8px;
+    padding: 0 100px;
 }
 
 .location-slide-inner {
