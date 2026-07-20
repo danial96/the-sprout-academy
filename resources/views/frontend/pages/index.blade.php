@@ -333,13 +333,6 @@
 
         {{-- Full-width slider outside container --}}
         <div class="locations-slider-wrapper">
-            <button class="locations-slider-arrow prev" aria-label="Previous location">
-                <i class="fas fa-chevron-left"></i>
-            </button>
-            <button class="locations-slider-arrow next" aria-label="Next location">
-                <i class="fas fa-chevron-right"></i>
-            </button>
-
             <div class="locations-slider-track-outer">
                     <div class="locations-slider-track">
                         @forelse ($locations as $location)
@@ -380,11 +373,19 @@
             </div>{{-- /.locations-slider-track-outer --}}
         </div>{{-- /.locations-slider-wrapper --}}
 
-        {{-- Dots --}}
-        <div class="locations-slider-dots">
-            @foreach ($locations as $i => $location)
-                <button class="{{ $i === 0 ? 'active' : '' }}" aria-label="Go to slide {{ $i + 1 }}"></button>
-            @endforeach
+        {{-- Dots + Arrows pill --}}
+        <div class="locations-slider-nav">
+            <button class="locations-slider-arrow prev" aria-label="Previous location">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="locations-slider-dots">
+                @foreach ($locations as $i => $location)
+                    <button class="{{ $i === 0 ? 'active' : '' }}" aria-label="Go to slide {{ $i + 1 }}"></button>
+                @endforeach
+            </div>
+            <button class="locations-slider-arrow next" aria-label="Next location">
+                <i class="fas fa-chevron-right"></i>
+            </button>
         </div>
     </section>
 
