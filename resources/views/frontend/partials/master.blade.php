@@ -38,7 +38,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ asset('frontend/assets/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/assets/style.css') }}?v={{ filemtime(public_path('frontend/assets/style.css')) }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/forms-style.css') }}">
 
     @stack('styles')
