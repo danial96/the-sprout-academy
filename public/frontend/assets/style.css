@@ -2440,6 +2440,7 @@ body.page-employeeLogin button#submitBtn {
 
 .location-slide.active {
     opacity: 1;
+    padding: 0 100px;
 }
 
 /* Card: image fills full card, bar overlays bottom */
