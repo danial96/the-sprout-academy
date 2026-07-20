@@ -2408,6 +2408,7 @@ body.page-employeeLogin button#submitBtn {
     padding-bottom: 80px;
     background: #fff;
     padding-top: 60px;
+    overflow: hidden;
 }
 
 .locations-slider-section .locations-header {
@@ -2420,6 +2421,7 @@ body.page-employeeLogin button#submitBtn {
     width: 100%;
     overflow: hidden;
     padding: 10px 0 20px;
+    max-width: 100%;
 }
 
 .locations-slider-track-outer {
