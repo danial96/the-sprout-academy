@@ -2436,10 +2436,10 @@ body.page-employeeLogin button#submitBtn {
 
 /* Each slide is narrower than the wrapper — the gap on each side = peek of adjacent slides */
 .location-slide {
-    flex: 0 0 calc(100% - 220px); /* 110px gap each side = peek of inactive slides */
+    flex: 0 0 100%;
     min-width: 0;
     flex-shrink: 0;
-    padding: 0 15px;
+    padding: 0 80px; /* inactive peek padding */
     box-sizing: border-box;
     transition: opacity 0.5s ease;
     opacity: 0.5;
@@ -2447,6 +2447,7 @@ body.page-employeeLogin button#submitBtn {
 
 .location-slide.active {
     opacity: 1;
+    padding: 0 120px; /* wider padding on active for breathing room */
 }
 
 .location-slide-inner {
@@ -2466,10 +2467,6 @@ body.page-employeeLogin button#submitBtn {
 }
 
 .location-slide-bar {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
     background: #e09b10;
     display: flex;
     align-items: center;
