@@ -2578,8 +2578,8 @@ body.page-employeeLogin button#submitBtn {
 }
 
 .locations-slider-dots button.active {
-    background: var(--color-seagreen);
-    border-color: var(--color-seagreen);
+    background: #59BA41;
+    border-color: #59BA41;
 }
 
 @media (max-width: 900px) {
