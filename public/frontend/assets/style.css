@@ -2410,14 +2410,11 @@ body.page-employeeLogin button#submitBtn {
 
 .locations-slider-wrapper {
     position: relative;
-    display: flex;
-    align-items: center;
-    gap: 0;
     margin-top: 40px;
 }
 
 .locations-slider-track-outer {
-    flex: 1;
+    position: relative;
     overflow: hidden;
     border-radius: 16px;
 }
@@ -2494,9 +2491,12 @@ body.page-employeeLogin button#submitBtn {
     color: #fff;
 }
 
-/* Arrow buttons */
+/* Arrow buttons — absolute over the image */
 .locations-slider-arrow {
-    background: rgba(255,255,255,0.9);
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.88);
     border: none;
     width: 42px;
     height: 42px;
@@ -2509,13 +2509,12 @@ body.page-employeeLogin button#submitBtn {
     justify-content: center;
     color: var(--color-dark-blue);
     transition: background 0.2s;
-    flex-shrink: 0;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.18);
 }
 
 .locations-slider-arrow:hover { background: #fff; }
-.locations-slider-arrow.prev { margin-right: 14px; }
-.locations-slider-arrow.next { margin-left: 14px; }
+.locations-slider-arrow.prev { left: 16px; }
+.locations-slider-arrow.next { right: 16px; }
 
 /* Dots */
 .locations-slider-dots {

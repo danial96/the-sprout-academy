@@ -331,12 +331,15 @@
             </div>
 
             <div class="locations-slider-wrapper">
-                {{-- Prev Arrow --}}
-                <button class="locations-slider-arrow prev" aria-label="Previous location">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-
                 <div class="locations-slider-track-outer">
+                    {{-- Arrows inside the image --}}
+                    <button class="locations-slider-arrow prev" aria-label="Previous location">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="locations-slider-arrow next" aria-label="Next location">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+
                     <div class="locations-slider-track">
                         @forelse ($locations as $location)
                             @php
@@ -371,12 +374,8 @@
                             <p class="text-center py-5">No locations available.</p>
                         @endforelse
                     </div>
+                    </div>
                 </div>
-
-                {{-- Next Arrow --}}
-                <button class="locations-slider-arrow next" aria-label="Next location">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
             </div>
 
             {{-- Dots --}}
