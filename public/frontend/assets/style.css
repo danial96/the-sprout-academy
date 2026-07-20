@@ -2434,7 +2434,7 @@ body.page-employeeLogin button#submitBtn {
 
 /* Each slide is narrower than the wrapper — the gap on each side = peek of adjacent slides */
 .location-slide {
-    flex: 0 0 calc(100% - 200px); /* 100px peek on each side */
+    flex: 0 0 calc(100% - 100px); /* 50px peek on each side */
     min-width: 0;
     flex-shrink: 0;
     padding: 0 10px;
@@ -2455,7 +2455,7 @@ body.page-employeeLogin button#submitBtn {
 
 .location-slide-img {
     width: 100%;
-    height: 420px;
+    height: 520px;
     object-fit: cover;
     display: block;
 }
