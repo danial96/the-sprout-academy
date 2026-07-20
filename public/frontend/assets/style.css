@@ -2468,11 +2468,11 @@ body.page-employeeLogin button#submitBtn {
 
 .location-slide-bar {
     background: #e09b10;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    gap: 20px;
     padding: 18px 28px;
-    flex-wrap: wrap;
+    gap: 16px;
 }
 
 .location-slide-name {
@@ -2481,8 +2481,8 @@ body.page-employeeLogin button#submitBtn {
     color: #fff;
     letter-spacing: 1px;
     white-space: nowrap;
-    min-width: 130px;
     text-transform: uppercase;
+    justify-self: start;
 }
 
 .location-slide-address {
@@ -2491,7 +2491,8 @@ body.page-employeeLogin button#submitBtn {
     display: flex;
     align-items: center;
     gap: 10px;
-    flex: 1;
+    justify-self: center;
+    text-align: center;
 }
 
 .location-slide-address .loc-pin-icon {
@@ -2518,7 +2519,7 @@ body.page-employeeLogin button#submitBtn {
     white-space: nowrap;
     text-decoration: none;
     transition: background 0.2s;
-    margin-left: auto;
+    justify-self: end;
 }
 
 .location-slide-btn:hover {
