@@ -2453,6 +2453,7 @@ body.page-employeeLogin button#submitBtn {
     border-radius: 14px;
     overflow: hidden;
     box-shadow: 0 4px 28px rgba(0,0,0,0.15);
+    position: relative;
 }
 
 .location-slide-img {
@@ -2465,6 +2466,10 @@ body.page-employeeLogin button#submitBtn {
 }
 
 .location-slide-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
     background: #e09b10;
     display: flex;
     align-items: center;
