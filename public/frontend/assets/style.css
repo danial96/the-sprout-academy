@@ -2482,6 +2482,9 @@ body.page-employeeLogin button#submitBtn {
     align-items: center;
     gap: 12px;
     justify-self: center;
+    max-width: 240px;
+    line-height: 1.5;
+    word-break: break-word;
 }
 
 .location-slide-address .loc-pin-icon {
