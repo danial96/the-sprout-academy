@@ -329,17 +329,18 @@
                 <h2 id="locations-heading" class="section-title">SPOTS ARE LIMITED!</h2>
                 <p class="locations-subtitle">Schools fill up quickly. Enroll today!</p>
             </div>
+        </div>
 
-            <div class="locations-slider-wrapper">
-                <div class="locations-slider-track-outer">
-                    {{-- Arrows inside the image --}}
-                    <button class="locations-slider-arrow prev" aria-label="Previous location">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button class="locations-slider-arrow next" aria-label="Next location">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
+        {{-- Full-width slider outside container --}}
+        <div class="locations-slider-wrapper">
+            <button class="locations-slider-arrow prev" aria-label="Previous location">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="locations-slider-arrow next" aria-label="Next location">
+                <i class="fas fa-chevron-right"></i>
+            </button>
 
+            <div class="locations-slider-track-outer">
                     <div class="locations-slider-track">
                         @forelse ($locations as $location)
                             @php
@@ -375,17 +376,15 @@
                         @empty
                             <p class="text-center py-5">No locations available.</p>
                         @endforelse
-                    </div>
-                    </div>
-                </div>
-            </div>
+                    </div>{{-- /.locations-slider-track --}}
+            </div>{{-- /.locations-slider-track-outer --}}
+        </div>{{-- /.locations-slider-wrapper --}}
 
-            {{-- Dots --}}
-            <div class="locations-slider-dots">
-                @foreach ($locations as $i => $location)
-                    <button class="{{ $i === 0 ? 'active' : '' }}" aria-label="Go to slide {{ $i + 1 }}"></button>
-                @endforeach
-            </div>
+        {{-- Dots --}}
+        <div class="locations-slider-dots">
+            @foreach ($locations as $i => $location)
+                <button class="{{ $i === 0 ? 'active' : '' }}" aria-label="Go to slide {{ $i + 1 }}"></button>
+            @endforeach
         </div>
     </section>
 
@@ -428,6 +427,11 @@
 
         function getSlideWidth() { return allSlides[0].offsetWidth; }
 
+        function getPeekOffset() {
+            var wrapperEl = document.querySelector('.locations-slider-wrapper');
+            return (wrapperEl.offsetWidth - allSlides[0].offsetWidth) / 2;
+        }
+
         function updateDots(realIndex) {
             dots.forEach(function (d, i) { d.classList.toggle('active', i === realIndex); });
         }
@@ -438,7 +442,8 @@
 
         function moveTo(idx, animate) {
             track.style.transition = animate === false ? 'none' : 'transform 0.8s cubic-bezier(0.45, 0, 0.55, 1)';
-            track.style.transform  = 'translateX(-' + (idx * getSlideWidth()) + 'px)';
+            var offset = getPeekOffset() - (idx * getSlideWidth());
+            track.style.transform  = 'translateX(' + offset + 'px)';
             updateActive(idx);
         }
 
