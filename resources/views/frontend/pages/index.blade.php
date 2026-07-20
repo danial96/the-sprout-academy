@@ -356,18 +356,20 @@
                                     : asset('frontend/assets/home_page_images/' . $imageName);
                             @endphp
                             <div class="location-slide">
-                                <img src="{{ $cardImage }}"
-                                    alt="The Sprout Academy {{ $location->name }}"
-                                    class="location-slide-img" loading="lazy">
-                                <div class="location-slide-bar">
-                                    <span class="location-slide-name">{{ strtoupper($location->name) }}</span>
-                                    <span class="location-slide-address">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                        {{ $location->address }}
-                                    </span>
-                                    @if ($location->show_enroll === null || $location->show_enroll == 1)
-                                        <a href="{{ route('frontend.enroll') }}" class="btn location-slide-btn">Enroll Now &raquo;</a>
-                                    @endif
+                                <div class="location-slide-inner">
+                                    <img src="{{ $cardImage }}"
+                                        alt="The Sprout Academy {{ $location->name }}"
+                                        class="location-slide-img" loading="lazy">
+                                    <div class="location-slide-bar">
+                                        <span class="location-slide-name">{{ strtoupper($location->name) }}</span>
+                                        <span class="location-slide-address">
+                                            <span class="loc-pin-icon"><i class="fas fa-map-marker-alt"></i></span>
+                                            {{ $location->address }}
+                                        </span>
+                                        @if ($location->show_enroll === null || $location->show_enroll == 1)
+                                            <a href="{{ route('frontend.enroll') }}" class="btn location-slide-btn">Enroll Now &raquo;</a>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                         @empty
