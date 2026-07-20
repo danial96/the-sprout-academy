@@ -2415,17 +2415,11 @@ body.page-employeeLogin button#submitBtn {
     padding-bottom: 30px;
 }
 
-/* Wrapper: full width, clips the peek slides to viewport edges */
 .locations-slider-wrapper {
     position: relative;
     width: 100%;
     overflow: hidden;
     padding: 10px 0 20px;
-    max-width: 100%;
-}
-
-.locations-slider-track-outer {
-    /* no overflow override — wrapper clips it */
 }
 
 .locations-slider-track {
@@ -2434,45 +2428,42 @@ body.page-employeeLogin button#submitBtn {
     transition: transform 0.8s cubic-bezier(0.45, 0, 0.55, 1);
 }
 
-/* Each slide is narrower than the wrapper — the gap on each side = peek of adjacent slides */
+/* Slide: narrower than wrapper so adjacent slides peek on both sides */
 .location-slide {
-    flex: 0 0 100%;
-    min-width: 0;
+    flex: 0 0 calc(100% - 160px);
     flex-shrink: 0;
-    padding: 0 80px; /* inactive peek padding */
+    padding: 0 12px;
     box-sizing: border-box;
     transition: opacity 0.5s ease;
-    opacity: 0.5;
+    opacity: 0.45;
 }
 
 .location-slide.active {
     opacity: 1;
-    padding: 0 120px; /* wider padding on active for breathing room */
 }
 
+/* Card: image stacked above bar, rounded corners clip both */
 .location-slide-inner {
-    border-radius: 14px;
+    border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 4px 28px rgba(0,0,0,0.15);
-    position: relative;
+    box-shadow: 0 6px 30px rgba(0,0,0,0.15);
 }
 
 .location-slide-img {
     width: 100%;
-    height: 616px;
-    max-height: 55vw;
-    min-height: 220px;
+    height: 500px;
     object-fit: cover;
     display: block;
 }
 
+/* Bar: 3-column grid — name | address+icon | button */
 .location-slide-bar {
     background: #e09b10;
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    padding: 18px 28px;
-    gap: 16px;
+    padding: 20px 30px;
+    gap: 20px;
 }
 
 .location-slide-name {
@@ -2480,9 +2471,8 @@ body.page-employeeLogin button#submitBtn {
     font-weight: 800;
     color: #fff;
     letter-spacing: 1px;
-    white-space: nowrap;
     text-transform: uppercase;
-    justify-self: start;
+    white-space: nowrap;
 }
 
 .location-slide-address {
@@ -2490,29 +2480,28 @@ body.page-employeeLogin button#submitBtn {
     font-size: 14px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     justify-self: center;
-    text-align: center;
 }
 
 .location-slide-address .loc-pin-icon {
     background: #fff;
     color: #e09b10;
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    font-size: 14px;
+    font-size: 15px;
 }
 
 .location-slide-btn {
     background: var(--color-seagreen);
     color: #fff;
     border: none;
-    padding: 11px 26px;
+    padding: 12px 28px;
     border-radius: 30px;
     font-weight: 700;
     font-size: 14px;
@@ -2520,6 +2509,7 @@ body.page-employeeLogin button#submitBtn {
     text-decoration: none;
     transition: background 0.2s;
     justify-self: end;
+    display: inline-block;
 }
 
 .location-slide-btn:hover {
@@ -2527,7 +2517,7 @@ body.page-employeeLogin button#submitBtn {
     color: #fff;
 }
 
-/* Nav pill: arrows + dots in one pill below slider */
+/* Nav pill: arrows + dots in one pill */
 .locations-slider-nav {
     display: inline-flex;
     align-items: center;
@@ -2539,23 +2529,22 @@ body.page-employeeLogin button#submitBtn {
     position: relative;
     left: 50%;
     transform: translateX(-50%);
-    margin-top: 22px;
+    margin-top: 24px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.07);
 }
 
-/* Arrow buttons inside the pill */
 .locations-slider-arrow {
     background: none;
     border: none;
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
     font-size: 13px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #555;
+    color: #666;
     padding: 0;
     transition: color 0.2s;
     flex-shrink: 0;
@@ -2563,7 +2552,6 @@ body.page-employeeLogin button#submitBtn {
 
 .locations-slider-arrow:hover { color: var(--color-seagreen); }
 
-/* Dots */
 .locations-slider-dots {
     display: flex;
     align-items: center;
@@ -2588,15 +2576,16 @@ body.page-employeeLogin button#submitBtn {
 
 @media (max-width: 900px) {
     .location-slide { flex: 0 0 calc(100% - 80px); }
+    .location-slide-img { height: 360px; }
 }
 
 @media (max-width: 600px) {
-    .location-slide { flex: 0 0 calc(100% - 40px); padding: 0 4px; }
-    .location-slide.active { padding: 0 4px; }
-    .location-slide-bar { padding: 12px 14px; gap: 8px; }
-    .location-slide-name { font-size: 14px; min-width: unset; }
-    .location-slide-address { font-size: 11px; }
-    .location-slide-btn { margin-left: 0; padding: 7px 12px; font-size: 11px; }
+    .location-slide { flex: 0 0 calc(100% - 30px); padding: 0 6px; }
+    .location-slide-img { height: 220px; }
+    .location-slide-bar { padding: 12px 14px; gap: 8px; grid-template-columns: auto 1fr auto; }
+    .location-slide-name { font-size: 13px; }
+    .location-slide-address { font-size: 11px; justify-self: start; }
+    .location-slide-btn { padding: 8px 14px; font-size: 12px; }
 }
 
 .locations-subtitle {
