@@ -2447,7 +2447,7 @@ body.page-employeeLogin button#submitBtn {
 .location-slide-inner {
     border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 6px 30px rgba(0,0,0,0.15);
+    box-shadow: none;
     position: relative;
 }
 
@@ -2456,21 +2456,24 @@ body.page-employeeLogin button#submitBtn {
     height: 616px;
     object-fit: cover;
     display: block;
+    border-radius: 16px;
 }
 
-/* Bar: absolute at bottom, inset from edges, overlaps image */
 .location-slide-bar {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    right: 20px;
+    position: relative;
+    bottom: 0;
+    left: 0;
+    right: 0;
     background: #e09b10;
     border-radius: 12px;
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    padding: 18px 26px;
-    gap: 20px;
+    padding: 38px 26px;
+    gap: 30px;
+    margin: -60px auto 0px;
+    width: 90%;
+    border: 6px solid #fff;
 }
 
 .location-slide-name {
