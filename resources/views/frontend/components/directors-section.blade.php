@@ -89,8 +89,8 @@
             {{-- Seminole Director --}}
             <div class="director-card" id="seminole">
                 <div class="director-info-card">
-                    <h3 class="director-name">To Be Announced</h3>
-                    <p class="director-role">Director details for this location will be updated shortly.</p>
+                    <h3 class="director-name">Alicia Sanders</h3>
+                    <p class="director-role">Seminole Director</p>
 
                     <div class="director-details">
                         <div class="director-detail-item">
@@ -129,7 +129,7 @@
                             </div>
                             <div class="detail-content">
                                 <span class="detail-label">EMAIL:</span>
-                                <span class="detail-value">Debbie@the-sprout-academy.com</span>
+                                <span class="detail-value">Alicia@the-sprout-academy.com</span>
                             </div>
                         </div>
 
@@ -146,7 +146,7 @@
                 </div>
 
                 <div class="director-photo-card">
-                    <img src="{{ asset('frontend/assets/home_page_images/Seminole-Director.png') }}" alt="To Be Announced">
+                    <img src="{{ asset('frontend/assets/home_page_images/Seminole-Director.png') }}" alt="Alicia Sanders">
                 </div>
             </div>
 
