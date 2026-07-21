@@ -1763,6 +1763,7 @@ body.page-meetTheTeam .founders-section .founders-icon {
     object-fit: contain;
     object-position: center bottom;
     display: block;
+    background-color: transparent;
 }
 
 /* Responsive Design for Team Members */
