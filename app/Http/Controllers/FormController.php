@@ -522,13 +522,6 @@ class FormController extends Controller
                     }
                 }
 
-                // Check if at least one item is ordered
-                if (empty($orderItems)) {
-                    return back()
-                        ->withErrors(['order_items' => 'Please order at least one item.'])
-                        ->withInput();
-                }
-
                 // Create supply order
                 $order = SupplyOrder::create([
                     'location' => $request->choose_your_center,
@@ -575,28 +568,28 @@ class FormController extends Controller
         $formFields = [
             'number_inputs' => [
                 'left_column' => [
-                    'placemats' => ['label' => 'Placemats', 'required' => true],
-                    'napkins' => ['label' => 'Napkins', 'required' => true],
-                    'large_paper_plates' => ['label' => 'Large Paper Plates', 'required' => true],
-                    'five_oz_snack_cups' => ['label' => '5 Oz Snack Cups', 'required' => true],
-                    'cups' => ['label' => 'Cups', 'required' => true],
-                    'forks' => ['label' => 'Forks', 'required' => true],
-                    'coffee_filters' => ['label' => 'Coffee Filters', 'required' => true],
-                    'trash_bags' => ['label' => 'Trash Bags', 'required' => true],
-                    'poly_gloves' => ['label' => 'Poly Gloves', 'required' => true],
-                    'large_baggies_gallon_ziploc' => ['label' => 'Large Baggies (Gallon Ziploc)', 'required' => true],
-                    'white_paper_bags' => ['label' => 'White Paper Bags', 'required' => true],
-                    'lysol' => ['label' => 'Lysol', 'required' => true],
-                    'fabuloso' => ['label' => 'Fabuloso', 'required' => true],
-                    'bleach' => ['label' => 'Bleach', 'required' => true],
-                    'air_freshner' => ['label' => 'Air Freshner', 'required' => true],
-                    'thirty_three_gallon_trash_bags_st_pete' => ['label' => '33 Gallon Trash Bags (St Pete)', 'required' => true],
-                    'fifty_gallon_trash_bags_st_pete_playground' => ['label' => '50 Gallon Trash Bags (St Pete Playground)', 'required' => true],
-                    'tin_pans' => ['label' => 'Tin Pans', 'required' => true],
-                    'receipt_book' => ['label' => 'Receipt Book', 'required' => true],
-                    'sticky_notes' => ['label' => 'Sticky Notes', 'required' => true],
-                    'note_pads' => ['label' => 'Note Pads', 'required' => true],
-                    'color_printer_ink' => ['label' => 'Color Printer Ink', 'required' => true],
+                    'placemats' => ['label' => 'Placemats', 'required' => false],
+                    'napkins' => ['label' => 'Napkins', 'required' => false],
+                    'large_paper_plates' => ['label' => 'Large Paper Plates', 'required' => false],
+                    'five_oz_snack_cups' => ['label' => '5 Oz Snack Cups', 'required' => false],
+                    'cups' => ['label' => 'Cups', 'required' => false],
+                    'forks' => ['label' => 'Forks', 'required' => false],
+                    'coffee_filters' => ['label' => 'Coffee Filters', 'required' => false],
+                    'trash_bags' => ['label' => 'Trash Bags', 'required' => false],
+                    'poly_gloves' => ['label' => 'Poly Gloves', 'required' => false],
+                    'large_baggies_gallon_ziploc' => ['label' => 'Large Baggies (Gallon Ziploc)', 'required' => false],
+                    'white_paper_bags' => ['label' => 'White Paper Bags', 'required' => false],
+                    'lysol' => ['label' => 'Lysol', 'required' => false],
+                    'fabuloso' => ['label' => 'Fabuloso', 'required' => false],
+                    'bleach' => ['label' => 'Bleach', 'required' => false],
+                    'air_freshner' => ['label' => 'Air Freshner', 'required' => false],
+                    'thirty_three_gallon_trash_bags_st_pete' => ['label' => '33 Gallon Trash Bags (St Pete)', 'required' => false],
+                    'fifty_gallon_trash_bags_st_pete_playground' => ['label' => '50 Gallon Trash Bags (St Pete Playground)', 'required' => false],
+                    'tin_pans' => ['label' => 'Tin Pans', 'required' => false],
+                    'receipt_book' => ['label' => 'Receipt Book', 'required' => false],
+                    'sticky_notes' => ['label' => 'Sticky Notes', 'required' => false],
+                    'note_pads' => ['label' => 'Note Pads', 'required' => false],
+                    'color_printer_ink' => ['label' => 'Color Printer Ink', 'required' => false],
                 ],
                 'right_column' => [
                     'choose_your_center' => [
@@ -612,27 +605,27 @@ class FormController extends Controller
                         ],
                         'default' => 'seminole'
                     ],
-                    'small_paper_plates' => ['label' => 'Small Paper Plates', 'required' => true],
-                    'bowls' => ['label' => 'Bowls', 'required' => true],
-                    'three_oz_water_cups' => ['label' => '3 Oz Water Cups', 'required' => true],
-                    'spoons' => ['label' => 'Spoons', 'required' => true],
-                    'paper_cupcake_holders' => ['label' => 'Paper Cupcake Holders', 'required' => true],
-                    'paper_towels_for_dispenser' => ['label' => 'Paper Towels (For Dispenser)', 'required' => true],
-                    'tissues' => ['label' => 'Tissues', 'required' => true],
-                    'vinyl_gloves' => ['label' => 'Vinyl Gloves', 'required' => true],
-                    'sandwich_bags' => ['label' => 'Sandwich Bags', 'required' => true],
-                    'staples' => ['label' => 'Staples', 'required' => true],
-                    'ricoh_toner' => ['label' => 'Ricoh Toner', 'required' => true],
-                    'copy_paper' => ['label' => 'Copy Paper', 'required' => true],
-                    'hand_soap' => ['label' => 'Hand Soap', 'required' => true],
-                    'dish_soap' => ['label' => 'Dish Soap', 'required' => true],
-                    'toilet_paper' => ['label' => 'Toilet Paper', 'required' => true],
-                    'paper_towels_rolls' => ['label' => 'Paper Towels (Rolls)', 'required' => true],
-                    'windex' => ['label' => 'Windex', 'required' => true],
-                    'clorox_wipes' => ['label' => 'Clorox Wipes', 'required' => true],
-                    'small_baggies_sandwich_ziploc' => ['label' => 'Small Baggies (Sandwich Ziploc)', 'required' => true],
-                    'black_paper_bags' => ['label' => 'Black Paper Bags', 'required' => true],
-                    'black_printer_ink' => ['label' => 'Black Printer Ink', 'required' => true],
+                    'small_paper_plates' => ['label' => 'Small Paper Plates', 'required' => false],
+                    'bowls' => ['label' => 'Bowls', 'required' => false],
+                    'three_oz_water_cups' => ['label' => '3 Oz Water Cups', 'required' => false],
+                    'spoons' => ['label' => 'Spoons', 'required' => false],
+                    'paper_cupcake_holders' => ['label' => 'Paper Cupcake Holders', 'required' => false],
+                    'paper_towels_for_dispenser' => ['label' => 'Paper Towels (For Dispenser)', 'required' => false],
+                    'tissues' => ['label' => 'Tissues', 'required' => false],
+                    'vinyl_gloves' => ['label' => 'Vinyl Gloves', 'required' => false],
+                    'sandwich_bags' => ['label' => 'Sandwich Bags', 'required' => false],
+                    'staples' => ['label' => 'Staples', 'required' => false],
+                    'ricoh_toner' => ['label' => 'Ricoh Toner', 'required' => false],
+                    'copy_paper' => ['label' => 'Copy Paper', 'required' => false],
+                    'hand_soap' => ['label' => 'Hand Soap', 'required' => false],
+                    'dish_soap' => ['label' => 'Dish Soap', 'required' => false],
+                    'toilet_paper' => ['label' => 'Toilet Paper', 'required' => false],
+                    'paper_towels_rolls' => ['label' => 'Paper Towels (Rolls)', 'required' => false],
+                    'windex' => ['label' => 'Windex', 'required' => false],
+                    'clorox_wipes' => ['label' => 'Clorox Wipes', 'required' => false],
+                    'small_baggies_sandwich_ziploc' => ['label' => 'Small Baggies (Sandwich Ziploc)', 'required' => false],
+                    'black_paper_bags' => ['label' => 'Black Paper Bags', 'required' => false],
+                    'black_printer_ink' => ['label' => 'Black Printer Ink', 'required' => false],
                 ]
             ],
             'textarea' => [
