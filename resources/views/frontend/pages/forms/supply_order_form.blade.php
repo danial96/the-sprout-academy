@@ -20,7 +20,7 @@
                         @foreach ($formFields['number_inputs']['right_column'] as $key => $field)
                             @if (isset($field['type']) && $field['type'] == 'select')
                                 <div class="form-field form-field-full-width">
-                                    <label for="{{ $key }}">{{ $field['label'] }}*</label>
+                                    <label for="{{ $key }}">{{ $field['label'] }}</label>
                                     <select id="{{ $key }}" name="{{ $key }}" class="form-select"
                                         @if ($field['required']) required @endif>
                                         @foreach ($field['options'] as $optionKey => $optionValue)
@@ -43,7 +43,7 @@
                                 @foreach ($formFields['number_inputs']['left_column'] as $key => $field)
                                     @if ($key !== 'color_printer_ink')
                                         <div class="form-field">
-                                            <label for="{{ $key }}">{{ $field['label'] }}*</label>
+                                            <label for="{{ $key }}">{{ $field['label'] }}</label>
                                             <input type="number" id="{{ $key }}" name="{{ $key }}"
                                                 class="form-input" placeholder="Type A Number"
                                                 @if ($field['required']) required @endif min="0">
@@ -60,7 +60,7 @@
                                 @foreach ($formFields['number_inputs']['right_column'] as $key => $field)
                                     @if (!isset($field['type']) || $field['type'] != 'select')
                                         <div class="form-field">
-                                            <label for="{{ $key }}">{{ $field['label'] }}*</label>
+                                            <label for="{{ $key }}">{{ $field['label'] }}</label>
                                             <input type="number" id="{{ $key }}" name="{{ $key }}"
                                                 class="form-input" placeholder="Type A Number"
                                                 @if ($field['required']) required @endif min="0">
@@ -77,7 +77,7 @@
                             $field = $formFields['number_inputs']['left_column']['color_printer_ink'];
                         @endphp
                         <div class="form-field form-field-full-width mt-3">
-                            <label for="color_printer_ink">{{ $field['label'] }}*</label>
+                            <label for="color_printer_ink">{{ $field['label'] }}</label>
                             <input type="number" id="color_printer_ink" name="color_printer_ink"
                                 class="form-input" placeholder="Type A Number"
                                 @if ($field['required']) required @endif min="0">
