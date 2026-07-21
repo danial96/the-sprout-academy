@@ -5,7 +5,7 @@
 @section('content')
     <!-- Inner Page Header -->
     @include('frontend.partials.header_inner', [
-        'bgImage' => asset('frontend/assets/home_page_images/hdr-largo.png'),
+        'bgImage' => asset('frontend/assets/home_page_images/largo-banner.jpg'),
         'title' => 'LARGO',
         'subtitle' => 'Explore Our Academy',
         'showButton' => true,
@@ -81,7 +81,7 @@
         </div>
 
         <div class="video-showcase-main">
-            <video class="main-video-player" poster="{{ asset('frontend/assets/home_page_images/locations/largo/vdo-poster-largo.png') }}"
+            <video class="main-video-player" poster="{{ asset('frontend/assets/home_page_images/locations/largo/vdo-poster-largo.jpg') }}"
                 controls preload="metadata">
                 <source src="{{ asset('frontend/assets/home_page_images/common-vdo.mp4') }}" type="video/mp4">
                 Your browser does not support the video tag.
