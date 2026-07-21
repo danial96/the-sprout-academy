@@ -687,13 +687,6 @@ class FormController extends Controller
                     }
                 }
 
-                // Check if at least one item is ordered
-                if (empty($orderItems)) {
-                    return back()
-                        ->withErrors(['order_items' => 'Please order at least one item.'])
-                        ->withInput();
-                }
-
                 // Create snack order
                 $order = SnackOrder::create([
                     'location' => $request->choose_your_center,
@@ -741,21 +734,21 @@ class FormController extends Controller
             'number_inputs' => [
                 'left_column' => [
                     // Image 1 fields
-                    'cereal' => ['label' => 'Cereal', 'required' => true],
-                    'pancakes' => ['label' => 'Pancakes', 'required' => true],
-                    'animal_crackers' => ['label' => 'Animal Crackers', 'required' => true],
-                    'pretzels' => ['label' => 'Pretzels', 'required' => true],
-                    'plain_bread' => ['label' => 'Plain Bread', 'required' => true],
-                    'graham_crackers' => ['label' => 'Graham Crackers', 'required' => true],
-                    'nutri_grain_bars' => ['label' => 'Nutri Grain Bars', 'required' => true],
+                    'cereal' => ['label' => 'Cereal', 'required' => false],
+                    'pancakes' => ['label' => 'Pancakes', 'required' => false],
+                    'animal_crackers' => ['label' => 'Animal Crackers', 'required' => false],
+                    'pretzels' => ['label' => 'Pretzels', 'required' => false],
+                    'plain_bread' => ['label' => 'Plain Bread', 'required' => false],
+                    'graham_crackers' => ['label' => 'Graham Crackers', 'required' => false],
+                    'nutri_grain_bars' => ['label' => 'Nutri Grain Bars', 'required' => false],
                     // Image 2 & 3 fields
-                    'goldfish' => ['label' => 'Goldfish', 'required' => true],
-                    'french_toast' => ['label' => 'French Toast', 'required' => true],
-                    'ritz_crackers' => ['label' => 'Ritz Crackers', 'required' => true],
-                    'apple_juice' => ['label' => 'Apple Juice', 'required' => true],
-                    'apple' => ['label' => 'Apple', 'required' => true],
-                    'cuties_oranges' => ['label' => 'Cuties Oranges', 'required' => true],
-                    'muffins' => ['label' => 'Muffins', 'required' => true],
+                    'goldfish' => ['label' => 'Goldfish', 'required' => false],
+                    'french_toast' => ['label' => 'French Toast', 'required' => false],
+                    'ritz_crackers' => ['label' => 'Ritz Crackers', 'required' => false],
+                    'apple_juice' => ['label' => 'Apple Juice', 'required' => false],
+                    'apple' => ['label' => 'Apple', 'required' => false],
+                    'cuties_oranges' => ['label' => 'Cuties Oranges', 'required' => false],
+                    'muffins' => ['label' => 'Muffins', 'required' => false],
                 ],
                 'right_column' => [
                     'choose_your_center' => [
@@ -772,21 +765,21 @@ class FormController extends Controller
                         'default' => 'seminole'
                     ],
                     // Image 1 fields
-                    'vanilla_wafers_nilas' => ['label' => 'Vanilla Wafers/Nilas', 'required' => true],
-                    'waffles' => ['label' => 'Waffles', 'required' => true],
-                    'veggie_straws' => ['label' => 'Veggie Straws', 'required' => true],
-                    'raisin_toast' => ['label' => 'Raisin Toast', 'required' => true],
-                    'cheese_sticks' => ['label' => 'Cheese Sticks', 'required' => true],
-                    'chex_mix' => ['label' => 'Chex Mix', 'required' => true],
-                    'cheez_its' => ['label' => 'Cheez Its', 'required' => true],
+                    'vanilla_wafers_nilas' => ['label' => 'Vanilla Wafers/Nilas', 'required' => false],
+                    'waffles' => ['label' => 'Waffles', 'required' => false],
+                    'veggie_straws' => ['label' => 'Veggie Straws', 'required' => false],
+                    'raisin_toast' => ['label' => 'Raisin Toast', 'required' => false],
+                    'cheese_sticks' => ['label' => 'Cheese Sticks', 'required' => false],
+                    'chex_mix' => ['label' => 'Chex Mix', 'required' => false],
+                    'cheez_its' => ['label' => 'Cheez Its', 'required' => false],
                     // Image 2 & 3 fields
-                    'raisins_or_craisins' => ['label' => 'Raisins Or Craisins', 'required' => true],
-                    'yogurt_tubs_or_go_gurts' => ['label' => 'Yogurt Tubs Or Go-Gurts', 'required' => true],
-                    'applesauce' => ['label' => 'Applesauce', 'required' => true],
-                    'strawberries' => ['label' => 'Strawberries', 'required' => true],
-                    'orange_juice' => ['label' => 'Orange Juice', 'required' => true],
-                    'english_muffins' => ['label' => 'English Muffins', 'required' => true],
-                    'granola_bars' => ['label' => 'Granola Bars', 'required' => true],
+                    'raisins_or_craisins' => ['label' => 'Raisins Or Craisins', 'required' => false],
+                    'yogurt_tubs_or_go_gurts' => ['label' => 'Yogurt Tubs Or Go-Gurts', 'required' => false],
+                    'applesauce' => ['label' => 'Applesauce', 'required' => false],
+                    'strawberries' => ['label' => 'Strawberries', 'required' => false],
+                    'orange_juice' => ['label' => 'Orange Juice', 'required' => false],
+                    'english_muffins' => ['label' => 'English Muffins', 'required' => false],
+                    'granola_bars' => ['label' => 'Granola Bars', 'required' => false],
                 ]
             ],
             'textarea' => [
