@@ -36,21 +36,16 @@
                                 loading="lazy">
                         </div>
                         <div class="location-bar">
-                            <span class="location-name">{{ strtoupper($location->name) }}</span>
-                            <button class="location-toggle" aria-label="Toggle location details">
-                                <i class="fas fa-chevron-down"></i>
-                            </button>
-                        </div>
-                        <div class="location-overlay">
-                            <div class="location-overlay-content">
-                                <h3 class="location-overlay-title">{{ strtoupper($location->name) }}</h3>
-                                <p class="location-overlay-address">{{ $location->address }}</p>
-                                <div class="location-overlay-buttons">
-                                    @if ($location->show_enroll === null || $location->show_enroll == 1)
-                                        <a href="{{ route('enrollment.start', ['location' => $location->slug, 'ref' => 'enroll']) }}"
-                                            class="btn btn-enroll-overlay">Enroll</a>
-                                    @endif
-                                </div>
+                            <div class="loc-bar-left">
+                                <span class="location-name">{{ strtoupper($location->name) }}</span>
+                                @if ($location->show_enroll === null || $location->show_enroll == 1)
+                                    <a href="{{ route('enrollment.start', ['location' => $location->slug, 'ref' => 'enroll']) }}"
+                                        class="loc-enroll-btn">Enroll Now »</a>
+                                @endif
+                            </div>
+                            <div class="loc-bar-right">
+                                <div class="loc-pin-circle"><i class="fas fa-map-marker-alt"></i></div>
+                                <span class="loc-address">{{ $location->address }}</span>
                             </div>
                         </div>
                     </div>
