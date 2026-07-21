@@ -2607,7 +2607,7 @@ body.page-employeeLogin button#submitBtn {
 
 .locations-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr) !important;
+    grid-template-columns: repeat(2, 1fr) !important;
     gap: var(--space-xl);
     max-width: 100%;
 }
