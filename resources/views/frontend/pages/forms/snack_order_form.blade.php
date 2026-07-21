@@ -21,8 +21,7 @@
                             @if (isset($field['type']) && $field['type'] == 'select')
                                 <div class="form-field form-field-full-width">
                                     <label for="{{ $key }}">{{ $field['label'] }}*</label>
-                                    <select id="{{ $key }}" name="{{ $key }}" class="form-select"
-                                        @if ($field['required']) required @endif>
+                                    <select id="{{ $key }}" name="{{ $key }}" class="form-select" required>
                                         @foreach ($field['options'] as $optionKey => $optionValue)
                                             <option value="{{ $optionKey }}"
                                                 @if (isset($field['default']) && $field['default'] == $optionKey) selected @endif>
@@ -42,10 +41,9 @@
                             @if (isset($formFields['number_inputs']['left_column']))
                                 @foreach ($formFields['number_inputs']['left_column'] as $key => $field)
                                     <div class="form-field">
-                                        <label for="{{ $key }}">{{ $field['label'] }}*</label>
+                                        <label for="{{ $key }}">{{ $field['label'] }}</label>
                                         <input type="number" id="{{ $key }}" name="{{ $key }}"
-                                            class="form-input" placeholder="Type A Number"
-                                            @if ($field['required']) required @endif min="0">
+                                            class="form-input" placeholder="Type A Number" min="0">
                                     </div>
                                 @endforeach
                             @endif
@@ -58,10 +56,9 @@
                                 @foreach ($formFields['number_inputs']['right_column'] as $key => $field)
                                     @if (!isset($field['type']) || $field['type'] != 'select')
                                         <div class="form-field">
-                                            <label for="{{ $key }}">{{ $field['label'] }}*</label>
+                                            <label for="{{ $key }}">{{ $field['label'] }}</label>
                                             <input type="number" id="{{ $key }}" name="{{ $key }}"
-                                                class="form-input" placeholder="Type A Number"
-                                                @if ($field['required']) required @endif min="0">
+                                                class="form-input" placeholder="Type A Number" min="0">
                                         </div>
                                     @endif
                                 @endforeach
