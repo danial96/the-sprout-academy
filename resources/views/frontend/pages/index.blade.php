@@ -361,7 +361,7 @@
                                             {{ $location->address }}
                                         </span>
                                         @if ($location->show_enroll === null || $location->show_enroll == 1)
-                                            <a href="{{ route('frontend.enroll') }}" class="btn location-slide-btn">Enroll Now &raquo;</a>
+                                            <a href="{{ route('enrollment.start', $location->slug) }}" class="btn location-slide-btn">Enroll Now &raquo;</a>
                                         @endif
                                     </div>
                                 </div>
