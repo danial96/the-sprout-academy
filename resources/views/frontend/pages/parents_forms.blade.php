@@ -29,8 +29,8 @@
                 <a href="{{ asset('frontend/assets/docs/Sprout-Employee-Handbook-3.1.docx') }}" class="parents-form-card"
                 target="_blank" rel="noopener noreferrer" download="Sprout-Employee-Handbook-3.1.docx">
                 <div class="parents-form-card-image">
-                    <img src="{{ asset('frontend/assets/home_page_images/parent-page-img2.png') }}"
-                        alt="Employee Handbook" loading="lazy">
+                    <img src="{{ asset('frontend/assets/home_page_images/enrollment-packet.jpg') }}"
+                        alt="Enrollment Packet" loading="lazy">
                 </div>
                     <h3 class="parents-form-card-title">Enrollment Packet</h3>
                 </a>
