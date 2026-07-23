@@ -358,7 +358,12 @@
                                         <span class="location-slide-name">{{ strtoupper($location->name) }}</span>
                                         <span class="location-slide-address">
                                             <span class="loc-pin-icon"><i class="fas fa-map-marker-alt"></i></span>
-                                            {{ $location->address }}
+                                            <span>
+                                                {{ $location->address }}
+                                                @if($location->phone)
+                                                    <br><span class="loc-phone-num">{{ $location->phone }}</span>
+                                                @endif
+                                            </span>
                                         </span>
                                         @if ($location->show_enroll === null || $location->show_enroll == 1)
                                             <a href="{{ route('enrollment.start', $location->slug) }}" class="btn location-slide-btn">Enroll Now &raquo;</a>

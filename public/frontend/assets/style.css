@@ -2496,6 +2496,11 @@ body.page-employeeLogin button#submitBtn {
     line-height: 1.4;
 }
 
+.loc-phone-num {
+    font-size: 16px;
+    opacity: 0.9;
+}
+
 .location-slide-address .loc-pin-icon {
     background: #fff;
     color: #e09b10;

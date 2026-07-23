@@ -5,7 +5,7 @@
 @section('content')
     <!-- Inner Page Header -->
     @include('frontend.partials.header_inner', [
-        'bgImage' => asset('frontend/assets/home_page_images/largo-banner.jpg'),
+        'bgImage' => asset('frontend/assets/home_page_images/largo-school.png'),
         'title' => 'LARGO',
         'subtitle' => 'Explore Our Academy',
         'showButton' => true,
