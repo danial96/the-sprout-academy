@@ -45,7 +45,12 @@
                             </div>
                             <div class="loc-bar-right">
                                 <div class="loc-pin-circle"><i class="fas fa-map-marker-alt"></i></div>
-                                <span class="loc-address">{{ $location->address }}</span>
+                                <span class="loc-address">
+                                    {{ $location->address }}
+                                    @if($location->phone)
+                                        <br><span class="loc-phone-num">{{ $location->phone }}</span>
+                                    @endif
+                                </span>
                             </div>
                         </div>
                     </div>
