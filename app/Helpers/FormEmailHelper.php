@@ -181,7 +181,7 @@ class FormEmailHelper
         $location = strtolower(str_replace(['_', ' '], '-', $location));
 
         $map = [
-            'seminole'      => 'Debbie@the-sprout-academy.com',
+            'seminole'      => 'alicia@the-sprout-academy.com',
             'st-petersburg' => 'crystal@the-sprout-academy.com',
             'pinellas-park' => 'yessica@the-sprout-academy.com',
             'pinellas_park' => 'yessica@the-sprout-academy.com',
