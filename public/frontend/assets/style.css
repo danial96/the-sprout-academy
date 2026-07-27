@@ -2467,7 +2467,7 @@ body.page-employeeLogin button#submitBtn {
     background: #e09b10;
     border-radius: 12px;
     display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    grid-template-columns: 1fr auto auto auto;
     align-items: center;
     padding: 38px 26px;
     gap: 30px;
