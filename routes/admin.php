@@ -47,6 +47,7 @@ Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->name('admin.'
         Route::delete('/child-absent-forms/{id}', 'deleteChildAbsentForm')->name('child-absent-forms.delete');
         Route::any('/employment-applications', 'employmentApplications')->name('employment-applications');
         Route::delete('/employment-applications/{id}', 'deleteEmploymentApplication')->name('employment-applications.delete');
+        Route::get('/employment-applications/{id}/resume', 'downloadEmploymentResume')->name('employment-applications.resume');
     });
 
     // User Management - Admin can create employee users

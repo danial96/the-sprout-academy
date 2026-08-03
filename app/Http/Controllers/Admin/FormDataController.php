@@ -573,10 +573,14 @@ class FormDataController extends Controller
                 })
                 ->addColumn('resume_link', function ($application) {
                     if ($application->resume_path) {
-                        $url = asset('storage/' . $application->resume_path);
-                        return '<a href="' . $url . '" target="_blank" class="btn btn-sm btn-primary"><i class="fas fa-download"></i> Download</a>';
+                        $downloadUrl = route('admin.forms.employment-applications.resume', ['id' => $application->id, 'action' => 'download']);
+                        $viewUrl     = route('admin.forms.employment-applications.resume', ['id' => $application->id, 'action' => 'view']);
+                        return '
+                            <a href="' . $downloadUrl . '" class="btn btn-sm btn-primary mb-1"><i class="fas fa-download"></i> Download</a>
+                            <a href="' . $viewUrl . '" target="_blank" class="btn btn-sm btn-secondary mb-1"><i class="fas fa-eye"></i> View</a>
+                        ';
                     }
-                    return '-';
+                    return '<span class="text-muted">No Resume</span>';
                 })
                 ->editColumn('created_at', function ($application) {
                     return $application->created_at->format('M d, Y h:i A');
@@ -589,6 +593,29 @@ class FormDataController extends Controller
         }
 
         return view('backend.pages.forms.employment-applications');
+    }
+
+    public function downloadEmploymentResume(Request $request, $id)
+    {
+        $application = EmploymentApplication::findOrFail($id);
+
+        if (!$application->resume_path) {
+            abort(404, 'No resume found for this application.');
+        }
+
+        $filePath = storage_path('app/public/' . $application->resume_path);
+
+        if (!file_exists($filePath)) {
+            abort(404, 'Resume file not found on server.');
+        }
+
+        $action = $request->query('action', 'download');
+
+        if ($action === 'view') {
+            return response()->file($filePath);
+        }
+
+        return response()->download($filePath);
     }
 }
 
