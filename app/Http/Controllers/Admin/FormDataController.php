@@ -666,7 +666,7 @@ class FormDataController extends Controller
             abort(404, 'No resume found for this application.');
         }
 
-        $filePath = storage_path('app/public/' . $application->resume_path);
+        $filePath = \Illuminate\Support\Facades\Storage::disk('public')->path($application->resume_path);
 
         if (!file_exists($filePath)) {
             abort(404, 'Resume file not found on server.');

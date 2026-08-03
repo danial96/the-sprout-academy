@@ -29,29 +29,20 @@ Route::post('/test-upload-k9x2m', function (\Illuminate\Http\Request $r) {
 
 // TEMPORARY - Check last 5 DB records for resume_path
 Route::get('/patch-resume-k9x2m', function () {
-    $storagePath = storage_path('app/public');
-    $diskRoot = config('filesystems.disks.public.root');
-    $storageDiskPath = \Illuminate\Support\Facades\Storage::disk('public')->path('');
+    $diskRoot = \Illuminate\Support\Facades\Storage::disk('public')->path('');
     $apps = \App\Models\EmploymentApplication::latest()->take(5)->get(['id','first_name','last_name','resume_path','created_at']);
-    $rows = "storage_path('app/public') = {$storagePath}\n";
-    $rows .= "config disk root = {$diskRoot}\n";
-    $rows .= "Storage::disk('public')->path('') = {$storageDiskPath}\n\n";
+    $rows = "Disk root = {$diskRoot}\n\n";
     foreach ($apps as $a) {
         $path = $a->resume_path ?? 'NULL';
-        $fullPath = $storagePath . '/' . $a->resume_path;
-        $exists = $a->resume_path ? (file_exists($fullPath) ? 'YES' : 'NO') : '-';
+        $exists = $a->resume_path ? (\Illuminate\Support\Facades\Storage::disk('public')->exists($a->resume_path) ? 'YES' : 'NO') : '-';
         $rows .= "ID:{$a->id} | {$a->first_name} {$a->last_name} | resume_path: {$path} | file_exists: {$exists}\n";
-        if ($a->resume_path) {
-            $rows .= "  full_path: {$fullPath}\n";
-        }
     }
-    // Also list what's in employment_applications dir if it exists
-    $dir = $storagePath . '/employment_applications';
+    $dir = $diskRoot . 'employment_applications';
     if (is_dir($dir)) {
         $files = scandir($dir);
         $rows .= "\nFiles in employment_applications/:\n" . implode("\n", array_diff($files, ['.','..']));
     } else {
-        $rows .= "\nemployment_applications/ directory does NOT exist at: {$dir}";
+        $rows .= "\nemployment_applications/ dir does NOT exist at: {$dir}";
     }
     return '<pre>' . $rows . '</pre>';
 });
