@@ -30,8 +30,12 @@ Route::post('/test-upload-k9x2m', function (\Illuminate\Http\Request $r) {
 // TEMPORARY - Check last 5 DB records for resume_path
 Route::get('/patch-resume-k9x2m', function () {
     $storagePath = storage_path('app/public');
+    $diskRoot = config('filesystems.disks.public.root');
+    $storageDiskPath = \Illuminate\Support\Facades\Storage::disk('public')->path('');
     $apps = \App\Models\EmploymentApplication::latest()->take(5)->get(['id','first_name','last_name','resume_path','created_at']);
-    $rows = "storage_path('app/public') = {$storagePath}\n\n";
+    $rows = "storage_path('app/public') = {$storagePath}\n";
+    $rows .= "config disk root = {$diskRoot}\n";
+    $rows .= "Storage::disk('public')->path('') = {$storageDiskPath}\n\n";
     foreach ($apps as $a) {
         $path = $a->resume_path ?? 'NULL';
         $fullPath = $storagePath . '/' . $a->resume_path;
