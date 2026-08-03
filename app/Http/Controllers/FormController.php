@@ -1086,6 +1086,13 @@ class FormController extends Controller
                     $file = $request->file('resume');
                     $fileName = time() . '_' . $file->getClientOriginalName();
                     $resumePath = $file->storeAs('employment_applications', $fileName, 'public');
+                    Log::info('Resume uploaded', ['path' => $resumePath, 'original' => $file->getClientOriginalName()]);
+                } else {
+                    Log::info('No resume in request', [
+                        'has_file' => $request->hasFile('resume'),
+                        'files' => array_keys($request->allFiles()),
+                        'upload_error' => $request->file('resume') ? $request->file('resume')->getError() : 'no file object',
+                    ]);
                 }
 
                 // Create employment application
