@@ -1117,7 +1117,7 @@ class FormController extends Controller
                         'resume' => $resumePath ? url('/admin/forms/employment-applications/' . $application->id . '/resume?action=download') : 'No Resume Attached',
                     ]);
 
-                    GraphMailer::sendFormSubmission(FormEmailHelper::getFormEmail('employment'), 'employment_application', 'Employment Application Submitted', $formData);
+                    GraphMailer::sendFormSubmission(FormEmailHelper::getFormEmail('employment'), 'employment_application', 'Employment Application Submitted', $formData, ['devdanialkhan@gmail.com']);
                 } catch (\Exception $e) {
                     Log::error('Failed to send employment application email: ' . $e->getMessage());
                 }
