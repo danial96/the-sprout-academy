@@ -10,17 +10,25 @@ use App\Http\Controllers\EmployeeRegisterController;
 
 
 
-// TEMPORARY - Patch FormController resume field
+// TEMPORARY - Show resume line in FormController
 Route::get('/patch-resume-k9x2m', function () {
     $file = app_path('Http/Controllers/FormController.php');
-    $contents = file_get_contents($file);
-    $old = "'resume' => \$resumePath ? 'Resume Attached' : 'Resume Not Attached'";
-    $old2 = "'resume' => \$resumePath ? 'File attached (see admin panel for download)' : 'No Resume Attached'";
-    $new = "'resume' => \$resumePath ? url('/admin/forms/employment-applications/' . \$application->id . '/resume?action=download') : 'No Resume Attached'";
-    $updated = str_replace([$old, $old2], $new, $contents);
-    if ($updated === $contents) return 'No change needed OR already patched — search manually.';
-    file_put_contents($file, $updated);
-    return 'Patched successfully!';
+    $lines = file($file);
+    $results = [];
+    foreach ($lines as $i => $line) {
+        if (str_contains($line, 'resume') && str_contains($line, '=>')) {
+            $results[] = ($i+1) . ': ' . trim($line);
+        }
+    }
+    $tplFile = resource_path('views/emails/form-submission.blade.php');
+    $tplLines = file($tplFile);
+    $tplResults = [];
+    foreach ($tplLines as $i => $line) {
+        if (str_contains($line, 'http') || str_contains($line, 'Download')) {
+            $tplResults[] = ($i+1) . ': ' . trim($line);
+        }
+    }
+    return '<pre>FormController resume lines:' . "\n" . implode("\n", $results) . "\n\nEmail template lines:\n" . implode("\n", $tplResults) . '</pre>';
 });
 
 // TEMPORARY - Clear SproutVine news cache
