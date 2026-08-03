@@ -210,6 +210,12 @@
                         // Create FormData
                         const formData = new FormData(form);
 
+                        // Explicitly add resume file to ensure it's included
+                        const resumeFileInput = document.getElementById('resume');
+                        if (resumeFileInput && resumeFileInput.files && resumeFileInput.files[0]) {
+                            formData.set('resume', resumeFileInput.files[0], resumeFileInput.files[0].name);
+                        }
+
                         // AJAX submission
                         fetch(form.action, {
                                 method: 'POST',
