@@ -43,7 +43,7 @@
     <div class="card mb-4">
         <div class="card-header"><i class="fas fa-paperclip me-1"></i> Resume</div>
         <div class="card-body">
-            @if($application->resume_path && file_exists(storage_path('app/public/' . $application->resume_path)))
+            @if($application->resume_path)
                 <div class="d-flex gap-2">
                     <a href="{{ route('admin.forms.employment-applications.resume', ['id' => $application->id, 'action' => 'download']) }}" class="btn btn-primary">
                         <i class="fas fa-download me-1"></i> Download Resume

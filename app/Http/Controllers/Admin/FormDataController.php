@@ -634,7 +634,7 @@ class FormDataController extends Controller
                     return '$' . $dollars . '.' . $cents;
                 })
                 ->addColumn('resume_link', function ($application) {
-                    if ($application->resume_path && file_exists(storage_path('app/public/' . $application->resume_path))) {
+                    if ($application->resume_path) {
                         $downloadUrl = route('admin.forms.employment-applications.resume', ['id' => $application->id, 'action' => 'download']);
                         $viewUrl     = route('admin.forms.employment-applications.resume', ['id' => $application->id, 'action' => 'view']);
                         return '

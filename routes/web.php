@@ -9,34 +9,6 @@ use App\Http\Controllers\EmployeeRegisterController;
 
 
 
-// TEMPORARY - Show last employment application DB record
-Route::get('/debug-log-k9x2m', function () {
-    $app = \App\Models\EmploymentApplication::latest()->first();
-    if (!$app) return 'No records';
-    $storagePath = $app->resume_path ? storage_path('app/public/' . $app->resume_path) : null;
-    return response()->json([
-        'id'          => $app->id,
-        'name'        => $app->first_name . ' ' . $app->last_name,
-        'resume_path' => $app->resume_path,
-        'file_exists' => $storagePath ? file_exists($storagePath) : false,
-        'storage_path'=> $storagePath,
-        'created_at'  => $app->created_at,
-    ]);
-});
-
-// TEMPORARY - Debug upload settings
-Route::get('/debug-upload-k9x2m', function () {
-    return response()->json([
-        'upload_max_filesize' => ini_get('upload_max_filesize'),
-        'post_max_size'       => ini_get('post_max_size'),
-        'file_uploads'        => ini_get('file_uploads'),
-        'max_file_uploads'    => ini_get('max_file_uploads'),
-        'upload_tmp_dir'      => ini_get('upload_tmp_dir'),
-        'tmp_dir_writable'    => is_writable(sys_get_temp_dir()),
-        'storage_writable'    => is_writable(storage_path('app/public')),
-        'php_version'         => PHP_VERSION,
-    ]);
-});
 
 // TEMPORARY - Clear SproutVine news cache
 Route::get('/clear-news-cache-k7m3x', function () {

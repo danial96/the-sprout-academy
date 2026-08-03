@@ -1086,13 +1086,6 @@ class FormController extends Controller
                     $file = $request->file('resume');
                     $fileName = time() . '_' . $file->getClientOriginalName();
                     $resumePath = $file->storeAs('employment_applications', $fileName, 'public');
-                    Log::info('Resume uploaded', ['path' => $resumePath, 'original' => $file->getClientOriginalName()]);
-                } else {
-                    Log::info('No resume in request', [
-                        'has_file' => $request->hasFile('resume'),
-                        'files' => array_keys($request->allFiles()),
-                        'upload_error' => $request->file('resume') ? $request->file('resume')->getError() : 'no file object',
-                    ]);
                 }
 
                 // Create employment application
@@ -1121,24 +1114,10 @@ class FormController extends Controller
                         'location' => ucwords(str_replace('_', ' ', $request->location)),
                         'start_date' => $request->start_date,
                         'salary' => $salary,
-                        'resume' => $resumePath ? 'Resume Attached' : 'Resume Not Attached',
+                        'resume' => $resumePath ? url('/admin/forms/employment-applications/' . $application->id . '/resume?action=download') : 'No Resume Attached',
                     ]);
 
-                    $resumeAttachments = [];
-                    if ($resumePath) {
-                        $fullPath = storage_path('app/public/' . $resumePath);
-                        if (file_exists($fullPath)) {
-                            $resumeAttachments[] = [
-                                '@odata.type'  => '#microsoft.graph.fileAttachment',
-                                'name'         => basename($resumePath),
-                                'contentType'  => mime_content_type($fullPath),
-                                'contentBytes' => base64_encode(file_get_contents($fullPath)),
-                                'isInline'     => false,
-                            ];
-                        }
-                    }
-
-                    GraphMailer::sendFormSubmission(FormEmailHelper::getFormEmail('employment'), 'employment_application', 'Employment Application Submitted', $formData, [], $resumeAttachments);
+                    GraphMailer::sendFormSubmission(FormEmailHelper::getFormEmail('employment'), 'employment_application', 'Employment Application Submitted', $formData);
                 } catch (\Exception $e) {
                     Log::error('Failed to send employment application email: ' . $e->getMessage());
                 }
