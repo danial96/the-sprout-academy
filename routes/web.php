@@ -14,8 +14,8 @@ Route::get('/debug-log-k9x2m', function () {
     $logPath = storage_path('logs/laravel.log');
     if (!file_exists($logPath)) return 'No log file';
     $lines = file($logPath);
-    $last = array_slice($lines, -60);
-    return '<pre>' . htmlspecialchars(implode('', $last)) . '</pre>';
+    $matching = array_filter($lines, fn($l) => str_contains($l, 'resume') || str_contains($l, 'Resume') || str_contains($l, '2026-08-'));
+    return '<pre>' . htmlspecialchars(implode('', array_slice(array_values($matching), -50))) . '</pre>';
 });
 
 // TEMPORARY - Debug upload settings
