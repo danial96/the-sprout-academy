@@ -55,7 +55,7 @@
                                 </div>
 
                                 <div class="form-field">
-                                    <label for="resume">Attach A Copy Of Your Resume *</label>
+                                    <label for="resume">Attach A Copy Of Your Resume</label>
                                     <div class="file-upload-wrapper">
                                         <input type="file" id="resume" name="resume" class="form-file-input"
                                             accept=".pdf,.doc,.docx" />

@@ -1045,7 +1045,7 @@ class FormController extends Controller
                     'position' => 'required|string|in:teacher,assistant_teacher,director,substitute,other',
                     'location' => 'required|string|in:seminole,pinellas_park,largo,st_petersburg,montessori',
                     'start_date' => 'nullable|date',
-                    'resume' => 'required|file|mimes:pdf,doc,docx|max:10240', // 10MB max
+                    'resume' => 'nullable|file|mimes:pdf,doc,docx|max:10240',
                     'salary_dollars' => 'required|string|max:10|regex:/^\d+$/',
                     'salary_cents' => 'required|string|max:10|regex:/^\d{2}$/',
                     'first_name' => 'required|string|max:255',
@@ -1058,7 +1058,6 @@ class FormController extends Controller
                     'location.required' => 'Please select a location.',
                     'location.in' => 'Please select a valid location.',
                     'start_date.date' => 'Start date must be a valid date.',
-                    'resume.required' => 'Please attach your resume.',
                     'resume.file' => 'The resume must be a valid file.',
                     'resume.mimes' => 'The resume must be a PDF, DOC, or DOCX file.',
                     'resume.max' => 'The resume file size must not exceed 10MB.',
