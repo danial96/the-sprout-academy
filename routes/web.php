@@ -9,6 +9,15 @@ use App\Http\Controllers\EmployeeRegisterController;
 
 
 
+// TEMPORARY - Show recent log
+Route::get('/debug-log-k9x2m', function () {
+    $logPath = storage_path('logs/laravel.log');
+    if (!file_exists($logPath)) return 'No log file';
+    $lines = file($logPath);
+    $last = array_slice($lines, -60);
+    return '<pre>' . htmlspecialchars(implode('', $last)) . '</pre>';
+});
+
 // TEMPORARY - Debug upload settings
 Route::get('/debug-upload-k9x2m', function () {
     return response()->json([
