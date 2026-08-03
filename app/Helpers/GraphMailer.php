@@ -16,7 +16,7 @@ class GraphMailer
         $clientId     = env('MSGRAPH_CLIENT_ID');
         $clientSecret = env('MSGRAPH_CLIENT_SECRET');
 
-        $response = Http::asForm()->post(
+        $response = Http::timeout(8)->asForm()->post(
             "https://login.microsoftonline.com/{$tenantId}/oauth2/v2.0/token",
             [
                 'grant_type'    => 'client_credentials',
@@ -77,7 +77,7 @@ class GraphMailer
             );
         }
 
-        $response = Http::withToken($token)
+        $response = Http::timeout(8)->withToken($token)
             ->post("https://graph.microsoft.com/v1.0/users/{$fromEmail}/sendMail", [
                 'message'         => $message,
                 'saveToSentItems' => false,
