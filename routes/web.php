@@ -29,12 +29,25 @@ Route::post('/test-upload-k9x2m', function (\Illuminate\Http\Request $r) {
 
 // TEMPORARY - Check last 5 DB records for resume_path
 Route::get('/patch-resume-k9x2m', function () {
+    $storagePath = storage_path('app/public');
     $apps = \App\Models\EmploymentApplication::latest()->take(5)->get(['id','first_name','last_name','resume_path','created_at']);
-    $rows = '';
+    $rows = "storage_path('app/public') = {$storagePath}\n\n";
     foreach ($apps as $a) {
         $path = $a->resume_path ?? 'NULL';
-        $exists = $a->resume_path ? (file_exists(storage_path('app/public/' . $a->resume_path)) ? 'YES' : 'NO') : '-';
+        $fullPath = $storagePath . '/' . $a->resume_path;
+        $exists = $a->resume_path ? (file_exists($fullPath) ? 'YES' : 'NO') : '-';
         $rows .= "ID:{$a->id} | {$a->first_name} {$a->last_name} | resume_path: {$path} | file_exists: {$exists}\n";
+        if ($a->resume_path) {
+            $rows .= "  full_path: {$fullPath}\n";
+        }
+    }
+    // Also list what's in employment_applications dir if it exists
+    $dir = $storagePath . '/employment_applications';
+    if (is_dir($dir)) {
+        $files = scandir($dir);
+        $rows .= "\nFiles in employment_applications/:\n" . implode("\n", array_diff($files, ['.','..']));
+    } else {
+        $rows .= "\nemployment_applications/ directory does NOT exist at: {$dir}";
     }
     return '<pre>' . $rows . '</pre>';
 });
