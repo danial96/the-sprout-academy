@@ -150,14 +150,26 @@
         </div>
     </section>
 
+    @if(session('error'))
+        <div class="container" style="padding:10px 20px;">
+            <div class="form-message error" style="display:block;">{{ session('error') }}</div>
+        </div>
+    @endif
+    @if($errors->any())
+        <div class="container" style="padding:10px 20px;">
+            <div class="form-message error" style="display:block;">
+                @foreach($errors->all() as $error) {{ $error }}<br> @endforeach
+            </div>
+        </div>
+    @endif
+
     @push('scripts')
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 const form = document.getElementById('employmentApplicationForm');
                 const submitBtn = document.getElementById('submitBtn');
-                const btnText = submitBtn.querySelector('.btn-text');
-                const btnSpinner = submitBtn.querySelector('.btn-spinner');
-                const formMessage = document.getElementById('formMessage');
+                const btnText = submitBtn ? submitBtn.querySelector('.btn-text') : null;
+                const btnSpinner = submitBtn ? submitBtn.querySelector('.btn-spinner') : null;
 
                 // File upload handler
                 const resumeInput = document.getElementById('resume');
@@ -165,21 +177,13 @@
                 const resumeUploadIcon = document.getElementById('resumeUploadIcon');
 
                 if (resumeInput && resumeUploadText && resumeUploadIcon) {
-                    // Click on icon opens file picker
                     resumeUploadIcon.addEventListener('click', function(e) {
                         e.preventDefault();
                         e.stopPropagation();
                         resumeInput.click();
                     });
-
-                    // Update text when file is selected
                     resumeInput.addEventListener('change', function(e) {
-                        const file = e.target.files[0];
-                        if (file) {
-                            resumeUploadText.textContent = file.name;
-                        } else {
-                            resumeUploadText.textContent = 'Choose a File to Upload';
-                        }
+                        resumeUploadText.textContent = e.target.files[0] ? e.target.files[0].name : 'Choose a File to Upload';
                     });
                 }
 
@@ -187,125 +191,15 @@
                 const startDateInput = document.getElementById('startDate');
                 if (startDateInput) {
                     const today = new Date();
-                    const year = today.getFullYear();
-                    const month = String(today.getMonth() + 1).padStart(2, '0');
-                    const day = String(today.getDate()).padStart(2, '0');
-                    startDateInput.setAttribute('min', `${year}-${month}-${day}`);
+                    startDateInput.setAttribute('min', today.toISOString().split('T')[0]);
                 }
 
-                // Form submission
+                // Native form submit — show spinner only
                 if (form) {
-                    form.addEventListener('submit', function(event) {
-                        event.preventDefault();
-
-                        // Hide previous messages
-                        formMessage.style.display = 'none';
-                        formMessage.className = 'form-message';
-
-                        // Show spinner and disable button
-                        btnText.style.display = 'none';
-                        btnSpinner.style.display = 'inline-block';
-                        submitBtn.disabled = true;
-
-                        // Create FormData
-                        const formData = new FormData(form);
-
-                        // Explicitly add resume file to ensure it's included
-                        const resumeFileInput = document.getElementById('resume');
-                        if (resumeFileInput && resumeFileInput.files && resumeFileInput.files[0]) {
-                            formData.set('resume', resumeFileInput.files[0], resumeFileInput.files[0].name);
-                        }
-
-                        // AJAX submission
-                        fetch(form.action, {
-                                method: 'POST',
-                                body: formData,
-                                headers: {
-                                    'X-Requested-With': 'XMLHttpRequest',
-                                    'Accept': 'application/json'
-                                }
-                            })
-                            .then(response => {
-                                if (!response.ok) {
-                                    const status = response.status;
-                                    return response.json().then(
-                                        data => { throw { data, status }; },
-                                        () => { throw { message: 'Server error occurred', status }; }
-                                    );
-                                }
-                                return response.json();
-                            })
-                            .then(data => {
-                                // Hide spinner and enable button
-                                btnText.style.display = 'inline-block';
-                                btnSpinner.style.display = 'none';
-                                submitBtn.disabled = false;
-
-                                if (data.success) {
-                                    // Show success message
-                                    formMessage.textContent = data.message;
-                                    formMessage.className = 'form-message success';
-                                    formMessage.style.display = 'block';
-
-                                    // Reset form
-                                    form.reset();
-                                    resumeUploadText.textContent = 'Choose a File to Upload';
-
-                                    // Redirect to thank you page after 2 seconds
-                                    setTimeout(() => {
-                                        window.location.href = '{{ route('frontend.thankYou') }}';
-                                    }, 2000);
-                                } else {
-                                    // Show error message
-                                    let errorMessage = data.message || 'An error occurred. Please try again.';
-
-                                    if (data.errors) {
-                                        const errorList = Object.values(data.errors).flat().join('<br>');
-                                        errorMessage += '<br>' + errorList;
-                                    }
-
-                                    formMessage.innerHTML = errorMessage;
-                                    formMessage.className = 'form-message error';
-                                    formMessage.style.display = 'block';
-
-                                    // Scroll to message
-                                    formMessage.scrollIntoView({
-                                        behavior: 'smooth',
-                                        block: 'nearest'
-                                    });
-                                }
-                            })
-                            .catch(error => {
-                                // Hide spinner and enable button
-                                btnText.style.display = 'inline-block';
-                                btnSpinner.style.display = 'none';
-                                submitBtn.disabled = false;
-
-                                // Show error message
-                                let errorMessage = 'An error occurred while submitting the form. Please try again later.';
-
-                                if (error.data) {
-                                    if (error.data.message) {
-                                        errorMessage = error.data.message;
-                                    }
-                                    if (error.data.errors) {
-                                        const errorList = Object.values(error.data.errors).flat().join('<br>');
-                                        errorMessage += '<br>' + errorList;
-                                    }
-                                }
-
-                                formMessage.innerHTML = errorMessage;
-                                formMessage.className = 'form-message error';
-                                formMessage.style.display = 'block';
-
-                                // Scroll to message
-                                formMessage.scrollIntoView({
-                                    behavior: 'smooth',
-                                    block: 'nearest'
-                                });
-
-                                console.error('Error:', error);
-                            });
+                    form.addEventListener('submit', function() {
+                        if (btnText) btnText.style.display = 'none';
+                        if (btnSpinner) btnSpinner.style.display = 'inline-block';
+                        if (submitBtn) submitBtn.disabled = true;
                     });
                 }
             });

@@ -1071,13 +1071,16 @@ class FormController extends Controller
                     'phone.required' => 'Phone number is required.',
                 ]);
 
-                // If validation fails, return JSON response for AJAX
+                // If validation fails
                 if ($validator->fails()) {
-                    return response()->json([
-                        'success' => false,
-                        'message' => 'Please correct the errors below.',
-                        'errors' => $validator->errors()
-                    ], 422);
+                    if ($request->ajax() || $request->wantsJson()) {
+                        return response()->json([
+                            'success' => false,
+                            'message' => 'Please correct the errors below.',
+                            'errors' => $validator->errors()
+                        ], 422);
+                    }
+                    return back()->withErrors($validator)->withInput();
                 }
 
                 // Handle file upload
@@ -1130,26 +1133,26 @@ class FormController extends Controller
                     'location' => $application->location,
                 ]);
 
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Your employment application has been submitted successfully!',
-                    'data' => [
-                        'id' => $application->id,
-                    ]
-                ], 200);
+                if ($request->ajax() || $request->wantsJson()) {
+                    return response()->json([
+                        'success' => true,
+                        'message' => 'Your employment application has been submitted successfully!',
+                    ], 200);
+                }
+                return redirect()->route('frontend.thankYou');
 
             } catch (\Exception $e) {
-                // Log error
                 Log::error('Employment application submission failed', [
                     'error' => $e->getMessage(),
-                    'trace' => $e->getTraceAsString(),
                 ]);
 
-                return response()->json([
-                    'success' => false,
-                    'message' => 'An error occurred while submitting your form. Please try again later.',
-                    'error' => config('app.debug') ? $e->getMessage() : null
-                ], 500);
+                if ($request->ajax() || $request->wantsJson()) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'An error occurred while submitting your form. Please try again later.',
+                    ], 500);
+                }
+                return back()->with('error', 'An error occurred. Please try again.')->withInput();
             }
         }
 
