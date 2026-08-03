@@ -1116,6 +1116,7 @@ class FormController extends Controller
                         'location' => ucwords(str_replace('_', ' ', $request->location)),
                         'start_date' => $request->start_date,
                         'salary' => $salary,
+                        'resume' => $resumePath ? 'Resume Attached' : 'Resume Not Attached',
                     ]);
 
                     $resumeAttachments = [];
