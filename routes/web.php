@@ -27,25 +27,16 @@ Route::post('/test-upload-k9x2m', function (\Illuminate\Http\Request $r) {
     return 'FAIL - No file in request. FILES: ' . json_encode($_FILES) . ' | Error: ' . json_encode($r->allFiles());
 });
 
-// TEMPORARY - Show resume line in FormController
+// TEMPORARY - Check last 5 DB records for resume_path
 Route::get('/patch-resume-k9x2m', function () {
-    $file = app_path('Http/Controllers/FormController.php');
-    $lines = file($file);
-    $results = [];
-    foreach ($lines as $i => $line) {
-        if (str_contains($line, 'resume') && str_contains($line, '=>')) {
-            $results[] = ($i+1) . ': ' . trim($line);
-        }
+    $apps = \App\Models\EmploymentApplication::latest()->take(5)->get(['id','first_name','last_name','resume_path','created_at']);
+    $rows = '';
+    foreach ($apps as $a) {
+        $path = $a->resume_path ?? 'NULL';
+        $exists = $a->resume_path ? (file_exists(storage_path('app/public/' . $a->resume_path)) ? 'YES' : 'NO') : '-';
+        $rows .= "ID:{$a->id} | {$a->first_name} {$a->last_name} | resume_path: {$path} | file_exists: {$exists}\n";
     }
-    $tplFile = resource_path('views/emails/form-submission.blade.php');
-    $tplLines = file($tplFile);
-    $tplResults = [];
-    foreach ($tplLines as $i => $line) {
-        if (str_contains($line, 'http') || str_contains($line, 'Download')) {
-            $tplResults[] = ($i+1) . ': ' . trim($line);
-        }
-    }
-    return '<pre>FormController resume lines:' . "\n" . implode("\n", $results) . "\n\nEmail template lines:\n" . implode("\n", $tplResults) . '</pre>';
+    return '<pre>' . $rows . '</pre>';
 });
 
 // TEMPORARY - Clear SproutVine news cache
