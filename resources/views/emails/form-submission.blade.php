@@ -200,6 +200,8 @@
                                     {{ implode(', ', array_filter($value)) }}
                                 @elseif(is_bool($value))
                                     {{ $value ? 'Yes' : 'No' }}
+                                @elseif(is_string($value) && str_starts_with($value, 'http'))
+                                    <a href="{{ $value }}" style="color:#007B9A;font-weight:600;">Download Resume</a>
                                 @else
                                     {{ $value }}
                                 @endif
