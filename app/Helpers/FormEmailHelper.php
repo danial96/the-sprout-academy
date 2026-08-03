@@ -134,11 +134,8 @@ class FormEmailHelper
             }
         }
 
-        // Handle file paths - show as link if it's a URL
+        // Handle file paths - pass through URLs as-is so email template can render as link
         if (str_contains($key, 'file') || str_contains($key, 'image') || str_contains($key, 'resume')) {
-            if (str_starts_with($value, 'http') || str_starts_with($value, '/storage')) {
-                return 'File attached (see admin panel for download)';
-            }
             return $value;
         }
 
