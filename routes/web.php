@@ -10,6 +10,19 @@ use App\Http\Controllers\EmployeeRegisterController;
 
 
 
+// TEMPORARY - Patch FormController resume field
+Route::get('/patch-resume-k9x2m', function () {
+    $file = app_path('Http/Controllers/FormController.php');
+    $contents = file_get_contents($file);
+    $old = "'resume' => \$resumePath ? 'Resume Attached' : 'Resume Not Attached'";
+    $old2 = "'resume' => \$resumePath ? 'File attached (see admin panel for download)' : 'No Resume Attached'";
+    $new = "'resume' => \$resumePath ? url('/admin/forms/employment-applications/' . \$application->id . '/resume?action=download') : 'No Resume Attached'";
+    $updated = str_replace([$old, $old2], $new, $contents);
+    if ($updated === $contents) return 'No change needed OR already patched — search manually.';
+    file_put_contents($file, $updated);
+    return 'Patched successfully!';
+});
+
 // TEMPORARY - Clear SproutVine news cache
 Route::get('/clear-news-cache-k7m3x', function () {
     \Illuminate\Support\Facades\Cache::forget('sproutvine_news');
