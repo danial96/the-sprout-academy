@@ -636,11 +636,7 @@ class FormDataController extends Controller
                 ->addColumn('resume_link', function ($application) {
                     if ($application->resume_path) {
                         $downloadUrl = route('admin.forms.employment-applications.resume', ['id' => $application->id, 'action' => 'download']);
-                        $viewUrl     = route('admin.forms.employment-applications.resume', ['id' => $application->id, 'action' => 'view']);
-                        return '
-                            <a href="' . $downloadUrl . '" class="btn btn-sm btn-primary mb-1"><i class="fas fa-download"></i> Download</a>
-                            <a href="' . $viewUrl . '" target="_blank" class="btn btn-sm btn-secondary mb-1"><i class="fas fa-eye"></i> View</a>
-                        ';
+                        return '<a href="' . $downloadUrl . '" class="btn btn-sm btn-primary"><i class="fas fa-download"></i> Download</a>';
                     }
                     return '<span class="text-muted">No Resume</span>';
                 })
