@@ -9,13 +9,19 @@ use App\Http\Controllers\EmployeeRegisterController;
 
 
 
-// TEMPORARY - Show recent log
+// TEMPORARY - Show last employment application DB record
 Route::get('/debug-log-k9x2m', function () {
-    $logPath = storage_path('logs/laravel.log');
-    if (!file_exists($logPath)) return 'No log file';
-    $lines = file($logPath);
-    $matching = array_filter($lines, fn($l) => str_contains($l, 'resume') || str_contains($l, 'Resume') || str_contains($l, '2026-08-'));
-    return '<pre>' . htmlspecialchars(implode('', array_slice(array_values($matching), -50))) . '</pre>';
+    $app = \App\Models\EmploymentApplication::latest()->first();
+    if (!$app) return 'No records';
+    $storagePath = $app->resume_path ? storage_path('app/public/' . $app->resume_path) : null;
+    return response()->json([
+        'id'          => $app->id,
+        'name'        => $app->first_name . ' ' . $app->last_name,
+        'resume_path' => $app->resume_path,
+        'file_exists' => $storagePath ? file_exists($storagePath) : false,
+        'storage_path'=> $storagePath,
+        'created_at'  => $app->created_at,
+    ]);
 });
 
 // TEMPORARY - Debug upload settings
