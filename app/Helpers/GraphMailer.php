@@ -49,7 +49,7 @@ class GraphMailer
         ];
     }
 
-    public static function send(string $toEmail, string $subject, string $htmlBody, array $ccEmails = []): bool
+    public static function send(string $toEmail, string $subject, string $htmlBody, array $ccEmails = [], array $extraAttachments = []): bool
     {
         $token = self::getAccessToken();
         if (!$token) {
@@ -67,7 +67,7 @@ class GraphMailer
             'toRecipients' => [
                 ['emailAddress' => ['address' => $toEmail]],
             ],
-            'attachments' => [self::logoAttachment()],
+            'attachments' => array_merge([self::logoAttachment()], $extraAttachments),
         ];
 
         if (!empty($ccEmails)) {
@@ -99,7 +99,8 @@ class GraphMailer
         string $formType,
         string $title,
         array $formData,
-        array $ccEmails = []
+        array $ccEmails = [],
+        array $extraAttachments = []
     ): bool {
         $submittedAt = now()->format('F j, Y \a\t g:i A');
 
@@ -110,6 +111,6 @@ class GraphMailer
             'submittedAt' => $submittedAt,
         ])->render();
 
-        return self::send($toEmail, $title . ' - The Sprout Academy', $html, $ccEmails);
+        return self::send($toEmail, $title . ' - The Sprout Academy', $html, $ccEmails, $extraAttachments);
     }
 }

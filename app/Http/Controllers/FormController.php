@@ -1116,10 +1116,23 @@ class FormController extends Controller
                         'location' => ucwords(str_replace('_', ' ', $request->location)),
                         'start_date' => $request->start_date,
                         'salary' => $salary,
-                        'resume' => $resumePath ? 'Resume attached' : null,
                     ]);
 
-                    GraphMailer::sendFormSubmission(FormEmailHelper::getFormEmail('employment'), 'employment_application', 'Employment Application Submitted', $formData);
+                    $resumeAttachments = [];
+                    if ($resumePath) {
+                        $fullPath = storage_path('app/public/' . $resumePath);
+                        if (file_exists($fullPath)) {
+                            $resumeAttachments[] = [
+                                '@odata.type'  => '#microsoft.graph.fileAttachment',
+                                'name'         => basename($resumePath),
+                                'contentType'  => mime_content_type($fullPath),
+                                'contentBytes' => base64_encode(file_get_contents($fullPath)),
+                                'isInline'     => false,
+                            ];
+                        }
+                    }
+
+                    GraphMailer::sendFormSubmission(FormEmailHelper::getFormEmail('employment'), 'employment_application', 'Employment Application Submitted', $formData, [], $resumeAttachments);
                 } catch (\Exception $e) {
                     Log::error('Failed to send employment application email: ' . $e->getMessage());
                 }
