@@ -223,14 +223,12 @@
                                 }
                             })
                             .then(response => {
-                                // Check if response is ok
                                 if (!response.ok) {
-                                    // Try to parse JSON error response
-                                    return response.json().then(data => {
-                                        throw { data, status: response.status };
-                                    }).catch(() => {
-                                        throw { message: 'Server error occurred', status: response.status };
-                                    });
+                                    const status = response.status;
+                                    return response.json().then(
+                                        data => { throw { data, status }; },
+                                        () => { throw { message: 'Server error occurred', status }; }
+                                    );
                                 }
                                 return response.json();
                             })
