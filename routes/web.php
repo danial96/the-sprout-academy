@@ -10,6 +10,23 @@ use App\Http\Controllers\EmployeeRegisterController;
 
 
 
+// TEMPORARY - File upload test
+Route::get('/test-upload-k9x2m', function () {
+    return '<form method="POST" enctype="multipart/form-data" action="/test-upload-k9x2m">
+        ' . csrf_field() . '
+        <input type="file" name="testfile"><br><br>
+        <button type="submit">Upload Test</button>
+    </form>';
+});
+Route::post('/test-upload-k9x2m', function (\Illuminate\Http\Request $r) {
+    if ($r->hasFile('testfile')) {
+        $f = $r->file('testfile');
+        $path = $f->storeAs('test_uploads', 'test_' . time() . '.' . $f->getClientOriginalExtension(), 'public');
+        return 'SUCCESS - File saved to: ' . $path . ' | Size: ' . $f->getSize() . ' bytes';
+    }
+    return 'FAIL - No file in request. FILES: ' . json_encode($_FILES) . ' | Error: ' . json_encode($r->allFiles());
+});
+
 // TEMPORARY - Show resume line in FormController
 Route::get('/patch-resume-k9x2m', function () {
     $file = app_path('Http/Controllers/FormController.php');
