@@ -57,6 +57,60 @@ class FormDataController extends Controller
         return view('backend.pages.forms.maintenance-work-order-show', compact('order'));
     }
 
+    public function suggestionShow($id)
+    {
+        $suggestion = Suggestion::findOrFail($id);
+        return view('backend.pages.forms.suggestion-show', compact('suggestion'));
+    }
+
+    public function timeClockChangeRequestShow($id)
+    {
+        $record = TimeClockChangeRequest::findOrFail($id);
+        return view('backend.pages.forms.time-clock-change-request-show', compact('record'));
+    }
+
+    public function timeOffRequestShow($id)
+    {
+        $record = TimeOffRequestForm::findOrFail($id);
+        return view('backend.pages.forms.time-off-request-show', compact('record'));
+    }
+
+    public function standardTShirtOrderShow($id)
+    {
+        $order = StandardTShirtOrder::findOrFail($id);
+        return view('backend.pages.forms.standard-t-shirt-order-show', compact('order'));
+    }
+
+    public function specialtyTShirtOrderShow($id)
+    {
+        $order = SpecialtyTShirtOrder::findOrFail($id);
+        return view('backend.pages.forms.specialty-t-shirt-order-show', compact('order'));
+    }
+
+    public function supplyOrderShow($id)
+    {
+        $order = SupplyOrder::findOrFail($id);
+        return view('backend.pages.forms.supply-order-show', compact('order'));
+    }
+
+    public function snackOrderShow($id)
+    {
+        $order = SnackOrder::findOrFail($id);
+        return view('backend.pages.forms.snack-order-show', compact('order'));
+    }
+
+    public function childAbsentFormShow($id)
+    {
+        $form = ChildAbsentForm::findOrFail($id);
+        return view('backend.pages.forms.child-absent-form-show', compact('form'));
+    }
+
+    public function employmentApplicationShow($id)
+    {
+        $application = EmploymentApplication::findOrFail($id);
+        return view('backend.pages.forms.employment-application-show', compact('application'));
+    }
+
     // Suggestions
     public function suggestions(Request $request)
     {
@@ -71,7 +125,8 @@ class FormDataController extends Controller
                     return $suggestion->created_at->format('M d, Y h:i A');
                 })
                 ->addColumn('action', function ($suggestion) {
-                    return '<button class="btn btn-sm btn-danger delete-btn" data-id="' . $suggestion->id . '" title="Delete"><i class="fas fa-trash"></i></button>';
+                    return '<a href="' . route('admin.forms.suggestions.show', $suggestion->id) . '" class="btn btn-sm btn-primary me-1"><i class="fas fa-eye"></i> View</a>
+                    <button class="btn btn-sm btn-danger delete-btn" data-id="' . $suggestion->id . '" title="Delete"><i class="fas fa-trash"></i></button>';
                 })
                 ->rawColumns(['action'])
                 ->make(true);
@@ -100,7 +155,8 @@ class FormDataController extends Controller
                     return $request->created_at->format('M d, Y h:i A');
                 })
                 ->addColumn('action', function ($req) {
-                    return '<button class="btn btn-sm btn-danger delete-btn" data-id="' . $req->id . '" title="Delete"><i class="fas fa-trash"></i></button>';
+                    return '<a href="' . route('admin.forms.time-clock-change-requests.show', $req->id) . '" class="btn btn-sm btn-primary me-1"><i class="fas fa-eye"></i> View</a>
+                    <button class="btn btn-sm btn-danger delete-btn" data-id="' . $req->id . '" title="Delete"><i class="fas fa-trash"></i></button>';
                 })
                 ->rawColumns(['action'])
                 ->make(true);
@@ -141,10 +197,11 @@ class FormDataController extends Controller
                     return $request->created_at->format('M d, Y h:i A');
                 })
                 ->addColumn('action', function ($timeOffRequest) {
-                    $html = '<div class="btn-group" role="group">';
+                    $html = '<div class="d-flex gap-1 flex-wrap">';
+                    $html .= '<a href="' . route('admin.forms.time-off-requests.show', $timeOffRequest->id) . '" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i> View</a>';
                     $html .= '<button type="button" class="btn btn-sm btn-success approve-btn" data-id="' . $timeOffRequest->id . '" title="Approve"><i class="fas fa-check"></i></button>';
                     $html .= '<button type="button" class="btn btn-sm btn-danger reject-btn" data-id="' . $timeOffRequest->id . '" title="Reject"><i class="fas fa-times"></i></button>';
-                    $html .= '<button type="button" class="btn btn-sm btn-secondary delete-tor-btn ms-1" data-id="' . $timeOffRequest->id . '" title="Delete"><i class="fas fa-trash"></i></button>';
+                    $html .= '<button type="button" class="btn btn-sm btn-secondary delete-tor-btn" data-id="' . $timeOffRequest->id . '" title="Delete"><i class="fas fa-trash"></i></button>';
                     $html .= '</div>';
                     return $html;
                 })
@@ -372,7 +429,8 @@ class FormDataController extends Controller
                     return $order->created_at->format('M d, Y h:i A');
                 })
                 ->addColumn('action', function ($order) {
-                    return '<button class="btn btn-sm btn-danger delete-btn" data-id="' . $order->id . '" title="Delete"><i class="fas fa-trash"></i></button>';
+                    return '<a href="' . route('admin.forms.standard-t-shirt-orders.show', $order->id) . '" class="btn btn-sm btn-primary me-1"><i class="fas fa-eye"></i> View</a>
+                    <button class="btn btn-sm btn-danger delete-btn" data-id="' . $order->id . '" title="Delete"><i class="fas fa-trash"></i></button>';
                 })
                 ->rawColumns(['action'])
                 ->make(true);
@@ -404,7 +462,8 @@ class FormDataController extends Controller
                     return $order->created_at->format('M d, Y h:i A');
                 })
                 ->addColumn('action', function ($order) {
-                    return '<button class="btn btn-sm btn-danger delete-btn" data-id="' . $order->id . '" title="Delete"><i class="fas fa-trash"></i></button>';
+                    return '<a href="' . route('admin.forms.specialty-t-shirt-orders.show', $order->id) . '" class="btn btn-sm btn-primary me-1"><i class="fas fa-eye"></i> View</a>
+                    <button class="btn btn-sm btn-danger delete-btn" data-id="' . $order->id . '" title="Delete"><i class="fas fa-trash"></i></button>';
                 })
                 ->rawColumns(['action'])
                 ->make(true);
@@ -442,7 +501,8 @@ class FormDataController extends Controller
                     return $order->created_at->format('M d, Y h:i A');
                 })
                 ->addColumn('action', function ($order) {
-                    return '<button class="btn btn-sm btn-danger delete-btn" data-id="' . $order->id . '" title="Delete"><i class="fas fa-trash"></i></button>';
+                    return '<a href="' . route('admin.forms.supply-orders.show', $order->id) . '" class="btn btn-sm btn-primary me-1"><i class="fas fa-eye"></i> View</a>
+                    <button class="btn btn-sm btn-danger delete-btn" data-id="' . $order->id . '" title="Delete"><i class="fas fa-trash"></i></button>';
                 })
                 ->rawColumns(['action'])
                 ->make(true);
@@ -480,7 +540,8 @@ class FormDataController extends Controller
                     return $order->created_at->format('M d, Y h:i A');
                 })
                 ->addColumn('action', function ($order) {
-                    return '<button class="btn btn-sm btn-danger delete-btn" data-id="' . $order->id . '" title="Delete"><i class="fas fa-trash"></i></button>';
+                    return '<a href="' . route('admin.forms.snack-orders.show', $order->id) . '" class="btn btn-sm btn-primary me-1"><i class="fas fa-eye"></i> View</a>
+                    <button class="btn btn-sm btn-danger delete-btn" data-id="' . $order->id . '" title="Delete"><i class="fas fa-trash"></i></button>';
                 })
                 ->rawColumns(['action'])
                 ->make(true);
@@ -538,7 +599,8 @@ class FormDataController extends Controller
                     return $form->created_at->format('M d, Y h:i A');
                 })
                 ->addColumn('action', function ($form) {
-                    return '<button class="btn btn-sm btn-danger delete-btn" data-id="' . $form->id . '" title="Delete"><i class="fas fa-trash"></i></button>';
+                    return '<a href="' . route('admin.forms.child-absent-forms.show', $form->id) . '" class="btn btn-sm btn-primary me-1"><i class="fas fa-eye"></i> View</a>
+                    <button class="btn btn-sm btn-danger delete-btn" data-id="' . $form->id . '" title="Delete"><i class="fas fa-trash"></i></button>';
                 })
                 ->rawColumns(['action'])
                 ->make(true);
@@ -586,7 +648,8 @@ class FormDataController extends Controller
                     return $application->created_at->format('M d, Y h:i A');
                 })
                 ->addColumn('action', function ($application) {
-                    return '<button class="btn btn-sm btn-danger delete-btn" data-id="' . $application->id . '" title="Delete"><i class="fas fa-trash"></i></button>';
+                    return '<a href="' . route('admin.forms.employment-applications.show', $application->id) . '" class="btn btn-sm btn-primary me-1"><i class="fas fa-eye"></i> View</a>
+                    <button class="btn btn-sm btn-danger delete-btn" data-id="' . $application->id . '" title="Delete"><i class="fas fa-trash"></i></button>';
                 })
                 ->rawColumns(['resume_link', 'action'])
                 ->make(true);
