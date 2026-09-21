@@ -184,7 +184,7 @@ class FormController extends Controller
                     'last_name' => 'required|string|max:255',
                     'phone_number' => 'required|string|max:20',
                     'email' => 'required|email|max:255',
-                    'location' => 'required|string|in:seminole,orlando,tampa',
+                    'location' => 'required|string|in:seminole,pinellas_park,largo,st_petersburg,montessori',
                     'description' => 'nullable|string|max:5000',
                     'attach_file' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:10240', // 10MB max
                     'area_repair' => 'required|string|in:plumbing,electrical,hvac,painting,carpentry,other',
