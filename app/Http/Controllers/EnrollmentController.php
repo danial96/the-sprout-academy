@@ -225,7 +225,6 @@ class EnrollmentController extends Controller
                     'string',
                     function ($attribute, $value, $fail) {
                         if (!empty($value)) {
-                            // Remove dashes and check if exactly 7 digits
                             $digits = preg_replace('/[^0-9]/', '', $value);
                             if (strlen($digits) !== 7) {
                                 $fail('The phone number must be 7 digits (without area code).');
@@ -241,6 +240,17 @@ class EnrollmentController extends Controller
                     'success' => false,
                     'message' => 'Validation failed.',
                     'errors' => $validator->errors()
+                ], 422);
+            }
+
+            // Require at least one phone number
+            $areaCodes = array_filter((array) $request->input('phone_area_code', []));
+            $phoneNumbers = array_filter((array) $request->input('phone_number', []));
+            if (empty($areaCodes) || empty($phoneNumbers)) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Validation failed.',
+                    'errors' => ['phone_number' => ['A phone number is required.']]
                 ], 422);
             }
 
