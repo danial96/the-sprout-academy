@@ -234,7 +234,8 @@
 
         function applyFormatter(input) {
             // Skip enrollment step1 split area-code / 7-digit fields
-            if (input.name === 'phone_area_code[]' || input.classList.contains('phone-area-code')) return;
+            if (input.name === 'phone_area_code[]' || input.name === 'phone_number[]' ||
+                input.classList.contains('phone-area-code') || input.classList.contains('phone-number')) return;
 
             input.addEventListener('input', function (e) {
                 var pos = this.selectionStart;
