@@ -25,6 +25,12 @@
                 <input type="email" id="enrollContactEmail" name="email" class="enroll-contact-input" required
                     maxlength="255" autocomplete="email" placeholder="you@example.com" />
             </div>
+            <div class="enroll-contact-field">
+                <label class="enroll-contact-label" for="enrollContactPhone">Phone number <span
+                        class="text-danger" aria-hidden="true">*</span></label>
+                <input type="tel" id="enrollContactPhone" name="phone" class="enroll-contact-input" required
+                    maxlength="20" autocomplete="tel" placeholder="e.g. 727-555-1234" />
+            </div>
         </div>
 
         @if ($contactLocations->isNotEmpty())

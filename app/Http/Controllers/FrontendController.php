@@ -325,6 +325,7 @@ class FrontendController extends Controller
         $rules = [
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
+            'phone' => 'required|string|max:20',
             'message' => 'required|string|max:10000',
             'locations' => 'required|array|min:1',
             'locations.*' => ['string', Rule::in($allowedSlugs)],
@@ -334,6 +335,7 @@ class FrontendController extends Controller
             'name.required' => 'Please enter your name.',
             'email.required' => 'Please enter your email address.',
             'email.email' => 'Please enter a valid email address.',
+            'phone.required' => 'Please enter your phone number.',
             'message.required' => 'Please enter a message.',
             'locations.required' => 'Please select at least one location.',
             'locations.min' => 'Please select at least one location.',
@@ -360,6 +362,7 @@ class FrontendController extends Controller
             $formData = FormEmailHelper::formatFormData([
                 'Name' => $request->name,
                 'Email' => $request->email,
+                'Phone' => $request->phone,
                 'Locations' => $locationLabels,
                 'Message' => $request->message,
             ]);
