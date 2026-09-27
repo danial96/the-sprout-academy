@@ -220,6 +220,65 @@
         // });
     </script>
 
+    <!-- US Phone Auto-Formatter -->
+    <script>
+    (function () {
+        function formatUSPhone(value) {
+            var digits = value.replace(/\D/g, '').substring(0, 10);
+            var len = digits.length;
+            if (len === 0) return '';
+            if (len <= 3) return '(' + digits;
+            if (len <= 6) return '(' + digits.substring(0, 3) + ') ' + digits.substring(3);
+            return '(' + digits.substring(0, 3) + ') ' + digits.substring(3, 6) + '-' + digits.substring(6);
+        }
+
+        function applyFormatter(input) {
+            // Skip enrollment step1 split area-code / 7-digit fields
+            if (input.name === 'phone_area_code[]' || input.classList.contains('phone-area-code')) return;
+
+            input.addEventListener('input', function (e) {
+                var pos = this.selectionStart;
+                var oldLen = this.value.length;
+                this.value = formatUSPhone(this.value);
+                var newLen = this.value.length;
+                // Keep cursor roughly in place
+                try { this.setSelectionRange(pos + (newLen - oldLen), pos + (newLen - oldLen)); } catch(ex) {}
+            });
+
+            input.addEventListener('blur', function () {
+                this.value = formatUSPhone(this.value);
+            });
+
+            // Update placeholder to show expected format
+            if (!input.placeholder || input.placeholder.toLowerCase().includes('xxx')) {
+                input.placeholder = '(555) 555-5555';
+            }
+        }
+
+        function init() {
+            document.querySelectorAll('input[type="tel"]').forEach(applyFormatter);
+
+            // Also watch for dynamically added phone inputs (e.g. enrollment "Add Another")
+            var observer = new MutationObserver(function (mutations) {
+                mutations.forEach(function (m) {
+                    m.addedNodes.forEach(function (node) {
+                        if (node.nodeType !== 1) return;
+                        if (node.matches && node.matches('input[type="tel"]')) applyFormatter(node);
+                        node.querySelectorAll && node.querySelectorAll('input[type="tel"]').forEach(applyFormatter);
+                    });
+                });
+            });
+            observer.observe(document.body, { childList: true, subtree: true });
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+    })();
+    </script>
+
     @stack('scripts')
 </body>
 

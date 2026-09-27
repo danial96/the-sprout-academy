@@ -130,7 +130,7 @@
                                 <div class="form-field">
                                     <label for="phone">Phone *</label>
                                     <input type="tel" id="phone" name="phone" class="form-input"
-                                        placeholder="XXX" required pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" />
+                                        placeholder="(555) 555-5555" required />
                                 </div>
                             </div>
 
